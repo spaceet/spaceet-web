@@ -155,3 +155,51 @@ input[type="search"]::-webkit-search-results-decoration {
 		width: 100%;
 	}
 }
+
+/* lexical */
+.editor {
+	width: 100%;
+	min-height: 200px;
+	border: 1px solid var(--neutral-400);
+	border-radius: 4px;
+	padding: 8px 4px;
+	font-size: 16px;
+	color: var(--neutral-700);
+	transition: color 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+	-moz-transition: color 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+	-webkit-transition: color 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.editor:focus {
+	outline: none;
+	border-color: var(--neutral-900);
+}
+
+.editor .text-bold {
+	font-weight: bold;
+}
+
+.editor .text-italic {
+	font-style: italic;
+}
+
+.editor .text-underline {
+	text-decoration: underline;
+}
+
+.editor .text-line-through {
+	text-decoration: line-through;
+}
+
+.editor .text-subscript {
+	vertical-align: sub;
+}
+
+.editor .text-superscript {
+	vertical-align: super;
+}
+
+.editor .text-highlight {
+	background-color: yellow;
+	color: var(--neutral-900);
+}

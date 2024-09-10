@@ -8,7 +8,7 @@ const Page = () => {
 			<Seo title="Vacation rentals, cabins, beach houses, and more" />
 			<Appbar />
 			<main className="container mx-auto my-12">
-				<h3 className="text-4xl">Home</h3>
+				<h3 className="text-3xl font-semibold">Spaceet</h3>
 			</main>
 			<Footer />
 		</>
