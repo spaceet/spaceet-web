@@ -1,33 +1,157 @@
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-text-size-adjust: 100%;
+
+	/* Fonts */
+	--heading: "Bricolage Grotesque", sans-serif;
+	--body: "Inter", sans-serif;
+
+	/* Colors */
+	--primary-100: #eab221;
+
+	--neutral-100: #ffffff;
+	--neutral-200: #f6f8fa;
+	--neutral-300: #e2e4e9;
+	--neutral-400: #cdd0d5;
+	--neutral-500: #868c98;
+	--neutral-600: #525866;
+	--neutral-700: #31353f;
+	--neutral-800: #161922;
+	--neutral-900: #0a0d14;
+	--error-100: #fdedf0;
+	--error-200: #f8c9d2;
+	--error-300: #df1c41;
+	--error-400: #af1d38;
+	--error-500: #710e21;
+	--warning-100: #fef7ec;
+	--warning-200: #fbdfb1;
+	--warning-300: #f2ae40;
+	--warning-400: #b47818;
+	--warning-500: #693d11;
+	--white: #ffffff;
+
+	--foreground: transparent;
+	--background: transparent;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+/* Removes scrollbar on Chrome */
+::-webkit-scrollbar {
+	width: 0;
+}
+
+/* Removes scrollbar on IE */
+::-ms-scrollbar {
+	display: none;
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	/* Removes scrollbar on Firefox */
+	scrollbar-width: none;
+}
+
+html {
+	scroll-behavior: smooth;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+	background: var(--white);
+	color: var(--neutral-900);
+	overflow-x: hidden;
+	user-select: none;
+	width: 100%;
+	transition: colors 0.75s cubic-bezier(0.215, 0.61, 0.355, 1);
+	-webkit-transition: colors 0.75s cubic-bezier(0.215, 0.61, 0.355, 1);
+	-moz-transition: colors 0.75s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+img {
+	image-rendering: crisp-edges -moz-crisp-edges;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: var(--heading);
+}
+
+a,
+p,
+span,
+button {
+	font-family: var(--body);
+}
+
+/* Override WebKit autofill styles */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+	-webkit-text-fill-color: hsl(var(--foreground));
+	-webkit-box-shadow: 0 0 0px 1000px hsl(var(--background)) inset;
+	transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Override Mozilla Firefox autofill styles */
+input:autofill {
+	background-color: hsl(var(--background)) !important;
+	color: hsl(var(--foreground)) !important;
+}
+
+/* Removes arrows from input type number */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	appearance: none;
+	margin: 0;
+}
+
+/* Removes close icon from input type search */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+
+/* link animation */
+.link {
+	width: fit-content;
+	position: relative;
+}
+
+.link::before {
+	content: "";
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	width: 0;
+	height: 2px;
+	background: var(--neutral-500);
+	transition: width 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+	-moz-transition: width 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+	-webkit-transition: width 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.link:hover::before {
+		left: 0;
+		right: auto;
+		width: 100%;
+	}
 }
