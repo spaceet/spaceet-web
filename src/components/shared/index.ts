@@ -1,6 +1,7 @@
 export * from "./appbar"
 export * from "./card"
 export * from "./combo-box"
+export * from "./date-picker"
 export * from "./footer"
 export * from "./loader"
 export * from "./phone-input"
