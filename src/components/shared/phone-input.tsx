@@ -34,7 +34,7 @@ const PhoneInput = React.forwardRef<HTMLInputElement, InputProps>(
 				const formatted = formatNumber(phoneNumber.number, "INTERNATIONAL")
 				onPhoneNumberChange(formatted)
 			},
-			[inputValue, selectedCountry.dial_code]
+			[onPhoneNumberChange, selectedCountry.code]
 		)
 
 		React.useEffect(() => {
@@ -43,7 +43,7 @@ const PhoneInput = React.forwardRef<HTMLInputElement, InputProps>(
 				const formatted = formatNumber(phoneNumber.number, "INTERNATIONAL")
 				onPhoneNumberChange(formatted)
 			}
-		}, [inputValue, selectedCountry.dial_code])
+		}, [inputValue, onPhoneNumberChange, selectedCountry.code, selectedCountry.dial_code])
 
 		return (
 			<div className={cn("flex w-full flex-col gap-2", wrapperClassName)}>
