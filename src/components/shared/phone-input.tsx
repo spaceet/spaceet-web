@@ -34,7 +34,8 @@ const PhoneInput = React.forwardRef<HTMLInputElement, InputProps>(
 				const formatted = formatNumber(phoneNumber.number, "INTERNATIONAL")
 				onPhoneNumberChange(formatted)
 			},
-			[onPhoneNumberChange, selectedCountry.code]
+			// eslint-disable-next-line react-hooks/exhaustive-deps
+			[inputValue, selectedCountry.dial_code]
 		)
 
 		React.useEffect(() => {
@@ -43,7 +44,8 @@ const PhoneInput = React.forwardRef<HTMLInputElement, InputProps>(
 				const formatted = formatNumber(phoneNumber.number, "INTERNATIONAL")
 				onPhoneNumberChange(formatted)
 			}
-		}, [inputValue, onPhoneNumberChange, selectedCountry.code, selectedCountry.dial_code])
+			// eslint-disable-next-line react-hooks/exhaustive-deps
+		}, [inputValue, selectedCountry.dial_code])
 
 		return (
 			<div className={cn("flex w-full flex-col gap-2", wrapperClassName)}>
