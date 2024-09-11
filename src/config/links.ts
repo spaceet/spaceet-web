@@ -1,3 +1,13 @@
+import {
+	RiBookMarkedLine,
+	RiHeadphoneLine,
+	RiHeartLine,
+	RiLogoutCircleRLine,
+	RiMessage3Line,
+	RiNotification3Line,
+	RiUserLine,
+} from "@remixicon/react"
+
 // import {} from "@/assets/icons"
 
 export const social_links = [
@@ -37,11 +47,11 @@ export const footer_links = [
 ]
 
 export const user_links = [
-	{ label: "account", url: "/account", icon: "" },
-	{ label: "messaging", url: "/messages", icon: "" },
-	{ label: "notifications", url: "/notifications", icon: "" },
-	{ label: "my bookings", url: "/bookings", icon: "" },
-	{ label: "favorite", url: "/favorite", icon: "" },
-	{ label: "help center", url: "/help-center", icon: "" },
-	{ label: "logout", icon: "" },
+	{ label: "account", url: "/account", icon: RiUserLine },
+	{ label: "messaging", url: "/messages", icon: RiMessage3Line },
+	{ label: "notifications", url: "/notifications", icon: RiNotification3Line },
+	{ label: "my bookings", url: "/bookings", icon: RiBookMarkedLine },
+	{ label: "favorite", url: "/favorite", icon: RiHeartLine },
+	{ label: "help center", url: "/help-center", icon: RiHeadphoneLine },
+	{ label: "logout", icon: RiLogoutCircleRLine },
 ]

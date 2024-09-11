@@ -21,7 +21,8 @@ export const UserMenu = () => {
 					return (
 						<Dialog key={index} open={open} onOpenChange={setOpen}>
 							<DialogTrigger asChild>
-								<button className="flex items-center gap-2 px-[10px] py-3 text-sm capitalize text-red-500 first:rounded-t-md last:rounded-b-md hover:bg-red-100">
+								<button className="flex items-center gap-2 px-[10px] py-3 text-sm capitalize text-red-700 first:rounded-t-md last:rounded-b-md hover:bg-red-100">
+									<link.icon size={20} />
 									{link.label}
 								</button>
 							</DialogTrigger>
@@ -40,7 +41,8 @@ export const UserMenu = () => {
 						<Link
 							key={index}
 							href={link.url}
-							className="flex items-center gap-2 px-[10px] py-3 text-sm capitalize text-neutral-500 first:rounded-t-md last:rounded-b-md hover:bg-neutral-200">
+							className="flex items-center gap-2 px-[10px] py-3 text-sm capitalize text-neutral-900 first:rounded-t-md last:rounded-b-md hover:bg-neutral-200">
+							<link.icon size={20} />
 							{link.label}
 						</Link>
 					)
