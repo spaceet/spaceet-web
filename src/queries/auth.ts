@@ -16,7 +16,7 @@ export interface SignInDto {
 }
 
 export interface ResetPasswordDto {
-	email: string
+	confirm_password: string
 	password: string
 	token: string
 }

@@ -16,7 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
 				<SSRProvider>
 					<Loader />
 					<Component {...pageProps} />
-					<Toaster />
+					<Toaster position="top-right" />
 				</SSRProvider>
 				<ReactQueryDevtools />
 			</QueryProvider>
