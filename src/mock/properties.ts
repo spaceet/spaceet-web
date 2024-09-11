@@ -30,7 +30,7 @@ export const properties: PropertyProps[] = [
 					"Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.",
 				icon: "7/3/2059",
 				id: "734fae36-94ac-4448-b1eb-2e09747d6a4b",
-				name: "laundry facilities",
+				name: "laundry",
 				updatedAt: null,
 			},
 		],
@@ -99,7 +99,7 @@ export const properties: PropertyProps[] = [
 					"Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.",
 				icon: "4/15/2032",
 				id: "fab6e084-545a-4f2a-a301-3a887daa5d22",
-				name: "Netflix",
+				name: "streaming-service",
 				updatedAt: null,
 			},
 			{
@@ -197,7 +197,7 @@ export const properties: PropertyProps[] = [
 					"Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.",
 				icon: "4/13/1950",
 				id: "5a39c124-48af-44a1-b2c9-e4391b2ca9d5",
-				name: "swimming pool",
+				name: "swimming-pool",
 				updatedAt: null,
 			},
 			{
@@ -207,7 +207,7 @@ export const properties: PropertyProps[] = [
 					"Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.\n\nMorbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.",
 				icon: "2/6/1939",
 				id: "4a1a7e16-7518-4ebd-9ca7-ab5f40e3ee9a",
-				name: "gym",
+				name: "fitness",
 				updatedAt: null,
 			},
 			{
@@ -217,7 +217,7 @@ export const properties: PropertyProps[] = [
 					"Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.\n\nInteger ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.",
 				icon: "2/3/2070",
 				id: "b4191d11-70a8-41dc-85ae-11269e50815f",
-				name: "security system",
+				name: "security-system",
 				updatedAt: null,
 			},
 			{
@@ -227,7 +227,7 @@ export const properties: PropertyProps[] = [
 					"Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.\n\nQuisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.",
 				icon: "1/26/1983",
 				id: "f91f7e09-6974-44a1-b242-17bd532038d0",
-				name: "security system",
+				name: "security-system",
 				updatedAt: null,
 			},
 			{
@@ -325,7 +325,7 @@ export const properties: PropertyProps[] = [
 					"Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.\n\nPraesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.",
 				icon: "10/4/2091",
 				id: "b68939cd-35a9-4305-9273-f8a5bf4cc8b7",
-				name: "swimming pool",
+				name: "swimming-pool",
 				updatedAt: null,
 			},
 		],
@@ -385,7 +385,7 @@ export const properties: PropertyProps[] = [
 					"Sed ante. Vivamus tortor. Duis mattis egestas metus.\n\nAenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.",
 				icon: "11/2/1932",
 				id: "32071dec-086a-4ee2-a402-f2b21702d2fc",
-				name: "Netflix",
+				name: "streaming-service",
 				updatedAt: null,
 			},
 			{
@@ -395,7 +395,7 @@ export const properties: PropertyProps[] = [
 					"Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.\n\nCum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
 				icon: "8/11/1981",
 				id: "3ef1e24f-57c6-41b2-8cbe-6f54a39fbf7f",
-				name: "patio",
+				name: "balcony",
 				updatedAt: null,
 			},
 			{
@@ -425,7 +425,7 @@ export const properties: PropertyProps[] = [
 					"Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.",
 				icon: "9/23/1919",
 				id: "b65eef75-0936-44ae-bf50-70512d969da9",
-				name: "swimming pool",
+				name: "swimming-pool",
 				updatedAt: null,
 			},
 			{
@@ -435,7 +435,7 @@ export const properties: PropertyProps[] = [
 					"In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.",
 				icon: "2/26/1984",
 				id: "37b26307-831f-4cfc-9634-94f881801b1c",
-				name: "security system",
+				name: "security-system",
 				updatedAt: null,
 			},
 			{
@@ -465,7 +465,7 @@ export const properties: PropertyProps[] = [
 					"Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.\n\nMauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.",
 				icon: "6/30/1917",
 				id: "90e3cc05-af7c-4837-b79b-7b23f41f60c4",
-				name: "Wi-Fi",
+				name: "free-wifi",
 				updatedAt: null,
 			},
 		],
@@ -521,7 +521,7 @@ export const properties: PropertyProps[] = [
 					"Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.",
 				icon: "7/27/2009",
 				id: "7ddc092a-e786-4713-bd0d-bd1a6285a548",
-				name: "cable TV",
+				name: "cable",
 				updatedAt: null,
 			},
 			{
@@ -531,7 +531,7 @@ export const properties: PropertyProps[] = [
 					"Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.",
 				icon: "10/14/2061",
 				id: "c4d2c51a-cfd6-4396-be59-96a1f585be39",
-				name: "laundry facilities",
+				name: "laundry",
 				updatedAt: null,
 			},
 			{
@@ -541,7 +541,7 @@ export const properties: PropertyProps[] = [
 					"Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.",
 				icon: "4/25/1948",
 				id: "f3f88913-a83c-4a5e-b314-12e0686596e3",
-				name: "security system",
+				name: "security-system",
 				updatedAt: null,
 			},
 			{
@@ -561,7 +561,7 @@ export const properties: PropertyProps[] = [
 					"Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.",
 				icon: "12/23/1945",
 				id: "b73024ff-5c82-45b7-8d08-df7bef4b9428",
-				name: "Netflix",
+				name: "streaming-service",
 				updatedAt: null,
 			},
 		],
@@ -620,7 +620,7 @@ export const properties: PropertyProps[] = [
 					"Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.",
 				icon: "4/29/2033",
 				id: "2569f5fb-4d20-40b9-9292-4f2add41fabb",
-				name: "laundry facilities",
+				name: "laundry",
 				updatedAt: null,
 			},
 			{
@@ -630,7 +630,7 @@ export const properties: PropertyProps[] = [
 					"Fusce consequat. Nulla nisl. Nunc nisl.\n\nDuis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.",
 				icon: "11/24/1998",
 				id: "269c945a-cd58-4ee0-99ab-73b095dbce4d",
-				name: "air conditioning",
+				name: "air-conditioner",
 				updatedAt: null,
 			},
 			{
@@ -640,7 +640,7 @@ export const properties: PropertyProps[] = [
 					"Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.\n\nQuisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.",
 				icon: "1/17/2004",
 				id: "a09e92a8-3057-4378-b531-b251d9f4b40d",
-				name: "swimming pool",
+				name: "swimming-pool",
 				updatedAt: null,
 			},
 			{
@@ -650,7 +650,7 @@ export const properties: PropertyProps[] = [
 					"Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.\n\nPraesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.",
 				icon: "5/28/1970",
 				id: "2c0003fa-2f44-4b91-b884-f5f2bff6d001",
-				name: "Wi-Fi",
+				name: "free-wifi",
 				updatedAt: null,
 			},
 			{
@@ -679,7 +679,7 @@ export const properties: PropertyProps[] = [
 					"In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.\n\nAliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.",
 				icon: "12/11/1925",
 				id: "d3037a36-e761-49c1-97e9-fca1e3f6fc1d",
-				name: "laundry facilities",
+				name: "laundry",
 				updatedAt: null,
 			},
 			{
@@ -689,7 +689,7 @@ export const properties: PropertyProps[] = [
 					"Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.",
 				icon: "3/28/1973",
 				id: "b843a0ec-5f2d-445a-bae4-3fe901dffa58",
-				name: "cable TV",
+				name: "cable",
 				updatedAt: null,
 			},
 		],
@@ -748,7 +748,7 @@ export const properties: PropertyProps[] = [
 					"Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.",
 				icon: "11/16/2090",
 				id: "56be4d85-a7da-4d56-854a-5ddf8d9887ab",
-				name: "laundry facilities",
+				name: "laundry",
 				updatedAt: null,
 			},
 			{
@@ -778,7 +778,7 @@ export const properties: PropertyProps[] = [
 					"Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.\n\nInteger tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.",
 				icon: "10/19/1935",
 				id: "fff5cba5-eddc-4aff-b352-7a3e5de47bba",
-				name: "laundry facilities",
+				name: "laundry",
 				updatedAt: null,
 			},
 			{
@@ -877,7 +877,7 @@ export const properties: PropertyProps[] = [
 					"Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.\n\nCras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
 				icon: "8/27/2055",
 				id: "8248e3b2-fe46-4b9d-84fe-d40cdb166f86",
-				name: "cable TV",
+				name: "cable",
 				updatedAt: null,
 			},
 			{
@@ -944,7 +944,7 @@ export const properties: PropertyProps[] = [
 					"Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.",
 				icon: "1/30/1947",
 				id: "a371de60-d021-4689-bb90-32af76183ee7",
-				name: "gym",
+				name: "fitness",
 				updatedAt: null,
 			},
 			{
@@ -964,7 +964,7 @@ export const properties: PropertyProps[] = [
 					"Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.",
 				icon: "1/28/2034",
 				id: "5cf10ea4-ecfb-4834-8deb-20f76a7e3a58",
-				name: "patio",
+				name: "balcony",
 				updatedAt: null,
 			},
 			{

@@ -1,3 +1,4 @@
+export * from "./amenities"
 export * from "./currency"
 export * from "./dail-codes"
 export * from "./editor"
