@@ -4,6 +4,7 @@ import React from "react"
 
 import { PropertyProps } from "@/types"
 import { formatCurrency } from "@/lib"
+import { Rating } from "./rating"
 
 interface Props {
 	apartment: PropertyProps
@@ -22,7 +23,7 @@ const Card = ({ apartment }: Props) => {
 						<button
 							key={index}
 							onClick={() => setCurrent(index)}
-							className={`size-2 rounded-full ${index === current ? "bg-white" : "bg-white/50"}`}></button>
+							className={`size-[6px] rounded-full ${index === current ? "bg-white" : "bg-white/50"}`}></button>
 					))}
 				</div>
 				<div className="absolute right-3 top-3 !z-[5] rounded-md bg-white px-3 py-2 font-medium text-neutral-900 lg:text-xs">
@@ -39,7 +40,10 @@ const Card = ({ apartment }: Props) => {
 			<div className="flex w-full flex-col py-2">
 				<p className="font-semibold lg:text-lg">{apartment.name}</p>
 				<p className="text-meutral-400 font-light lg:text-sm">{apartment.location}</p>
-				<p className="text-meutral-900 font-semibold lg:text-sm">4.7</p>
+				<div className="text-meutral-900 flex items-center gap-2 font-semibold lg:text-sm">
+					{apartment.rating}
+					<Rating rating={apartment.rating} />
+				</div>
 			</div>
 		</Link>
 	)

@@ -30,6 +30,7 @@ export function ComboBox({ data, onValueChange, value, placeholder }: ComboxProp
 			<PopoverTrigger asChild>
 				<button
 					role="combobox"
+					aria-controls="frameworks"
 					aria-expanded={open}
 					className="flex h-[50px] w-full items-center justify-between rounded-md border px-3">
 					{value ? data.find((item) => item.value === value)?.label : placeholder}

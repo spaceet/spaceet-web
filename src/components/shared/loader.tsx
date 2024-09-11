@@ -32,8 +32,8 @@ export const Loader = () => {
 	const router = useRouter()
 
 	React.useEffect(() => {
-		const handleStart = (url: string) => url !== router.asPath && setLoading(true)
-		const handleComplete = (url: string) => url === router.asPath && setLoading(false)
+		const handleStart = () => setLoading(true)
+		const handleComplete = () => setLoading(false)
 
 		router.events.on("routeChangeStart", handleStart)
 		router.events.on("routeChangeComplete", handleComplete)
