@@ -8,7 +8,8 @@ import Image from "next/image"
 import Link from "next/link"
 import React from "react"
 
-import { Appbar, Footer, Rating, Seo } from "@/components/shared"
+import { Bath, Bed, CheckIn, Danger, Dumbells2, UserCheck, Users } from "@/assets/svg"
+import { Appbar, Footer, Icon, Rating, Seo } from "@/components/shared"
 import { Avatar, AvatarImage } from "@/components/ui/avatar"
 import { Separator } from "@/components/ui/separator"
 import { capitalize, formatCurrency } from "@/lib"
@@ -16,8 +17,8 @@ import { Button } from "@/components/ui/button"
 import { NotFound } from "@/components/layouts"
 import { properties } from "@/mock/properties"
 import { Input } from "@/components/ui/input"
-// import { GetPropertyQuery } from "@/queries"
 import { encodeQueryParams } from "@/config"
+// import { GetPropertyQuery } from "@/queries"
 
 const tablist = ["overview", "amenities", "pricing", "policies", "reviews", "host"] as const
 type TabList = (typeof tablist)[number]
@@ -143,12 +144,15 @@ const Page = () => {
 						</div>
 						<div className="mt-6 flex items-center gap-2">
 							<div className="flex w-[150px] items-center justify-center gap-3 rounded-3xl border py-2">
+								<Bed />
 								<span className="text-neutral-900 lg:text-sm">{apartment.bedrooms} bedrooms</span>
 							</div>
 							<div className="flex w-[150px] items-center justify-center gap-3 rounded-3xl border py-2">
+								<Bath />
 								<span className="text-neutral-900 lg:text-sm">{apartment.bathrooms} bathrooms</span>
 							</div>
 							<div className="flex w-[150px] items-center justify-center gap-3 rounded-3xl border py-2">
+								<Users />
 								<span className="text-neutral-900 lg:text-sm">{apartment.max_guests} guest (max)</span>
 							</div>
 						</div>
@@ -158,6 +162,7 @@ const Page = () => {
 							<div className="grid grid-cols-3 gap-y-5">
 								{apartment.amenities.map((amenity) => (
 									<div key={amenity.id} className="flex items-center gap-3">
+										<Icon name={amenity.name} />
 										<span className="capitalize text-neutral-900 lg:text-sm">{amenity.name}</span>
 									</div>
 								))}
@@ -248,19 +253,19 @@ const Page = () => {
 					<p className="font-semibold lg:text-xl">Policies</p>
 					<div className="grid w-full grid-cols-4 gap-5">
 						<div className="aspect-[107/100] w-full rounded-2xl border px-5 py-6">
-							<div className="size-6"></div>
+							<CheckIn />
 							<p className="mb-2 mt-3 font-semibold lg:text-sm">Check In/Check Out</p>
 						</div>
 						<div className="aspect-[107/100] w-full rounded-2xl border px-5 py-6">
-							<div className="size-6"></div>
+							<Dumbells2 />
 							<p className="mb-2 mt-3 font-semibold lg:text-sm">Pets</p>
 						</div>
 						<div className="aspect-[107/100] w-full rounded-2xl border px-5 py-6">
-							<div className="size-6"></div>
+							<Danger />
 							<p className="mb-2 mt-3 font-semibold lg:text-sm">Cancellaton/prepayment</p>
 						</div>
 						<div className="aspect-[107/100] w-full rounded-2xl border px-5 py-6">
-							<div className="size-6"></div>
+							<UserCheck />
 							<p className="mb-2 mt-3 font-semibold lg:text-sm">Age restriction</p>
 						</div>
 					</div>

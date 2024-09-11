@@ -93,7 +93,7 @@ export type AmenityProps = Node & {
 	__typename?: "Amenity"
 	description: string
 	icon: string
-	name: string
+	name: AmenitiesIconName
 }
 
 export type BookingProps = Node & {
@@ -136,3 +136,34 @@ export type NotificationProps = Node & {
 	title: string
 	type: "success" | "error" | "info" | "warning"
 }
+
+export const amenitiesIconNames = [
+	"air-conditioner",
+	"airport",
+	"balcony",
+	"bath",
+	"bed",
+	"cable",
+	"dishwasher",
+	"elevator",
+	"fitness",
+	"fireplace",
+	"free-wifi",
+	"garden",
+	"handicap-accessible",
+	"heating",
+	"jacuzzi",
+	"kitchen",
+	"laundry",
+	"max-guests",
+	"microwave",
+	"parking",
+	"pet-friendly",
+	"ps5",
+	"refrigerator",
+	"security-system",
+	"streaming-service",
+	"swimming-pool",
+] as const
+
+export type AmenitiesIconName = (typeof amenitiesIconNames)[number]
