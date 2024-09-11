@@ -9,6 +9,7 @@ import { CurrencySelector } from "./currency-selector"
 import { LanguageSelector } from "./language-selector"
 import { Separator } from "@/components/ui/separator"
 import { TabPanel } from "./tab-panel"
+import { UserMenu } from "./user-menu"
 import {
 	Dialog,
 	DialogContent,
@@ -92,7 +93,9 @@ export const Appbar = () => {
 								<div className="size-10 rounded-full bg-primary-100"></div>
 							</button>
 						</PopoverTrigger>
-						<PopoverContent className="w-[180px] bg-white"></PopoverContent>
+						<PopoverContent className="w-[180px] bg-white p-0">
+							<UserMenu />
+						</PopoverContent>
 					</Popover>
 				</div>
 			</div>

@@ -2,7 +2,7 @@ import { NextURL } from "next/dist/server/web/next-url"
 import { NextRequest, NextResponse } from "next/server"
 
 export const config = {
-	matcher: ["/dashboard/:path*", "/booking/:path*"],
+	matcher: ["/account/:path*", "/bookings/:path*"],
 	name: "middleware",
 }
 
@@ -12,8 +12,8 @@ export function middleware(req: NextRequest) {
 
 	const hasToken = req.cookies.has("SPACEET_TOKEN")
 	const url = req.nextUrl.clone() // Clone the URL to modify it
-	const isOnDashboard = url.pathname.startsWith("/dashboard")
-	const isOnBooking = url.pathname.startsWith("/booking")
+	const isOnAccount = url.pathname.startsWith("/account")
+	const isOnBooking = url.pathname.startsWith("/bookings")
 
 	const redirectResponse = (url: string | NextURL) => {
 		const response = NextResponse.redirect(url)
@@ -22,7 +22,7 @@ export function middleware(req: NextRequest) {
 	}
 
 	// Redirect users without a token trying to access any dashboard/* path
-	if (!hasToken && isOnDashboard) {
+	if (!hasToken && isOnAccount) {
 		url.pathname = "/signin"
 		return redirectResponse(url)
 	}

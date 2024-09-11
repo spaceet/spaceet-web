@@ -1,3 +1,15 @@
+import {
+	RiBookMarkedLine,
+	RiHeadphoneLine,
+	RiHeartLine,
+	RiLogoutCircleRLine,
+	RiMessage3Line,
+	RiNotification3Line,
+	RiUserLine,
+} from "@remixicon/react"
+
+// import {} from "@/assets/icons"
+
 export const social_links = [
 	{ name: "linkedin", url: "https://www.linkedin.com/company/spaceet/", icon: "" },
 	{ name: "twitter", url: "https://twitter.com/SpaceetHq", icon: "" },
@@ -32,4 +44,14 @@ export const footer_links = [
 			{ name: "", url: "" },
 		],
 	},
+]
+
+export const user_links = [
+	{ label: "account", url: "/account", icon: RiUserLine },
+	{ label: "messaging", url: "/messages", icon: RiMessage3Line },
+	{ label: "notifications", url: "/notifications", icon: RiNotification3Line },
+	{ label: "my bookings", url: "/bookings", icon: RiBookMarkedLine },
+	{ label: "favorite", url: "/favorite", icon: RiHeartLine },
+	{ label: "help center", url: "/help-center", icon: RiHeadphoneLine },
+	{ label: "logout", icon: RiLogoutCircleRLine },
 ]
