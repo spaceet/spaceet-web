@@ -1,5 +1,7 @@
 import { useMutation } from "@tanstack/react-query"
+import { useRouter } from "next/router"
 import { useFormik } from "formik"
+import { toast } from "sonner"
 import Link from "next/link"
 import React from "react"
 
@@ -14,15 +16,20 @@ import { HttpError } from "@/types"
 const initialValues: SignUpDto = { firstName: "", lastName: "", email: "", password: "", phone: "" }
 
 const Page = () => {
+	const router = useRouter()
+
 	const { isPending } = useMutation({
 		mutationFn: (payload: SignUpDto) => SignUpMutation(payload),
 		mutationKey: ["register"],
 		onSuccess: (data) => {
 			console.log(data)
+			toast.success("Account created successfully")
+			router.push("/signin")
 		},
 		onError: ({ response }: HttpError) => {
 			const { message } = response.data
 			console.error(message)
+			toast.error(message)
 		},
 	})
 

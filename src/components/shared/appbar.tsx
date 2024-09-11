@@ -1,15 +1,18 @@
 import { ChevronDown, Menu } from "lucide-react"
+import { RiUserLine } from "@remixicon/react"
 import Image from "next/image"
 import Link from "next/link"
 import React from "react"
 
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useGlobalStore, useUserStore } from "@/store/z-store"
 import { CurrencySelector } from "./currency-selector"
 import { LanguageSelector } from "./language-selector"
 import { Separator } from "@/components/ui/separator"
 import { TabPanel } from "./tab-panel"
 import { UserMenu } from "./user-menu"
+import { getInitials } from "@/lib"
 import {
 	Dialog,
 	DialogContent,
@@ -21,6 +24,7 @@ import {
 const tabs = ["language & regions", "currency"]
 
 export const Appbar = () => {
+	const [isOpen, setIsOpen] = React.useState(false)
 	const [current, setCurrent] = React.useState(0)
 	const [open, setOpen] = React.useState(false)
 	const { language } = useGlobalStore()
@@ -78,25 +82,42 @@ export const Appbar = () => {
 				</div>
 				<div className="flex items-center gap-4">
 					{user ? (
-						<Link href="/apartmemts/add-new" className="link font-medium text-neutral-900">
-							Upload Apartment
-						</Link>
+						<p className="font-medium capitalize text-neutral-900">{user.firstName}</p>
 					) : (
 						<Link href="/signin" className="link font-medium text-neutral-900">
 							Log In
 						</Link>
 					)}
-					<Popover>
-						<PopoverTrigger asChild>
-							<button className="flex h-14 items-center gap-3 rounded-[36px] border px-3">
-								<Menu size={24} />
-								<div className="size-10 rounded-full bg-primary-100"></div>
-							</button>
-						</PopoverTrigger>
-						<PopoverContent className="w-[180px] bg-white p-0">
-							<UserMenu />
-						</PopoverContent>
-					</Popover>
+					{user ? (
+						<Popover open={isOpen} onOpenChange={setIsOpen}>
+							<PopoverTrigger asChild>
+								<button className="flex h-14 items-center gap-3 rounded-[36px] border px-3">
+									<Menu size={24} />
+									<Avatar className="size-10 border bg-primary-100 text-white">
+										<AvatarImage src={user.imageUrl} alt={user.firstName} />
+										<AvatarFallback className="text-sm font-medium">
+											{getInitials(`${user.firstName} ${user.lastName}`)}
+										</AvatarFallback>
+									</Avatar>
+								</button>
+							</PopoverTrigger>
+							<PopoverContent className="w-[180px] bg-white p-0">
+								<UserMenu onClose={() => setIsOpen(false)} />
+							</PopoverContent>
+						</Popover>
+					) : (
+						<Popover open={isOpen} onOpenChange={setIsOpen}>
+							<PopoverTrigger asChild>
+								<button className="flex h-14 items-center gap-3 rounded-[36px] border px-3">
+									<Menu size={24} />
+									<div className="grid size-10 place-items-center rounded-full bg-primary-100 text-white">
+										<RiUserLine size={24} />
+									</div>
+								</button>
+							</PopoverTrigger>
+							<PopoverContent className="w-[180px] bg-white p-0"></PopoverContent>
+						</Popover>
+					)}
 				</div>
 			</div>
 		</nav>

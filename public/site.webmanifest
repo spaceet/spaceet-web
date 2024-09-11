@@ -15,7 +15,20 @@
 			"type": "image/png"
 		}
 	],
-	"screenshots": [{ "src": "/meta/screenshot.png" }],
+	"screenshots": [
+		{
+			"src": "/meta/screenshot.png",
+			"sizes": "1200x628",
+			"type": "image/png",
+			"form_factor": "wide"
+		},
+		{
+			"src": "/meta/screenshot.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"form_factor": "narrow"
+		}
+	],
 	"background_color": "#ffffff",
 	"theme_color": "#eab221",
 	"display": "standalone"

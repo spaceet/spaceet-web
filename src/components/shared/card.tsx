@@ -44,7 +44,7 @@ const Card = ({ apartment }: Props) => {
 					))}
 				</div>
 				<div className="absolute right-3 top-3 !z-[5] rounded-md bg-white px-3 py-2 font-medium text-neutral-900 lg:text-xs">
-					{formatCurrency(apartment.price, "USD")}/night
+					{formatCurrency(apartment.price, "NGN")}/night
 				</div>
 				<Image
 					src={apartment.images[current]}

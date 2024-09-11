@@ -45,11 +45,15 @@ const VerifyAccountMutation = async () => {
 }
 
 const ForgotPasswordMutation = async (email: string) => {
-	return axios.post(endpoints().auth.forgot_password, { email }).then((res) => res.data)
+	return axios
+		.post<HttpResponse<string>>(endpoints().auth.forgot_password, { email })
+		.then((res) => res.data)
 }
 
 const ResetPasswordMutation = async (payload: ResetPasswordDto) => {
-	return axios.post(endpoints().auth.reset_password, payload).then((res) => res.data)
+	return axios
+		.post<HttpResponse<string>>(endpoints().auth.reset_password, payload)
+		.then((res) => res.data)
 }
 
 export {

@@ -11,7 +11,11 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog"
 
-export const UserMenu = () => {
+interface Props {
+	onClose: () => void
+}
+
+export const UserMenu = ({ onClose }: Props) => {
 	const [open, setOpen] = React.useState(false)
 
 	return (
@@ -26,7 +30,7 @@ export const UserMenu = () => {
 									{link.label}
 								</button>
 							</DialogTrigger>
-							<DialogContent>
+							<DialogContent className="w-[400px]">
 								<DialogTitle>Logout</DialogTitle>
 								<DialogDescription>Are you sure you want to logout?</DialogDescription>
 								<div className="my-4 grid w-full grid-cols-2 gap-5">
@@ -41,6 +45,7 @@ export const UserMenu = () => {
 						<Link
 							key={index}
 							href={link.url}
+							onClick={onClose}
 							className="flex items-center gap-2 px-[10px] py-3 text-sm capitalize text-neutral-900 first:rounded-t-md last:rounded-b-md hover:bg-neutral-200">
 							<link.icon size={20} />
 							{link.label}

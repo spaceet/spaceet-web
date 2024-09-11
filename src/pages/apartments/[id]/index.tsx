@@ -1,4 +1,4 @@
-import { differenceInCalendarDays, differenceInYears } from "date-fns"
+import { addDays, differenceInCalendarDays, differenceInYears } from "date-fns"
 import { ChevronLeft, ChevronLeftCircle } from "lucide-react"
 // import { useQuery } from "@tanstack/react-query"
 import { useRouter } from "next/router"
@@ -32,7 +32,9 @@ const initialValues = {
 const Page = () => {
 	const [current, setcurrent] = React.useState<TabList>("overview")
 	const [dateDifference, setDateDifference] = React.useState(0)
-	const today = new Date().toISOString().split("T")[0]
+	// const [coords, setCoords] = React.useState()
+
+	const minimumCheckInDate = addDays(new Date(), 14).toISOString().split("T")[0]
 	const router = useRouter()
 	const { id } = router.query
 
@@ -173,7 +175,7 @@ const Page = () => {
 						</div>
 					</div>
 					<div className="w-full rounded-3xl border p-6">
-						<p className="font-semibold lg:text-2xl">{formatCurrency(apartment.price, "USD")}/night</p>
+						<p className="font-semibold lg:text-2xl">{formatCurrency(apartment.price, "NGN")}/night</p>
 						<hr className="my-6" />
 						<div className="flex w-full flex-col gap-4">
 							<div className="grid w-full grid-cols-2 gap-5">
@@ -182,7 +184,7 @@ const Page = () => {
 									name="check_in"
 									onChange={handleChange}
 									type="date"
-									min={today}
+									min={minimumCheckInDate}
 									innerClassName="rounded-3xl"
 									labelClassName="text-neutral-500 font-normal"
 								/>
@@ -212,22 +214,22 @@ const Page = () => {
 							<form onSubmit={handleSubmit} className="flex w-full flex-col gap-3">
 								<div className="flex w-full items-center justify-between">
 									<p className="font-light text-neutral-400">
-										{formatCurrency(apartment.price, "USD")} x {dateDifference} nights
+										{formatCurrency(apartment.price, "NGN")} x {dateDifference} nights
 									</p>
 									<p className="font-medium text-neutral-900">
-										{formatCurrency(apartment.price * dateDifference || apartment.price, "USD")}
+										{formatCurrency(apartment.price * dateDifference || apartment.price, "NGN")}
 									</p>
 								</div>
 								<div className="flex w-full items-center justify-between">
 									<p className="font-light text-neutral-400">Cleaning Fee</p>
 									<p className="font-medium text-neutral-900">
-										{formatCurrency(apartment.cleaning_fee, "USD")}
+										{formatCurrency(apartment.cleaning_fee, "NGN")}
 									</p>
 								</div>
 								<div className="flex w-full items-center justify-between">
 									<p className="font-light text-neutral-400">Service Charge</p>
 									<p className="font-medium text-neutral-900">
-										{formatCurrency(apartment.service_charge, "USD")}
+										{formatCurrency(apartment.service_charge, "NGN")}
 									</p>
 								</div>
 								<div className="mt-2 flex w-full items-center justify-between">
@@ -237,7 +239,7 @@ const Page = () => {
 											apartment.cleaning_fee +
 												apartment.service_charge +
 												(apartment.price * dateDifference || apartment.price),
-											"USD"
+											"NGN"
 										)}
 									</p>
 								</div>
@@ -368,7 +370,7 @@ const Page = () => {
 				</div>
 				<div id="location" className="flex w-full flex-col gap-6 rounded-3xl border p-6">
 					<p className="font-semibold lg:text-xl">Location</p>
-					<div className="h-[400px] w-full rounded-xl border"></div>
+					<div className="h-[400px] w-full overflow-hidden rounded-xl border"></div>
 				</div>
 			</main>
 			<Footer />

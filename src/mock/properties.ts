@@ -37,7 +37,7 @@ export const properties: PropertyProps[] = [
 		bathrooms: 4,
 		bedrooms: 2,
 		capacity: 3110,
-		cleaning_fee: 58.56,
+		cleaning_fee: 7500,
 		createdAt: "9/9/2023",
 		deletedAt: null,
 		images: [
@@ -71,8 +71,8 @@ export const properties: PropertyProps[] = [
 			"Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.\n\nFusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.",
 			"Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.",
 		],
-		price: 901.3,
-		service_charge: 179.81,
+		price: 50000,
+		service_charge: 5000,
 		updatedAt: null,
 		description:
 			"In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.\n\nSuspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.\n\nMaecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.",
@@ -126,7 +126,7 @@ export const properties: PropertyProps[] = [
 		bathrooms: 5,
 		bedrooms: 4,
 		capacity: 3220,
-		cleaning_fee: 37.84,
+		cleaning_fee: 7500,
 		createdAt: "9/9/2023",
 		deletedAt: null,
 		images: [
@@ -160,8 +160,8 @@ export const properties: PropertyProps[] = [
 			"Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.",
 			"Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.\n\nAenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.",
 		],
-		price: 1315.29,
-		service_charge: 115.56,
+		price: 45000,
+		service_charge: 4500,
 		updatedAt: null,
 		description:
 			"Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.\n\nPhasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.",
@@ -244,7 +244,7 @@ export const properties: PropertyProps[] = [
 		bathrooms: 5,
 		bedrooms: 2,
 		capacity: 1649,
-		cleaning_fee: 26.49,
+		cleaning_fee: 7500,
 		createdAt: "9/9/2023",
 		deletedAt: null,
 		images: [
@@ -278,8 +278,8 @@ export const properties: PropertyProps[] = [
 			"Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.",
 			"In congue. Etiam justo. Etiam pretium iaculis justo.\n\nIn hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.",
 		],
-		price: 1885.22,
-		service_charge: 194.22,
+		price: 60000,
+		service_charge: 6000,
 		updatedAt: null,
 		description:
 			"Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.\n\nDuis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.\n\nDonec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.",
@@ -332,7 +332,7 @@ export const properties: PropertyProps[] = [
 		bathrooms: 2,
 		bedrooms: 5,
 		capacity: 2848,
-		cleaning_fee: 56.77,
+		cleaning_fee: 7500,
 		createdAt: "9/9/2023",
 		deletedAt: null,
 		images: [
@@ -367,8 +367,8 @@ export const properties: PropertyProps[] = [
 			"Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.\n\nCurabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.",
 			"Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.",
 		],
-		price: 1038.66,
-		service_charge: 95.69,
+		price: 100000,
+		service_charge: 10000,
 		updatedAt: null,
 		description:
 			"Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.\n\nMorbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.\n\nFusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.\n\nSed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.",
@@ -472,7 +472,7 @@ export const properties: PropertyProps[] = [
 		bathrooms: 1,
 		bedrooms: 4,
 		capacity: 3368,
-		cleaning_fee: 34.82,
+		cleaning_fee: 7500,
 		createdAt: "9/9/2023",
 		deletedAt: null,
 		images: [
@@ -503,8 +503,8 @@ export const properties: PropertyProps[] = [
 			updatedAt: null,
 		},
 		policies: ["Sed ante. Vivamus tortor. Duis mattis egestas metus."],
-		price: 1269.66,
-		service_charge: 148.14,
+		price: 55000,
+		service_charge: 5500,
 		updatedAt: null,
 		description:
 			"Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.\n\nNullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.",
@@ -568,7 +568,7 @@ export const properties: PropertyProps[] = [
 		bathrooms: 1,
 		bedrooms: 1,
 		capacity: 2998,
-		cleaning_fee: 70.86,
+		cleaning_fee: 7500,
 		createdAt: "9/9/2023",
 		deletedAt: null,
 		images: [
@@ -602,8 +602,8 @@ export const properties: PropertyProps[] = [
 			"Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.\n\nPhasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.",
 			"In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.",
 		],
-		price: 1063.88,
-		service_charge: 59.86,
+		price: 78000,
+		service_charge: 7800,
 		updatedAt: null,
 		description:
 			"Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.\n\nFusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.\n\nSed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.",
@@ -696,7 +696,7 @@ export const properties: PropertyProps[] = [
 		bathrooms: 4,
 		bedrooms: 1,
 		capacity: 1687,
-		cleaning_fee: 67.66,
+		cleaning_fee: 7500,
 		createdAt: "9/9/2023",
 		deletedAt: null,
 		images: [
@@ -730,8 +730,8 @@ export const properties: PropertyProps[] = [
 			"Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.\n\nMaecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.",
 			"Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.",
 		],
-		price: 1551.97,
-		service_charge: 188.8,
+		price: 90000,
+		service_charge: 9000,
 		updatedAt: null,
 		description:
 			"Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.\n\nCum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
@@ -815,7 +815,7 @@ export const properties: PropertyProps[] = [
 		bathrooms: 4,
 		bedrooms: 3,
 		capacity: 2464,
-		cleaning_fee: 93.57,
+		cleaning_fee: 7500,
 		createdAt: "9/9/2023",
 		deletedAt: null,
 		images: [
@@ -849,8 +849,8 @@ export const properties: PropertyProps[] = [
 			"Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.\n\nCurabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.",
 			"In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.\n\nSuspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.",
 		],
-		price: 1163.33,
-		service_charge: 165.65,
+		price: 68000,
+		service_charge: 6800,
 		updatedAt: null,
 		description:
 			"Sed ante. Vivamus tortor. Duis mattis egestas metus.\n\nAenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.\n\nQuisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.",
@@ -893,7 +893,7 @@ export const properties: PropertyProps[] = [
 		bathrooms: 1,
 		bedrooms: 4,
 		capacity: 3004,
-		cleaning_fee: 37.72,
+		cleaning_fee: 7500,
 		createdAt: "9/9/2023",
 		deletedAt: null,
 		images: [
@@ -926,8 +926,8 @@ export const properties: PropertyProps[] = [
 		policies: [
 			"In congue. Etiam justo. Etiam pretium iaculis justo.\n\nIn hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.",
 		],
-		price: 600.26,
-		service_charge: 150.76,
+		price: 60000,
+		service_charge: 6000,
 		updatedAt: null,
 		description:
 			"Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.\n\nNullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.\n\nIn quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.\n\nMaecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.",
@@ -1011,7 +1011,7 @@ export const properties: PropertyProps[] = [
 		bathrooms: 5,
 		bedrooms: 1,
 		capacity: 1113,
-		cleaning_fee: 88.92,
+		cleaning_fee: 7500,
 		createdAt: "9/9/2023",
 		deletedAt: null,
 		images: [
@@ -1046,8 +1046,8 @@ export const properties: PropertyProps[] = [
 			"Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.\n\nInteger tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.",
 			"Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.\n\nMorbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.",
 		],
-		price: 1503.73,
-		service_charge: 190.07,
+		price: 75000,
+		service_charge: 7500,
 		updatedAt: null,
 		description:
 			"Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.\n\nCurabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.",

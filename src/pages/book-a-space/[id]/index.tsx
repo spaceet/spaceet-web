@@ -1,12 +1,13 @@
-import { differenceInCalendarDays, formatDate } from "date-fns"
+import { addDays, differenceInCalendarDays, formatDate } from "date-fns"
+import { RiErrorWarningLine } from "@remixicon/react"
 import { ChevronLeftCircle } from "lucide-react"
 import { useRouter } from "next/router"
+import { useFormik } from "formik"
 import { toast } from "sonner"
 import Image from "next/image"
 import Link from "next/link"
 import React from "react"
 
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Appbar, Footer, Rating, Seo } from "@/components/shared"
 import { Avatar, AvatarImage } from "@/components/ui/avatar"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -14,13 +15,22 @@ import { NotFound } from "@/components/layouts"
 import { Button } from "@/components/ui/button"
 import { properties } from "@/mock/properties"
 import { formatCurrency } from "@/lib"
+import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogTitle,
+	DialogTrigger,
+} from "@/components/ui/dialog"
 
 const payment_methods = ["debit card", "bank transfer"] as const
-// type PaymentMethod = (typeof payment_methods)[number] | (string & {})
+type PaymentMethod = (typeof payment_methods)[number] | (string & {})
 
 const Page = () => {
+	const [paymentMethod, setPaymentMethod] = React.useState<PaymentMethod | null>(null)
 	const [dateDifference, setDateDifference] = React.useState(0)
 	const [agreed, setAgreed] = React.useState(false)
+	const [open, setOpen] = React.useState(false)
 
 	const router = useRouter()
 	const { check_in, check_out, guests, id } = router.query
@@ -32,13 +42,26 @@ const Page = () => {
 			toast.error("Please agree to the terms and conditions")
 			return
 		}
+		if (paymentMethod === null) {
+			toast.error("Please select a payment method")
+			return
+		}
 		console.log("Reserving a space")
 	}
 
+	const { values } = useFormik({
+		initialValues: {
+			check_in: String(check_in),
+			check_out: String(check_out),
+			guests: Number(guests),
+		},
+		onSubmit: (values) => {
+			console.log(values)
+		},
+	})
+
 	React.useEffect(() => {
-		setDateDifference(
-			differenceInCalendarDays(new Date(check_out as string), new Date(check_in as string))
-		)
+		setDateDifference(differenceInCalendarDays(new Date(values.check_out), new Date(values.check_in)))
 	}, [check_out, check_in])
 
 	if (!apartment) return <NotFound />
@@ -83,16 +106,63 @@ const Page = () => {
 						</div>
 						<div className="flex w-full flex-col gap-3 rounded-2xl border p-6">
 							<p className="font-semibold text-neutral-900 lg:text-xl">Choose how to pay</p>
-							<RadioGroup className="flex w-full flex-col gap-6">
-								{payment_methods.map((payment_method) => (
-									<div key={payment_method} className="flex w-full flex-col">
-										<div className="flex w-full items-center gap-3 rounded-2xl border border-neutral-200 p-5">
-											<RadioGroupItem value={payment_method} id={payment_method} />
-											<span className="font-medium capitalize lg:text-sm">{payment_method}</span>
-										</div>
+							<div className="flex w-full flex-col gap-6">
+								<div className="flex w-full flex-col gap-3">
+									<div className="flex w-full items-center gap-3 rounded-2xl border border-neutral-200 p-5">
+										<button
+											onClick={() => setPaymentMethod("debit card")}
+											className={`relative size-4 rounded-full border border-neutral-900 before:absolute before:left-1/2 before:top-1/2 before:size-2 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-primary-100 ${paymentMethod === "debit card" ? "before:block" : "before:hidden"}`}
+										/>
+										<span className="font-medium capitalize lg:text-sm">Debt Card</span>
 									</div>
-								))}
-							</RadioGroup>
+									{paymentMethod === "debit card" && (
+										<div className="w-full rounded-2xl border px-5 py-[18px]">
+											<div className="flex w-full flex-col gap-3">
+												<div className="h-[57px] w-full rounded-xl border"></div>
+												<div className="grid w-full grid-cols-2 gap-2">
+													<div className="h-[57px] w-full rounded-xl border"></div>
+													<div className="h-[57px] w-full rounded-xl border"></div>
+												</div>
+											</div>
+											<p className="mt-3 text-sm">
+												<b>Please note:</b> We will never ask you for your password, PIN, CVV or full card
+												details over the phone or via email
+											</p>
+										</div>
+									)}
+								</div>
+								<div className="flex w-full flex-col gap-3">
+									<div className="flex w-full items-center gap-3 rounded-2xl border border-neutral-200 p-5">
+										<button
+											onClick={() => setPaymentMethod("bank transfer")}
+											className={`relative size-4 rounded-full border border-neutral-900 before:absolute before:left-1/2 before:top-1/2 before:size-2 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-primary-100 ${paymentMethod === "bank transfer" ? "before:block" : "before:hidden"}`}
+										/>
+										<span className="font-medium capitalize lg:text-sm">Bank Transfer</span>
+									</div>
+									{paymentMethod === "bank transfer" && (
+										<div className="w-full rounded-2xl border px-5 py-[18px]">
+											<div className="flex w-full flex-col gap-3">
+												<div className="flex h-6 items-center gap-2">
+													<p className="w-32 text-neutral-600">Bank Name</p>
+												</div>
+												<div className="flex h-6 items-center gap-2">
+													<p className="w-32 text-neutral-600">Account Number</p>
+												</div>
+												<div className="flex h-6 items-center gap-2">
+													<p className="w-32 text-neutral-600">Account Name</p>
+												</div>
+											</div>
+											<div className="mt-4 flex w-full items-center gap-2 text-sm text-red-700">
+												<RiErrorWarningLine size={16} />
+												<p>
+													The account is one time use. You will be automatically redirected once payment is
+													confirmed
+												</p>
+											</div>
+										</div>
+									)}
+								</div>
+							</div>
 						</div>
 						<div className="flex w-full flex-col gap-3 rounded-2xl border p-6">
 							<p className="font-semibold text-neutral-900 lg:text-xl">Message the host</p>
@@ -120,61 +190,89 @@ const Page = () => {
 						</div>
 						<div className="flex w-full flex-col gap-3 rounded-2xl border p-6">
 							<p className="font-semibold text-neutral-900 lg:text-xl">Cancellation policy</p>
+							<p className="text-neutral-900">
+								Free cancellation before {formatDate(addDays(new Date(values.check_in), -7), "MMM dd")}.
+								Cancel before check-in {formatDate(addDays(new Date(values.check_in), -2), "MMM dd")} for a
+								partial refund.
+							</p>
+							<Link
+								href="/help-center/cancellation-policy"
+								className="w-fit font-semibold text-neutral-900 underline lg:text-sm">
+								Learn more
+							</Link>
 						</div>
 						<div className="flex w-full flex-col gap-3 rounded-2xl border p-6">
 							<p className="font-semibold text-neutral-900 lg:text-xl">Ground rules</p>
+							<p className="text-neutral-900">
+								We ask every guest to remember a few simple things about what makes a great guest.
+							</p>
+							<ul className="flex w-full list-disc flex-col pl-6 font-normal">
+								<li className="list-item">Follow the house rules</li>
+								<li className="list-item">Treat you Host&apos;s home like your own</li>
+							</ul>
 						</div>
 						<div className="flex w-full flex-col gap-3 rounded-2xl border p-6">
 							<p className="font-semibold text-neutral-900 lg:text-xl">Reservation confirmation</p>
+							<p className="text-neutral-900">
+								The host has 24 hours to confirm your booking. You&apos;ll be charged when the request is
+								accepted. If after that, there was no confirmation, you will be fully refunded.
+							</p>
 						</div>
 					</div>
 					<div className="flex w-full flex-col gap-6 rounded-2xl border p-6">
 						<div className="flex w-full items-center justify-between">
-							<p className="font-semibold lg:text-xl">{formatCurrency(apartment.price, "USD")}/night</p>
-							<button type="button" className="font-medium underline lg:text-sm">
-								Edit
-							</button>
+							<p className="font-semibold lg:text-xl">{formatCurrency(apartment.price, "NGN")}/night</p>
+							<Dialog open={open} onOpenChange={setOpen}>
+								<DialogTrigger asChild>
+									<button type="button" className="font-medium underline lg:text-sm">
+										Edit
+									</button>
+								</DialogTrigger>
+								<DialogContent className="w-full max-w-[400px]">
+									<DialogTitle>Edit reservation</DialogTitle>
+									<DialogDescription hidden></DialogDescription>
+									<div className="min-h-[200px] w-full"></div>
+								</DialogContent>
+							</Dialog>
 						</div>
 						<hr />
 						<div className="flex w-full flex-col gap-3">
 							<p className="font-semibold lg:text-sm">Reserve details</p>
 							<div className="flex w-full items-center justify-between">
 								<p className="font-light text-neutral-400">Check in</p>
-								<p className="font-medium text-neutral-900">
-									{formatDate(check_in as string, "dd MMM yyyy")}
-								</p>
+								<p className="font-medium text-neutral-900">{formatDate(values.check_in, "dd MMM yyyy")}</p>
 							</div>
 							<div className="flex w-full items-center justify-between">
 								<p className="font-light text-neutral-400">Check out</p>
 								<p className="font-medium text-neutral-900">
-									{formatDate(check_out as string, "dd MMM yyyy")}
+									{formatDate(values.check_out, "dd MMM yyyy")}
 								</p>
 							</div>
 							<div className="flex w-full items-center justify-between">
 								<p className="font-light text-neutral-400">Number of guests</p>
-								<p className="font-medium text-neutral-900">{Number(guests)}</p>
+								<p className="font-medium text-neutral-900">{values.guests}</p>
 							</div>
 						</div>
 						<div className="flex w-full flex-col gap-3">
 							<p className="font-semibold lg:text-sm">Cost Breakdown</p>
 							<div className="flex w-full items-center justify-between">
 								<p className="font-light text-neutral-400">
-									{formatCurrency(apartment.price, "USD")} x {dateDifference} nights
+									{formatCurrency(apartment.price, "NGN")} x {dateDifference} nights
 								</p>
 								<p className="font-medium text-neutral-900">
-									{formatCurrency(apartment.price * dateDifference || apartment.price, "USD")}
+									{formatCurrency(apartment.price * dateDifference || apartment.price, "NGN")}
 								</p>
 							</div>
 							<div className="flex w-full items-center justify-between">
 								<p className="font-light text-neutral-400">Cleaning Fee</p>
 								<p className="font-medium text-neutral-900">
-									{formatCurrency(apartment.cleaning_fee, "USD")}
+									{formatCurrency(apartment.cleaning_fee, "NGN")}
 								</p>
 							</div>
 							<div className="flex w-full items-center justify-between">
 								<p className="font-light text-neutral-400">Service Charge</p>
 								<p className="font-medium text-neutral-900">
-									{formatCurrency(apartment.service_charge, "USD")}
+									{formatCurrency(apartment.service_charge, "NGN")}
 								</p>
 							</div>
 							<div className="mt-2 flex w-full items-center justify-between">
@@ -184,7 +282,7 @@ const Page = () => {
 										apartment.cleaning_fee +
 											apartment.service_charge +
 											(apartment.price * dateDifference || apartment.price),
-										"USD"
+										"NGN"
 									)}
 								</p>
 							</div>
