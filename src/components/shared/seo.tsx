@@ -2,7 +2,7 @@ import { useRouter } from "next/router"
 import Head from "next/head"
 
 const APP_URL = process.env.APP_URL ?? process.env.NEXT_PUBLIC_APP_URL
-const DEFAULT_OG_IMAGE = ""
+const DEFAULT_OG_IMAGE = "/assets/meta/screenshot.png"
 
 interface SeoProps {
 	readonly title?: string
@@ -89,7 +89,7 @@ export function Seo({
 																	operatingSystem: "Any",
 																	description: "",
 																	features: "",
-																	screenshot: "https://www.spaceet.com/meta/screenshot.jpg",
+																	screenshot: "https://www.spaceet.com/meta/screenshot.png",
 																	creator: {
 																		"@type": "Organization",
 																		name: "Spaceet",

@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query"
 import { ChevronLeft } from "lucide-react"
 import { useRouter } from "next/router"
 import { useFormik } from "formik"
+import { toast } from "sonner"
 import Link from "next/link"
 import React from "react"
 
@@ -20,10 +21,13 @@ const Page = () => {
 		mutationKey: ["forgot-password"],
 		onSuccess: (data) => {
 			console.log(data)
+			const { message } = data
+			toast.success(message)
 		},
 		onError: ({ response }: HttpError) => {
 			const { message } = response.data
 			console.error(message)
+			toast.error(message)
 		},
 	})
 

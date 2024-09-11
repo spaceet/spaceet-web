@@ -9,6 +9,7 @@ interface Props extends VariantProps<typeof spinnerVariants> {
 const spinnerVariants = cva("size-5 rounded-full animate-spin", {
 	variants: {
 		variant: {
+			primary: "border-primary-100 border-t-transparent",
 			light: "border-white border-t-transparent",
 			dark: "border-black border-t-transparent",
 		},

@@ -28,10 +28,14 @@ const Page = () => {
 		mutationKey: ["signin"],
 		onSuccess: (data) => {
 			console.log(data)
+			const { message } = data
+			toast.success(message)
+			router.push("/signin")
 		},
 		onError: ({ response }: HttpError) => {
 			const { message } = response.data
 			console.error(message)
+			toast.error(message)
 		},
 	})
 

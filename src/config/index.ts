@@ -1,4 +1,5 @@
 export * from "./amenities"
+export * from "./become-a-host"
 export * from "./currency"
 export * from "./dail-codes"
 export * from "./editor"

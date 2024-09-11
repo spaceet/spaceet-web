@@ -51,7 +51,7 @@ export const user_links = [
 	{ label: "messaging", url: "/messages", icon: RiMessage3Line },
 	{ label: "notifications", url: "/notifications", icon: RiNotification3Line },
 	{ label: "my bookings", url: "/bookings", icon: RiBookMarkedLine },
-	{ label: "favorite", url: "/favorite", icon: RiHeartLine },
+	{ label: "favorites", url: "/favorites", icon: RiHeartLine },
 	{ label: "help center", url: "/help-center", icon: RiHeadphoneLine },
 	{ label: "logout", icon: RiLogoutCircleRLine },
 ]
