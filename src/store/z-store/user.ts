@@ -1,7 +1,7 @@
 import Cookies from "js-cookie"
 
 import { createPersistMiddleware } from "@/store/middleware"
-import { SignOutMutation } from "@/queries"
+// import { SignOutMutation } from "@/queries"
 import { Maybe, UserProps } from "@/types"
 
 interface UserStore {
@@ -33,13 +33,13 @@ const useUserStore = createPersistMiddleware<UserStore>("spaceet-user", (set) =>
 			} else {
 				set({ user: null })
 				Cookies.remove("SPACEET_TOKEN")
-				await SignOutMutation()
+				// await SignOutMutation()
 			}
 		} catch (error) {
 			console.error("sign out error:", error)
 		} finally {
 			window.localStorage.removeItem("spaceet-user")
-			window.location.replace("/signin")
+			window.location.replace("/")
 		}
 	},
 }))

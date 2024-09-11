@@ -2,6 +2,7 @@ import {
 	RiBookMarkedLine,
 	RiHeadphoneLine,
 	RiHeartLine,
+	RiHome3Line,
 	RiLogoutCircleRLine,
 	RiMessage3Line,
 	RiNotification3Line,
@@ -54,4 +55,11 @@ export const user_links = [
 	{ label: "favorites", url: "/favorites", icon: RiHeartLine },
 	{ label: "help center", url: "/help-center", icon: RiHeadphoneLine },
 	{ label: "logout", icon: RiLogoutCircleRLine },
+]
+
+export const unuser_links = [
+	{ label: "sign up", url: "/signup", icon: RiUserLine },
+	{ label: "sign in", url: "/signin", icon: RiUserLine },
+	{ label: "become a host", url: "/become-a-host", icon: RiHome3Line },
+	{ label: "help center", url: "/help-center", icon: RiHeadphoneLine },
 ]

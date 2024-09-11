@@ -2,6 +2,7 @@ import Link from "next/link"
 import React from "react"
 
 import { Button } from "@/components/ui/button"
+import { useUserStore } from "@/store/z-store"
 import { user_links } from "@/config"
 import {
 	Dialog,
@@ -17,6 +18,7 @@ interface Props {
 
 export const UserMenu = ({ onClose }: Props) => {
 	const [open, setOpen] = React.useState(false)
+	const { signOut } = useUserStore()
 
 	return (
 		<div className="flex w-full flex-col">
@@ -35,7 +37,9 @@ export const UserMenu = ({ onClose }: Props) => {
 								<DialogDescription>Are you sure you want to logout?</DialogDescription>
 								<div className="my-4 grid w-full grid-cols-2 gap-5">
 									<Button onClick={() => setOpen(false)}>Cancel</Button>
-									<Button variant="destructive">Logout</Button>
+									<Button onClick={() => signOut()} variant="destructive">
+										Logout
+									</Button>
 								</div>
 							</DialogContent>
 						</Dialog>
