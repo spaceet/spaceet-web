@@ -10,6 +10,7 @@ import { useGlobalStore, useUserStore } from "@/store/z-store"
 import { CurrencySelector } from "./currency-selector"
 import { LanguageSelector } from "./language-selector"
 import { Separator } from "@/components/ui/separator"
+import { UnuserMenu } from "./unuser-menu"
 import { TabPanel } from "./tab-panel"
 import { UserMenu } from "./user-menu"
 import { getInitials } from "@/lib"
@@ -115,7 +116,9 @@ export const Appbar = () => {
 									</div>
 								</button>
 							</PopoverTrigger>
-							<PopoverContent className="w-[180px] bg-white p-0"></PopoverContent>
+							<PopoverContent className="w-[180px] bg-white p-0">
+								<UnuserMenu onClose={() => setIsOpen(false)} />
+							</PopoverContent>
 						</Popover>
 					)}
 				</div>
