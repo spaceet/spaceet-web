@@ -106,7 +106,7 @@ const Page = () => {
 							</div>
 							<hr className="my-6" />
 							<div className="flex w-full flex-col gap-2">
-								<p className="font-light text-neutral-500 lg:text-sm">{host.description}</p>
+								<p className="font-light text-neutral-500 lg:text-sm">{host.bio}</p>
 								<button className="w-fit font-semibold text-neutral-900 underline lg:text-sm">
 									Read more
 								</button>

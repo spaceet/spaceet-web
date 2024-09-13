@@ -42,6 +42,7 @@ const endpoints = (path?: Maybe<string>, params?: { [key: string]: string | numb
 
 	const properties = {
 		get_all: `/properties${queryString}`,
+		get_by_location: `/properties/location}`,
 		get_one: `/properties/${path}`,
 		search: `/properties/search${queryString}`,
 		create: `/properties`,

@@ -17,9 +17,14 @@ const config = {
 			},
 		},
 		extend: {
+			backgroundImage: {
+				"hero-1": "url('/assets/images/hero-1.webp')",
+				"hero-2": "url('/assets/images/hero-2.webp')",
+			},
 			colors: {
 				primary: {
-					100: "#EAB221",
+					50: "#fef7ec",
+					100: "#eab221",
 				},
 				neutral: {
 					100: "#ffffff",
