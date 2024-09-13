@@ -32,13 +32,13 @@ export function ComboBox({ data, onValueChange, value, placeholder }: ComboxProp
 					role="combobox"
 					aria-controls="frameworks"
 					aria-expanded={open}
-					className="flex h-[50px] w-full items-center justify-between rounded-md border px-3">
+					className={`flex h-[45px] w-full items-center justify-between rounded-md border border-neutral-400 px-3 ${value ? "text-neutral-900" : "text-neutral-400"}`}>
 					{value ? data.find((item) => item.value === value)?.label : placeholder}
 					<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 				</button>
 			</PopoverTrigger>
 			<PopoverContent className="w-full bg-white">
-				<Command>
+				<Command className="w-full">
 					<CommandInput placeholder={placeholder} />
 					<CommandList>
 						<CommandEmpty>No item matching the query</CommandEmpty>
@@ -47,6 +47,7 @@ export function ComboBox({ data, onValueChange, value, placeholder }: ComboxProp
 								<CommandItem
 									key={item.value}
 									value={item.value}
+									className="cursor-pointer"
 									onSelect={(currentValue) => {
 										onValueChange(currentValue === value ? "" : currentValue)
 										setOpen(false)

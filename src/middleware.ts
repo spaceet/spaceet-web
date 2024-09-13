@@ -6,6 +6,7 @@ export const config = {
 		"/account/:path*",
 		"/become-a-host",
 		"/bookings/:path*",
+		"/dashbboard/:path*",
 		"/favorites/:path*",
 		"/messages/:path*",
 		"/notifications/:path*",
@@ -24,10 +25,12 @@ export function middleware(req: NextRequest) {
 	// access the pathname of protected routes
 	const isOnNotifications = url.pathname.startsWith("/notifications")
 	const isOnBecomeAHost = url.pathname.startsWith("/become-a-host")
+	const isOnDashboard = url.pathname.startsWith("/dashboard")
 	const isonFavorites = url.pathname.startsWith("/favorites")
 	const isOnMessages = url.pathname.startsWith("/messages")
 	const isOnBooking = url.pathname.startsWith("/bookings")
 	const isOnAccount = url.pathname.startsWith("/account")
+	const isOnSignin = url.pathname.startsWith("/signin")
 
 	const redirectResponse = (url: string | NextURL) => {
 		const response = NextResponse.redirect(url)
@@ -68,6 +71,18 @@ export function middleware(req: NextRequest) {
 	// Redirect users without a token trying to access any become-a-host/* path
 	if (!hasToken && isOnBecomeAHost) {
 		url.pathname = "/signin"
+		return redirectResponse(url)
+	}
+
+	// Redirect users without a token trying to access any dashboard/* path
+	if (!hasToken && isOnDashboard) {
+		url.pathname = "/signin"
+		return redirectResponse(url)
+	}
+
+	// Redirect users with a token trying to access any dashboard/* path
+	if (hasToken && isOnSignin) {
+		url.pathname = "/"
 		return redirectResponse(url)
 	}
 

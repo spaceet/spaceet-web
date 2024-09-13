@@ -19,3 +19,16 @@ export const generateUuid = () => {
 		return v.toString(16)
 	})
 }
+
+export const normalized = (path?: string): string => {
+	let normalPath = ""
+	if (path) {
+		if (path.split("/").length > 2) {
+			const pathParts = `/${path.split("/")[1]}/${path.split("/")[2]}`
+			normalPath = pathParts
+		} else {
+			normalPath = path
+		}
+	}
+	return normalPath
+}

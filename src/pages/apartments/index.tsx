@@ -16,7 +16,7 @@ const Page = () => {
 
 	return (
 		<>
-			<Seo title="" />
+			<Seo title="Apartments Listing" />
 			<Appbar />
 			<main className="container mx-auto my-12 flex flex-col gap-8">
 				<div className="flex w-full items-center justify-center"></div>

@@ -1,3 +1,5 @@
+import { RemixiconComponentType } from "@remixicon/react"
+
 import { currencyCodes } from "@/config"
 
 export type Maybe<T> = T | null
@@ -52,17 +54,19 @@ export type Node = {
 	__typename?: "Node"
 	id: string
 	createdAt: Date | string
-	deletedAt: Maybe<Date | string>
-	updatedAt: Maybe<Date | string>
+	deletedAt?: Maybe<Date | string>
+	updatedAt?: Maybe<Date | string>
 }
 
 export type UserProps = Node & {
 	__typename?: "User"
-	description: Maybe<string>
+	bio: Maybe<string>
 	email: string
 	firstName: string
 	imageUrl: string
+	isVerified: boolean
 	lastName: string
+	location?: Maybe<string>
 	phoneNumber: string
 	role: "user" | "host"
 	rating: number
@@ -92,7 +96,6 @@ export type PropertyProps = Node & {
 export type AmenityProps = Node & {
 	__typename?: "Amenity"
 	description: string
-	icon: string
 	name: AmenitiesIconName
 }
 
@@ -116,9 +119,7 @@ export type PaymentProps = Node & {
 }
 
 export type ReviewProps = Node & {
-	booking: BookingProps
 	comment: string
-	property: PropertyProps
 	rating: number
 	user: UserProps
 }
@@ -135,6 +136,14 @@ export type NotificationProps = Node & {
 	message: string
 	title: string
 	type: "success" | "error" | "info" | "warning"
+}
+
+export type LocationSearchProps = {
+	__typename?: "Location Search"
+	count: number
+	id: string
+	image: string
+	location: string
 }
 
 export const amenitiesIconNames = [
@@ -167,3 +176,14 @@ export const amenitiesIconNames = [
 ] as const
 
 export type AmenitiesIconName = (typeof amenitiesIconNames)[number]
+
+export interface ComponentUpdateProps {
+	active: string
+	components: {
+		name: string
+		icon: RemixiconComponentType
+	}[]
+	handlePrev: () => void
+	label: string
+	subtitle: string
+}

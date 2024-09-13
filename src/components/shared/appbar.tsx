@@ -1,5 +1,6 @@
 import { ChevronDown, Menu } from "lucide-react"
 import { RiUserLine } from "@remixicon/react"
+import { useRouter } from "next/router"
 import Image from "next/image"
 import Link from "next/link"
 import React from "react"
@@ -30,6 +31,9 @@ export const Appbar = () => {
 	const [open, setOpen] = React.useState(false)
 	const { language } = useGlobalStore()
 	const { user } = useUserStore()
+	const router = useRouter()
+
+	const isOnBecomeAHostPage = router.pathname === "/become-a-host"
 
 	return (
 		<nav
@@ -74,54 +78,64 @@ export const Appbar = () => {
 						</DialogContent>
 					</Dialog>
 					<Separator orientation="vertical" className="h-6" />
-					<Link href="/apartments" className="link">
-						Book a Space
-					</Link>
-					<Link href="/become-a-host" className="link">
-						Become a Host
-					</Link>
-				</div>
-				<div className="flex items-center gap-4">
-					{user ? (
-						<p className="font-medium capitalize text-neutral-900">{user.firstName}</p>
-					) : (
-						<Link href="/signin" className="link font-medium text-neutral-900">
-							Log In
-						</Link>
-					)}
-					{user ? (
-						<Popover open={isOpen} onOpenChange={setIsOpen}>
-							<PopoverTrigger asChild>
-								<button className="flex h-14 items-center gap-3 rounded-[36px] border px-3">
-									<Menu size={24} />
-									<Avatar className="size-10 border bg-primary-100 text-white">
-										<AvatarImage src={user.imageUrl} alt={user.firstName} />
-										<AvatarFallback className="text-sm font-medium">
-											{getInitials(`${user.firstName} ${user.lastName}`)}
-										</AvatarFallback>
-									</Avatar>
-								</button>
-							</PopoverTrigger>
-							<PopoverContent className="w-[180px] bg-white p-0">
-								<UserMenu onClose={() => setIsOpen(false)} />
-							</PopoverContent>
-						</Popover>
-					) : (
-						<Popover open={isOpen} onOpenChange={setIsOpen}>
-							<PopoverTrigger asChild>
-								<button className="flex h-14 items-center gap-3 rounded-[36px] border px-3">
-									<Menu size={24} />
-									<div className="grid size-10 place-items-center rounded-full bg-primary-100 text-white">
-										<RiUserLine size={24} />
-									</div>
-								</button>
-							</PopoverTrigger>
-							<PopoverContent className="w-[180px] bg-white p-0">
-								<UnuserMenu onClose={() => setIsOpen(false)} />
-							</PopoverContent>
-						</Popover>
+					{!isOnBecomeAHostPage && (
+						<div className="flex items-center gap-4">
+							<Link href="/apartments" className="link">
+								Book a Space
+							</Link>
+							<Link href="/become-a-host" className="link">
+								Become a Host
+							</Link>
+						</div>
 					)}
 				</div>
+				{isOnBecomeAHostPage ? (
+					<div className="flex items-center gap-4">
+						<Link href="/">Go to Homepage</Link>
+					</div>
+				) : (
+					<div className="flex items-center gap-4">
+						{user ? (
+							<p className="font-medium capitalize text-neutral-900">{user.firstName}</p>
+						) : (
+							<Link href="/signin" className="link font-medium text-neutral-900">
+								Log In
+							</Link>
+						)}
+						{user ? (
+							<Popover open={isOpen} onOpenChange={setIsOpen}>
+								<PopoverTrigger asChild>
+									<button className="flex h-14 items-center gap-3 rounded-[36px] border px-3">
+										<Menu size={24} />
+										<Avatar className="size-10 border bg-primary-100 text-white">
+											<AvatarImage src={user.imageUrl} alt={user.firstName} />
+											<AvatarFallback className="text-sm font-medium">
+												{getInitials(`${user.firstName} ${user.lastName}`)}
+											</AvatarFallback>
+										</Avatar>
+									</button>
+								</PopoverTrigger>
+								<PopoverContent className="w-[180px] bg-white p-0">
+									<UserMenu onClose={() => setIsOpen(false)} />
+								</PopoverContent>
+							</Popover>
+						) : (
+							<Popover open={isOpen} onOpenChange={setIsOpen}>
+								<PopoverTrigger asChild>
+									<button className="flex h-14 items-center gap-3 rounded-[36px] border px-3">
+										<Menu size={24} />
+										<div className="grid size-10 place-items-center rounded-full bg-primary-100 text-white">
+											<RiUserLine size={24} />
+										</div>
+									</button>
+								</PopoverTrigger>
+								<PopoverContent className="w-[180px] bg-white p-0">
+									<UnuserMenu onClose={() => setIsOpen(false)} />
+								</PopoverContent>
+							</Popover>
+						)}
+					</div>
+				)}
 			</div>
 		</nav>
 	)

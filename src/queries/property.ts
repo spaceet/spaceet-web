@@ -1,4 +1,4 @@
-import { HttpResponse, Pagination, PropertyProps } from "@/types"
+import { HttpResponse, LocationSearchProps, Pagination, PropertyProps } from "@/types"
 import { endpoints } from "@/config"
 import { axios } from "@/lib"
 
@@ -9,7 +9,12 @@ export interface PaginationDto {
 
 export interface AddPropertyDto {}
 
-export interface SearchPropertyDto {}
+export interface SearchPropertyDto {
+	bedrooms: number
+	location: string
+	price: number
+	propertyType: string
+}
 
 const GetAllPropertiesQuery = async ({ limit, page }: PaginationDto) => {
 	return axios
@@ -17,13 +22,19 @@ const GetAllPropertiesQuery = async ({ limit, page }: PaginationDto) => {
 		.then((res) => res.data)
 }
 
+const GetPropertiesByLocationQuery = async () => {
+	return axios
+		.get<HttpResponse<LocationSearchProps[]>>(endpoints().properties.get_by_location)
+		.then((res) => res.data)
+}
+
 const GetPropertyQuery = async (id: string) => {
 	return axios.get<PropertyProps>(endpoints(id).properties.get_one).then((res) => res.data)
 }
 
-const SearchPropertiesQuery = async ({}: SearchPropertyDto) => {
+const SearchPropertiesQuery = async (query: SearchPropertyDto) => {
 	return axios
-		.get<Pagination<PropertyProps>>(endpoints(null, {}).properties.search)
+		.get<Pagination<PropertyProps>>(endpoints(null, { ...query }).properties.search)
 		.then((res) => res.data)
 }
 
@@ -49,6 +60,7 @@ export {
 	AddPropertyMutation,
 	DeletePropertyMutation,
 	GetAllPropertiesQuery,
+	GetPropertiesByLocationQuery,
 	GetPropertyQuery,
 	SearchPropertiesQuery,
 	UpdatePropertyMutation,

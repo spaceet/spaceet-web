@@ -1,30 +1,61 @@
-import { RiCheckboxCircleLine, RiErrorWarningLine, RiHome7Line, RiUserLine } from "@remixicon/react"
+import {
+	RiCheckboxCircleLine,
+	RiCloseCircleLine,
+	RiHome8Line,
+	RiUploadCloud2Line,
+	RiUserLine,
+	RiVerifiedBadgeLine,
+	RiWaterFlashLine,
+} from "@remixicon/react"
 
-import { Policies, ProfileSetup, PropertyListing, Welcome } from "@/components/become-a-host"
+import {
+	Cancellation,
+	Finish,
+	IdentityVerification,
+	Policies,
+	Profile,
+	PropertyListing,
+	UploadPhotos,
+	Utilities,
+	VerifyProperty,
+	Welcome,
+} from "@/components/become-a-host"
 
 export const become_a_host = [
 	{
-		label: "Welcome",
-		icon: RiCheckboxCircleLine,
-		components: [Welcome],
-		sublist: [],
+		label: "Welcome to Spaccet for Hosts",
+		subtitle: "",
+		components: [{ name: "Welcome", component: Welcome, icon: RiUserLine }],
 	},
 	{
-		label: "Profile setup",
-		icon: RiUserLine,
-		components: [ProfileSetup],
-		sublist: [],
+		label: "Personal Information",
+		subtitle: "Identity Verification Process",
+		components: [
+			{ name: "Personal Details", component: Profile, icon: RiUserLine },
+			{ name: "Verify Identity", component: IdentityVerification, icon: RiVerifiedBadgeLine },
+		],
 	},
 	{
-		label: "Property listing",
-		icon: RiHome7Line,
-		components: [PropertyListing],
-		sublist: ["Details", "Upload Images", "Verify ownership", "Others"],
+		label: "Property Information",
+		subtitle: "Property Lisitng Process",
+		components: [
+			{ name: "Property Details", component: PropertyListing, icon: RiHome8Line },
+			{ name: "Upload Photos", component: UploadPhotos, icon: RiUploadCloud2Line },
+			{ name: "Verify Property", component: VerifyProperty, icon: RiVerifiedBadgeLine },
+			{ name: "Utilities", component: Utilities, icon: RiWaterFlashLine },
+		],
 	},
 	{
-		label: "Policies",
-		icon: RiErrorWarningLine,
-		components: [Policies],
-		sublist: [],
+		label: "Apartment Rules and Regulations",
+		subtitle: "Policy Information Process",
+		components: [
+			{ name: "House Rules", component: Policies, icon: RiHome8Line },
+			{ name: "Cancellation", component: Cancellation, icon: RiCloseCircleLine },
+		],
+	},
+	{
+		label: "Finish",
+		subtitle: "",
+		components: [{ name: "Finish", component: Finish, icon: RiCheckboxCircleLine }],
 	},
 ]

@@ -351,7 +351,7 @@ const Page = () => {
 						<div className="flex h-full flex-1 flex-col justify-between">
 							<div className="flex flex-col gap-2">
 								<p className="font-medium">About {apartment.host.firstName}</p>
-								<p className="font-light text-neutral-500 lg:text-sm">{apartment.host.description}</p>
+								<p className="font-light text-neutral-500 lg:text-sm">{apartment.host.bio}</p>
 							</div>
 							<div className="flex w-full items-center justify-between">
 								<p className="text-neutral-400 lg:text-sm">
