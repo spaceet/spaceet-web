@@ -37,7 +37,7 @@ export const UserMenu = ({ onClose }: Props) => {
 								<DialogDescription>Are you sure you want to logout?</DialogDescription>
 								<div className="my-4 grid w-full grid-cols-2 gap-5">
 									<Button onClick={() => setOpen(false)}>Cancel</Button>
-									<Button onClick={() => signOut()} variant="destructive">
+									<Button onClick={() => signOut({ redirectTo: "/" })} variant="destructive">
 										Logout
 									</Button>
 								</div>

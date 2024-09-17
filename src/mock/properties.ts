@@ -9,7 +9,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.",
 				id: "21ff526a-2096-4a79-88fa-1876765df9c6",
-				name: "kitchen",
+				name: "dedicated-kitchen",
 				updatedAt: null,
 			},
 			{
@@ -18,7 +18,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.",
 				id: "fd3a85ef-e79e-40d6-a49a-bf33a7b47d22",
-				name: "microwave",
+				name: "gym",
 				updatedAt: null,
 			},
 			{
@@ -27,7 +27,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.",
 				id: "734fae36-94ac-4448-b1eb-2e09747d6a4b",
-				name: "laundry",
+				name: "washing-machine",
 				updatedAt: null,
 			},
 		],
@@ -69,6 +69,7 @@ export const properties: PropertyProps[] = [
 			"Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.",
 		],
 		price: 50000,
+		propertyType: "apartment",
 		service_charge: 5000,
 		updatedAt: null,
 		description:
@@ -85,7 +86,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.",
 				id: "3a3e93d4-c0ad-45e1-afaf-8f99c6be5f1a",
-				name: "kitchen",
+				name: "dedicated-kitchen",
 				updatedAt: null,
 			},
 			{
@@ -94,7 +95,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.",
 				id: "fab6e084-545a-4f2a-a301-3a887daa5d22",
-				name: "streaming-service",
+				name: "streaming-services",
 				updatedAt: null,
 			},
 			{
@@ -103,7 +104,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.",
 				id: "34d55362-3f82-4e9b-a602-5a99e2bfd343",
-				name: "parking",
+				name: "parking-space",
 				updatedAt: null,
 			},
 			{
@@ -112,7 +113,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.",
 				id: "14bcb66a-6150-444c-a566-c060018710b0",
-				name: "elevator",
+				name: "handicap-accessible",
 				updatedAt: null,
 			},
 		],
@@ -154,6 +155,7 @@ export const properties: PropertyProps[] = [
 			"Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.\n\nAenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.",
 		],
 		price: 45000,
+		propertyType: "condo",
 		service_charge: 4500,
 		updatedAt: null,
 		description:
@@ -170,7 +172,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.\n\nCras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.",
 				id: "a903f9eb-59cd-405c-be3b-bdc2775575fa",
-				name: "elevator",
+				name: "hot-tub",
 				updatedAt: null,
 			},
 			{
@@ -178,7 +180,7 @@ export const properties: PropertyProps[] = [
 				deletedAt: null,
 				description: "Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.",
 				id: "5540e035-2db7-44e3-89dd-9f1e6efb6258",
-				name: "pet-friendly",
+				name: "piano",
 				updatedAt: null,
 			},
 			{
@@ -196,7 +198,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.\n\nMorbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.",
 				id: "4a1a7e16-7518-4ebd-9ca7-ab5f40e3ee9a",
-				name: "fitness",
+				name: "gym",
 				updatedAt: null,
 			},
 			{
@@ -223,7 +225,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.",
 				id: "0899969b-3b5c-4fae-8381-7506e8ae830c",
-				name: "parking",
+				name: "parking-space",
 				updatedAt: null,
 			},
 		],
@@ -265,6 +267,7 @@ export const properties: PropertyProps[] = [
 			"In congue. Etiam justo. Etiam pretium iaculis justo.\n\nIn hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.",
 		],
 		price: 60000,
+		propertyType: "apartment",
 		service_charge: 6000,
 		updatedAt: null,
 		description:
@@ -281,7 +284,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.",
 				id: "a533628d-0918-44af-9c68-dbcb507026ea",
-				name: "kitchen",
+				name: "dedicated-kitchen",
 				updatedAt: null,
 			},
 			{
@@ -289,7 +292,7 @@ export const properties: PropertyProps[] = [
 				deletedAt: null,
 				description: "Sed ante. Vivamus tortor. Duis mattis egestas metus.",
 				id: "06539ff4-b48c-4fe0-a6f0-a6d311330d8f",
-				name: "parking",
+				name: "parking-space",
 				updatedAt: null,
 			},
 			{
@@ -298,7 +301,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.",
 				id: "1dad9fce-9412-47be-ab2f-27b55d2a965d",
-				name: "parking",
+				name: "streaming-services",
 				updatedAt: null,
 			},
 			{
@@ -350,6 +353,7 @@ export const properties: PropertyProps[] = [
 			"Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.",
 		],
 		price: 100000,
+		propertyType: "duplex",
 		service_charge: 10000,
 		updatedAt: null,
 		description:
@@ -366,7 +370,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Sed ante. Vivamus tortor. Duis mattis egestas metus.\n\nAenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.",
 				id: "32071dec-086a-4ee2-a402-f2b21702d2fc",
-				name: "streaming-service",
+				name: "streaming-services",
 				updatedAt: null,
 			},
 			{
@@ -375,7 +379,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.\n\nCum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
 				id: "3ef1e24f-57c6-41b2-8cbe-6f54a39fbf7f",
-				name: "balcony",
+				name: "patio",
 				updatedAt: null,
 			},
 			{
@@ -384,7 +388,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.\n\nDonec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.",
 				id: "d4fe3bf7-a5c1-4993-9f7c-a5e0f2a87e95",
-				name: "refrigerator",
+				name: "air-conditioner",
 				updatedAt: null,
 			},
 			{
@@ -393,7 +397,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.\n\nMaecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.",
 				id: "6e565cb3-806c-4261-941a-eb8f6c402e27",
-				name: "kitchen",
+				name: "dedicated-kitchen",
 				updatedAt: null,
 			},
 			{
@@ -420,7 +424,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.\n\nNulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.",
 				id: "d154b947-119e-412e-b618-e8536675d503",
-				name: "garden",
+				name: "ps5",
 				updatedAt: null,
 			},
 			{
@@ -429,7 +433,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.",
 				id: "6a7568b2-8974-4e6e-864f-6c0add5a79c4",
-				name: "heating",
+				name: "water-heater",
 				updatedAt: null,
 			},
 			{
@@ -438,7 +442,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.\n\nMauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.",
 				id: "90e3cc05-af7c-4837-b79b-7b23f41f60c4",
-				name: "free-wifi",
+				name: "wifi",
 				updatedAt: null,
 			},
 		],
@@ -477,6 +481,7 @@ export const properties: PropertyProps[] = [
 		},
 		policies: ["Sed ante. Vivamus tortor. Duis mattis egestas metus."],
 		price: 55000,
+		propertyType: "",
 		service_charge: 5500,
 		updatedAt: null,
 		description:
@@ -493,7 +498,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.",
 				id: "7ddc092a-e786-4713-bd0d-bd1a6285a548",
-				name: "cable",
+				name: "streaming-services",
 				updatedAt: null,
 			},
 			{
@@ -502,7 +507,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.",
 				id: "c4d2c51a-cfd6-4396-be59-96a1f585be39",
-				name: "laundry",
+				name: "television",
 				updatedAt: null,
 			},
 			{
@@ -529,7 +534,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.",
 				id: "b73024ff-5c82-45b7-8d08-df7bef4b9428",
-				name: "streaming-service",
+				name: "streaming-services",
 				updatedAt: null,
 			},
 		],
@@ -571,6 +576,7 @@ export const properties: PropertyProps[] = [
 			"In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.",
 		],
 		price: 78000,
+		propertyType: "",
 		service_charge: 7800,
 		updatedAt: null,
 		description:
@@ -587,7 +593,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.",
 				id: "2569f5fb-4d20-40b9-9292-4f2add41fabb",
-				name: "laundry",
+				name: "washing-machine",
 				updatedAt: null,
 			},
 			{
@@ -614,7 +620,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.\n\nPraesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.",
 				id: "2c0003fa-2f44-4b91-b884-f5f2bff6d001",
-				name: "free-wifi",
+				name: "wifi",
 				updatedAt: null,
 			},
 			{
@@ -623,7 +629,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.\n\nFusce consequat. Nulla nisl. Nunc nisl.",
 				id: "3ddf9d4e-ad44-4bf2-8b90-f709d01c2e65",
-				name: "garden",
+				name: "patio",
 				updatedAt: null,
 			},
 			{
@@ -640,7 +646,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.\n\nAliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.",
 				id: "d3037a36-e761-49c1-97e9-fca1e3f6fc1d",
-				name: "laundry",
+				name: "washing-machine",
 				updatedAt: null,
 			},
 			{
@@ -649,7 +655,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.",
 				id: "b843a0ec-5f2d-445a-bae4-3fe901dffa58",
-				name: "cable",
+				name: "television",
 				updatedAt: null,
 			},
 		],
@@ -691,6 +697,7 @@ export const properties: PropertyProps[] = [
 			"Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.",
 		],
 		price: 90000,
+		propertyType: "",
 		service_charge: 9000,
 		updatedAt: null,
 		description:
@@ -707,7 +714,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.",
 				id: "56be4d85-a7da-4d56-854a-5ddf8d9887ab",
-				name: "laundry",
+				name: "washing-machine",
 				updatedAt: null,
 			},
 			{
@@ -716,7 +723,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.\n\nCras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.",
 				id: "cd39abe0-cb3e-4ad9-ad06-fd060c0da2ee",
-				name: "parking",
+				name: "parking-space",
 				updatedAt: null,
 			},
 			{
@@ -725,7 +732,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.",
 				id: "5728f010-498b-4cb3-856f-2397cc6d6798",
-				name: "heating",
+				name: "water-heater",
 				updatedAt: null,
 			},
 			{
@@ -734,7 +741,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.\n\nInteger tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.",
 				id: "fff5cba5-eddc-4aff-b352-7a3e5de47bba",
-				name: "laundry",
+				name: "washing-machine",
 				updatedAt: null,
 			},
 			{
@@ -743,7 +750,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.",
 				id: "ddcc7b7e-63b9-4f25-ab0f-4decd53132e5",
-				name: "elevator",
+				name: "refrigerator",
 				updatedAt: null,
 			},
 			{
@@ -752,7 +759,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.",
 				id: "0562fb5e-f951-44f2-b739-91dce8508b36",
-				name: "dishwasher",
+				name: "security-system",
 				updatedAt: null,
 			},
 			{
@@ -761,7 +768,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Phasellus in felis. Donec semper sapien a libero. Nam dui.\n\nProin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.",
 				id: "aea8ae0e-3e4f-44f3-8dff-a30de74dd40a",
-				name: "kitchen",
+				name: "sound-system",
 				updatedAt: null,
 			},
 		],
@@ -803,6 +810,7 @@ export const properties: PropertyProps[] = [
 			"In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.\n\nSuspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.",
 		],
 		price: 68000,
+		propertyType: "",
 		service_charge: 6800,
 		updatedAt: null,
 		description:
@@ -819,7 +827,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
 				id: "ba994e2e-fdbe-486e-ab8e-47b5814b6d78",
-				name: "kitchen",
+				name: "sound-system",
 				updatedAt: null,
 			},
 			{
@@ -828,7 +836,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.\n\nCras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
 				id: "8248e3b2-fe46-4b9d-84fe-d40cdb166f86",
-				name: "cable",
+				name: "television",
 				updatedAt: null,
 			},
 			{
@@ -836,7 +844,7 @@ export const properties: PropertyProps[] = [
 				deletedAt: null,
 				description: "Phasellus in felis. Donec semper sapien a libero. Nam dui.",
 				id: "99eec463-4af4-4b28-88c5-6ffe3e8e3597",
-				name: "pet-friendly",
+				name: "bbq-grill",
 				updatedAt: null,
 			},
 		],
@@ -877,6 +885,7 @@ export const properties: PropertyProps[] = [
 			"In congue. Etiam justo. Etiam pretium iaculis justo.\n\nIn hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.",
 		],
 		price: 60000,
+		propertyType: "",
 		service_charge: 6000,
 		updatedAt: null,
 		description:
@@ -893,7 +902,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.",
 				id: "a371de60-d021-4689-bb90-32af76183ee7",
-				name: "fitness",
+				name: "gym",
 				updatedAt: null,
 			},
 			{
@@ -902,7 +911,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.\n\nNam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.",
 				id: "ca66deca-c52d-49b6-bec6-0d773fa38cad",
-				name: "fireplace",
+				name: "fire-pit",
 				updatedAt: null,
 			},
 			{
@@ -911,7 +920,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.",
 				id: "5cf10ea4-ecfb-4834-8deb-20f76a7e3a58",
-				name: "balcony",
+				name: "patio",
 				updatedAt: null,
 			},
 			{
@@ -920,7 +929,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.\n\nQuisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.",
 				id: "41232839-e4fa-4291-b9c5-a27d4b85f078",
-				name: "elevator",
+				name: "refrigerator",
 				updatedAt: null,
 			},
 			{
@@ -929,7 +938,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.\n\nIn hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.",
 				id: "7b6b8296-3549-4216-9f08-db904ccc9101",
-				name: "kitchen",
+				name: "sound-system",
 				updatedAt: null,
 			},
 			{
@@ -938,7 +947,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.",
 				id: "66d8da6e-edc0-443f-848c-0ea0a73c2b37",
-				name: "jacuzzi",
+				name: "hot-tub",
 				updatedAt: null,
 			},
 			{
@@ -947,7 +956,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.\n\nSuspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.",
 				id: "747e17ad-5832-49ac-9bdd-746f616170ff",
-				name: "heating",
+				name: "water-heater",
 				updatedAt: null,
 			},
 		],
@@ -990,6 +999,7 @@ export const properties: PropertyProps[] = [
 			"Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.\n\nMorbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.",
 		],
 		price: 75000,
+		propertyType: "",
 		service_charge: 7500,
 		updatedAt: null,
 		description:
@@ -1047,6 +1057,7 @@ export const properties: PropertyProps[] = [
 			"Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.",
 		],
 		price: 95334,
+		propertyType: "",
 		service_charge: 9736,
 		description:
 			"Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.\n\nInteger tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.\n\nPraesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.\n\nMorbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.",
@@ -1062,7 +1073,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"In congue. Etiam justo. Etiam pretium iaculis justo.\n\nIn hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.",
 				id: "cc4adfe0-82ef-4cb6-9c41-36f828e5995a",
-				name: "balcony",
+				name: "patio",
 				updatedAt: null,
 			},
 		],
@@ -1104,6 +1115,7 @@ export const properties: PropertyProps[] = [
 			"Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.\n\nIn hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.",
 		],
 		price: 77285,
+		propertyType: "",
 		service_charge: 9793,
 		description:
 			"Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.\n\nSed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.\n\nPellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.\n\nCum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
@@ -1119,7 +1131,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.\n\nMorbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.",
 				id: "a8fbc5d5-c337-458d-a1e7-1df5d25d6f8f",
-				name: "balcony",
+				name: "patio",
 				updatedAt: null,
 			},
 			{
@@ -1128,7 +1140,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.\n\nAenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.\n\nCurabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.",
 				id: "9bad10b5-6682-474b-9f45-71e1e80ba9a4",
-				name: "pet-friendly",
+				name: "bbq-grill",
 				updatedAt: null,
 			},
 		],
@@ -1168,6 +1180,7 @@ export const properties: PropertyProps[] = [
 			"Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.\n\nPraesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.",
 		],
 		price: 55230,
+		propertyType: "",
 		service_charge: 9192,
 		description:
 			"Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.\n\nMorbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.\n\nFusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.",
@@ -1192,7 +1205,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.\n\nQuisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.",
 				id: "ba128aef-33bb-42bb-bc26-4bc163577103",
-				name: "garden",
+				name: "patio",
 				updatedAt: null,
 			},
 			{
@@ -1201,7 +1214,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.\n\nDuis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.",
 				id: "d0fc936b-cf25-4463-9b92-07ee0d7a939b",
-				name: "pet-friendly",
+				name: "bbq-grill",
 				updatedAt: null,
 			},
 			{
@@ -1251,6 +1264,7 @@ export const properties: PropertyProps[] = [
 			"Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.",
 		],
 		price: 99835,
+		propertyType: "",
 		service_charge: 5985,
 		description:
 			"Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.\n\nMauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.\n\nNullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.\n\nIn quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.",
@@ -1266,7 +1280,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.",
 				id: "2a168536-51ed-48b3-819d-4850ef9a93d5",
-				name: "bath",
+				name: "hot-tub",
 				updatedAt: null,
 			},
 			{
@@ -1316,6 +1330,7 @@ export const properties: PropertyProps[] = [
 			"Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.",
 		],
 		price: 53962,
+		propertyType: "",
 		service_charge: 8492,
 		description:
 			"Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.\n\nIn quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.\n\nMaecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.",
@@ -1331,7 +1346,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.\n\nProin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.",
 				id: "c2dc1146-bb23-4ea3-9c61-162fa9388ad7",
-				name: "laundry",
+				name: "washing-machine",
 				updatedAt: null,
 			},
 			{
@@ -1339,7 +1354,7 @@ export const properties: PropertyProps[] = [
 				deletedAt: null,
 				description: "Sed ante. Vivamus tortor. Duis mattis egestas metus.",
 				id: "909bfb74-8026-4fdf-ba19-ecf157ffa1bf",
-				name: "airport",
+				name: "first-aid-kit",
 				updatedAt: null,
 			},
 		],
@@ -1380,6 +1395,7 @@ export const properties: PropertyProps[] = [
 			"Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.",
 		],
 		price: 93970,
+		propertyType: "",
 		service_charge: 5037,
 		description:
 			"Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.\n\nMorbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.\n\nFusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.",
@@ -1395,7 +1411,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Fusce consequat. Nulla nisl. Nunc nisl.\n\nDuis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.\n\nIn hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.",
 				id: "9c836df2-d82d-44b3-89f9-d9fdb4bd3cce",
-				name: "airport",
+				name: "first-aid-kit",
 				updatedAt: null,
 			},
 			{
@@ -1404,7 +1420,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.\n\nNullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.",
 				id: "b06d60a7-df24-4472-a8da-4dba81c21c8f",
-				name: "parking",
+				name: "parking-space",
 				updatedAt: null,
 			},
 		],
@@ -1444,6 +1460,7 @@ export const properties: PropertyProps[] = [
 			"Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.",
 		],
 		price: 57770,
+		propertyType: "",
 		service_charge: 9643,
 		description:
 			"In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.\n\nMaecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.\n\nMaecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.",
@@ -1484,7 +1501,7 @@ export const properties: PropertyProps[] = [
 				deletedAt: null,
 				description: "Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.",
 				id: "d8b84410-0f7e-4d8e-8fe5-0dd6abd587fa",
-				name: "bed",
+				name: "snooker-table",
 				updatedAt: null,
 			},
 		],
@@ -1524,6 +1541,7 @@ export const properties: PropertyProps[] = [
 			"Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.\n\nIn quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.",
 		],
 		price: 75401,
+		propertyType: "",
 		service_charge: 8250,
 		description:
 			"Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.\n\nCurabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.\n\nInteger tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.",
@@ -1547,7 +1565,7 @@ export const properties: PropertyProps[] = [
 				deletedAt: null,
 				description: "Sed ante. Vivamus tortor. Duis mattis egestas metus.",
 				id: "ce010c84-d144-45c1-bcf0-f22d2e1832a2",
-				name: "cable",
+				name: "television",
 				updatedAt: null,
 			},
 		],
@@ -1588,6 +1606,7 @@ export const properties: PropertyProps[] = [
 			"Fusce consequat. Nulla nisl. Nunc nisl.",
 		],
 		price: 67497,
+		propertyType: "",
 		service_charge: 5168,
 		description:
 			"Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.\n\nDonec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.\n\nDuis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.",
@@ -1603,7 +1622,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.\n\nFusce consequat. Nulla nisl. Nunc nisl.",
 				id: "4b3aeada-7e7a-4e10-b789-7ffe4b6ccd7f",
-				name: "airport",
+				name: "first-aid-kit",
 				updatedAt: null,
 			},
 			{
@@ -1612,7 +1631,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.\n\nIn hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.",
 				id: "1ff90139-049a-4c9e-a275-d5f2fc62a0e5",
-				name: "microwave",
+				name: "ps5",
 				updatedAt: null,
 			},
 		],
@@ -1653,6 +1672,7 @@ export const properties: PropertyProps[] = [
 			"Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.",
 		],
 		price: 89808,
+		propertyType: "",
 		service_charge: 7194,
 		description:
 			"Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.\n\nProin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.\n\nDuis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.\n\nDonec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.",
@@ -1668,7 +1688,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.",
 				id: "6af61111-5b34-4799-931e-66bf4a47a5b6",
-				name: "streaming-service",
+				name: "streaming-services",
 				updatedAt: null,
 			},
 		],
@@ -1709,6 +1729,7 @@ export const properties: PropertyProps[] = [
 			"Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.",
 		],
 		price: 91106,
+		propertyType: "",
 		service_charge: 8472,
 		description:
 			"Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.\n\nCum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.\n\nEtiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.\n\nPraesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.",
@@ -1724,7 +1745,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.",
 				id: "4733f6e5-95cc-4d0d-ba5e-f63d532fdc8f",
-				name: "microwave",
+				name: "lake-access",
 				updatedAt: null,
 			},
 			{
@@ -1742,7 +1763,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.\n\nFusce consequat. Nulla nisl. Nunc nisl.",
 				id: "ac051506-11fc-428c-8e05-71a7244f5ac4",
-				name: "airport",
+				name: "first-aid-kit",
 				updatedAt: null,
 			},
 		],
@@ -1783,6 +1804,7 @@ export const properties: PropertyProps[] = [
 			"Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.\n\nDuis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.",
 		],
 		price: 57578,
+		propertyType: "",
 		service_charge: 8056,
 		description:
 			"Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.\n\nMaecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.\n\nNullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.\n\nMorbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.",
@@ -1798,7 +1820,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.\n\nCum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.\n\nEtiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.",
 				id: "f046dbf3-195c-4587-a214-df998479b570",
-				name: "bed",
+				name: "snooker-table",
 				updatedAt: null,
 			},
 			{
@@ -1807,7 +1829,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Phasellus in felis. Donec semper sapien a libero. Nam dui.\n\nProin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.",
 				id: "fe514950-c774-46d1-bf8f-6493db5e6645",
-				name: "microwave",
+				name: "lake-access",
 				updatedAt: null,
 			},
 		],
@@ -1847,6 +1869,7 @@ export const properties: PropertyProps[] = [
 			"Fusce consequat. Nulla nisl. Nunc nisl.\n\nDuis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.",
 		],
 		price: 65046,
+		propertyType: "",
 		service_charge: 8171,
 		description:
 			"Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.\n\nPraesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.\n\nMorbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.",
@@ -1870,7 +1893,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.\n\nNullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.",
 				id: "51661afe-09c0-4abc-a65f-c44d45390b94",
-				name: "parking",
+				name: "parking-space",
 				updatedAt: null,
 			},
 			{
@@ -1921,6 +1944,7 @@ export const properties: PropertyProps[] = [
 			"Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.\n\nPraesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.",
 		],
 		price: 62706,
+		propertyType: "",
 		service_charge: 9640,
 		description:
 			"Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.\n\nDonec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.\n\nDuis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.\n\nIn sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.",
@@ -1936,7 +1960,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.\n\nMaecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.",
 				id: "22d3e863-ffe9-4935-a13d-3c3711ef6cb3",
-				name: "parking",
+				name: "parking-space",
 				updatedAt: null,
 			},
 			{
@@ -1954,7 +1978,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Fusce consequat. Nulla nisl. Nunc nisl.\n\nDuis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.",
 				id: "f8e28e82-3191-4dcd-ae7c-d202bd96178f",
-				name: "parking",
+				name: "parking-space",
 				updatedAt: null,
 			},
 		],
@@ -1994,6 +2018,7 @@ export const properties: PropertyProps[] = [
 			"Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.\n\nPhasellus in felis. Donec semper sapien a libero. Nam dui.",
 		],
 		price: 60842,
+		propertyType: "",
 		service_charge: 6500,
 		description:
 			"In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.\n\nNulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.\n\nCras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.\n\nQuisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.",
@@ -2009,7 +2034,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus.",
 				id: "97c50a81-d115-4263-8f8d-851e9ce9a995",
-				name: "pet-friendly",
+				name: "bbq-grill",
 				updatedAt: null,
 			},
 			{
@@ -2025,7 +2050,7 @@ export const properties: PropertyProps[] = [
 				deletedAt: null,
 				description: "Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.",
 				id: "90449d7f-1f8e-4388-96ea-7a39ae43eca7",
-				name: "jacuzzi",
+				name: "hot-tub",
 				updatedAt: null,
 			},
 		],
@@ -2065,6 +2090,7 @@ export const properties: PropertyProps[] = [
 			"Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.",
 		],
 		price: 90651,
+		propertyType: "",
 		service_charge: 8552,
 		description:
 			"Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.\n\nPhasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.\n\nProin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.\n\nDuis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.",
@@ -2080,7 +2106,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.",
 				id: "af4dfbee-4177-42c8-931e-9376c288e4a3",
-				name: "pet-friendly",
+				name: "bbq-grill",
 				updatedAt: null,
 			},
 			{
@@ -2089,7 +2115,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.\n\nProin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.\n\nAenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.",
 				id: "53c8bf52-aef5-42c9-8e0a-dfe968fd412a",
-				name: "cable",
+				name: "television",
 				updatedAt: null,
 			},
 		],
@@ -2130,6 +2156,7 @@ export const properties: PropertyProps[] = [
 			"Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.",
 		],
 		price: 57902,
+		propertyType: "",
 		service_charge: 6018,
 		description:
 			"Phasellus in felis. Donec semper sapien a libero. Nam dui.\n\nProin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.\n\nInteger ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.\n\nNam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.",
@@ -2145,7 +2172,7 @@ export const properties: PropertyProps[] = [
 				description:
 					"Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.\n\nMaecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.",
 				id: "bc07ac6d-b779-472f-884b-c03c8ffe5a34",
-				name: "fitness",
+				name: "gym",
 				updatedAt: null,
 			},
 			{
@@ -2196,6 +2223,7 @@ export const properties: PropertyProps[] = [
 			"Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.\n\nMaecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.",
 		],
 		price: 79958,
+		propertyType: "",
 		service_charge: 6258,
 		description:
 			"Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.\n\nSed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.\n\nPellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.",

@@ -2,16 +2,29 @@ import { RiArrowLeftSLine } from "@remixicon/react"
 import Link from "next/link"
 import React from "react"
 
+import { FadeTransition, Seo } from "../shared"
 import { ComponentUpdateProps } from "@/types"
 import { capitalizeWords } from "@/lib"
-import { Seo } from "../shared"
 
-const Page = ({ active, components, handlePrev, label, subtitle }: ComponentUpdateProps) => {
+const Page = ({
+	active,
+	components,
+	handleGoTo,
+	handlePrev,
+	label,
+	subtitle,
+	updateCanProceed,
+}: ComponentUpdateProps) => {
+	React.useEffect(() => {
+		updateCanProceed(true)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
+
 	return (
 		<>
 			<Seo title={capitalizeWords(label)} description="Become a Host" />
-			<div className="grid h-full w-full place-items-center pt-[72px]">
-				<div className="grid h-full w-full grid-cols-3">
+			<FadeTransition className="my-[72px] grid w-full place-items-center">
+				<div className="grid h-[calc(100vh-209px)] w-full grid-cols-3">
 					<div className="w-full">
 						<div className="flex w-[329px] flex-col gap-4">
 							<button onClick={handlePrev} className="flex items-center font-semibold">
@@ -29,11 +42,12 @@ const Page = ({ active, components, handlePrev, label, subtitle }: ComponentUpda
 								<p className="text-xs text-neutral-400">{subtitle}</p>
 								<div className="flex w-full flex-col gap-3">
 									{components.map(({ icon: Icon, name }, index) => (
-										<div
+										<button
+											onClick={() => handleGoTo(index)}
 											key={index}
 											className={`flex w-full items-center gap-1 rounded-md p-2 font-medium ${active === name ? "bg-neutral-200" : ""}`}>
 											<Icon size={20} /> {name}
-										</div>
+										</button>
 									))}
 								</div>
 							</div>
@@ -41,7 +55,7 @@ const Page = ({ active, components, handlePrev, label, subtitle }: ComponentUpda
 					</div>
 					<div className="col-span-2 h-full w-full"></div>
 				</div>
-			</div>
+			</FadeTransition>
 		</>
 	)
 }

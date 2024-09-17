@@ -7,7 +7,7 @@ import { Maybe, UserProps } from "@/types"
 interface UserStore {
 	user: Maybe<UserProps>
 	signIn: (user: UserProps, token: string) => void
-	signOut: (options?: { soft?: boolean }) => void
+	signOut: (options?: { redirectTo?: string; soft?: boolean }) => void
 }
 
 const initialState: UserStore = {
@@ -39,7 +39,7 @@ const useUserStore = createPersistMiddleware<UserStore>("spaceet-user", (set) =>
 			console.error("sign out error:", error)
 		} finally {
 			window.localStorage.removeItem("spaceet-user")
-			window.location.replace("/")
+			window.location.replace(options?.redirectTo || "/")
 		}
 	},
 }))

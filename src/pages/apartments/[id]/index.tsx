@@ -34,7 +34,7 @@ const Page = () => {
 	const [dateDifference, setDateDifference] = React.useState(0)
 	// const [coords, setCoords] = React.useState()
 
-	const minimumCheckInDate = addDays(new Date(), 14).toISOString().split("T")[0]
+	const minimumCheckInDate = addDays(new Date(), 7).toISOString().split("T")[0]
 	const router = useRouter()
 	const { id } = router.query
 
@@ -64,6 +64,13 @@ const Page = () => {
 	})
 
 	const apartment = properties.find((apartment) => apartment.id === id)
+
+	const scrollIntoView = (id: string) => {
+		const element = document.getElementById(id)
+		if (element) {
+			element.scrollIntoView({ behavior: "smooth" })
+		}
+	}
 
 	React.useEffect(() => {
 		setDateDifference(differenceInCalendarDays(new Date(values.check_out), new Date(values.check_in)))
@@ -115,7 +122,10 @@ const Page = () => {
 					{tablist.map((tab) => (
 						<button
 							key={tab}
-							onClick={() => setcurrent(tab)}
+							onClick={() => {
+								setcurrent(tab)
+								scrollIntoView(tab)
+							}}
 							className={`flex w-[122px] items-center justify-center rounded-[43px] py-3 text-xs capitalize transition-all duration-500 lg:text-sm ${current === tab ? "bg-primary-100 font-semibold text-white" : "bg-transparent font-light text-neutral-600"}`}>
 							{tab}
 						</button>

@@ -60,13 +60,13 @@ export const SearchWidget = () => {
 					<Select
 						value={values.propertyType}
 						onValueChange={(value) => setFieldValue("propertyType", value)}>
-						<SelectTrigger className="placeholder:text-neutral-300">
+						<SelectTrigger className="capitalize placeholder:text-neutral-300">
 							<SelectValue placeholder="Apartment Type" />
 						</SelectTrigger>
-						<SelectContent className="bg-white">
+						<SelectContent className="bg-white capitalize">
 							{apartment_types.map((type) => (
-								<SelectItem key={type.value} value={type.value}>
-									{type.label}
+								<SelectItem key={type} value={type}>
+									{type}
 								</SelectItem>
 							))}
 						</SelectContent>

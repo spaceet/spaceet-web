@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query"
 import React from "react"
 
 import { GetAllPropertiesQuery, PaginationDto } from "@/queries"
-import { Appbar, Card, Footer, Seo } from "@/components/shared"
+import { Appbar, Card, Seo } from "@/components/shared"
 import { properties } from "@/mock/properties"
 
 const Page = () => {
@@ -26,7 +26,6 @@ const Page = () => {
 					))}
 				</section>
 			</main>
-			<Footer />
 		</>
 	)
 }

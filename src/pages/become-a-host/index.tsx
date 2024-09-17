@@ -1,4 +1,5 @@
 import { RiArrowRightDoubleLine } from "@remixicon/react"
+import { toast } from "sonner"
 import React from "react"
 
 import { Appbar, Seo } from "@/components/shared"
@@ -6,17 +7,28 @@ import { Button } from "@/components/ui/button"
 import { become_a_host } from "@/config"
 
 const Page = () => {
+	const [canProceed, setCanProceed] = React.useState(true)
 	const [activeIndex, setActiveIndex] = React.useState(0)
 	const [current, setCurrent] = React.useState(0)
 	const [width, setWidth] = React.useState(0)
 
+	const isFirstStep = activeIndex === 0 && current === 0
+	const isLastStep =
+		activeIndex === become_a_host.length - 1 &&
+		current === become_a_host[activeIndex].components.length - 1
+
 	const handleNext = () => {
+		if (!isFirstStep && !isLastStep && !canProceed) {
+			toast.error("Please fill out the form to proceed!")
+			return
+		}
 		if (current < become_a_host[activeIndex].components.length - 1) {
 			setCurrent(current + 1)
 		} else if (activeIndex < become_a_host.length - 1) {
 			setActiveIndex(activeIndex + 1)
 			setCurrent(0)
 		}
+		setCanProceed(false)
 	}
 
 	const handlePrev = () => {
@@ -27,6 +39,13 @@ const Page = () => {
 			setCurrent(become_a_host[activeIndex - 1].components.length - 1)
 		}
 	}
+
+	const handleGoTo = (activeIndex: number, targetIndex: number) => {
+		setActiveIndex(activeIndex)
+		setCurrent(targetIndex)
+	}
+
+	const updateCanProceed = (value: boolean) => setCanProceed(value)
 
 	const currentIteration = become_a_host[activeIndex]
 	const { component: ActiveComponent } = currentIteration.components[current]
@@ -39,14 +58,16 @@ const Page = () => {
 		<>
 			<Seo title="Become a Host" />
 			<Appbar />
-			<main className="w-full">
-				<div className="container mx-auto h-[calc(100vh-209px)]">
+			<main className="h-[calc(100vh-100px)] w-full overflow-hidden">
+				<div className="container mx-auto h-[calc(100vh-209px)] overflow-y-scroll">
 					<ActiveComponent
 						active={currentIteration.components[current].name}
 						components={currentIteration.components}
+						handleGoTo={(index) => handleGoTo(activeIndex, index)}
 						handlePrev={handlePrev}
 						label={currentIteration.label}
 						subtitle={currentIteration.subtitle}
+						updateCanProceed={updateCanProceed}
 					/>
 				</div>
 				<div className="w-full">
@@ -60,7 +81,10 @@ const Page = () => {
 									Save and Exit
 								</Button>
 							)}
-							<Button className="w-[170px]" onClick={handleNext}>
+							<Button
+								className="w-[170px]"
+								onClick={handleNext}
+								disabled={!isFirstStep && !isLastStep && !canProceed}>
 								{activeIndex === 0 ? (
 									"Let's go!"
 								) : activeIndex === become_a_host.length - 1 ? (

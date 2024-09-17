@@ -16,6 +16,10 @@ const config = {
 				"2xl": "1200px",
 			},
 		},
+		fontFamily: {
+			body: ["var(--body)"],
+			heading: ["var(--heading)"],
+		},
 		extend: {
 			backgroundImage: {
 				"hero-1": "url('/assets/images/hero-1.webp')",
@@ -25,6 +29,7 @@ const config = {
 				primary: {
 					50: "#fef7ec",
 					100: "#eab221",
+					200: "#f17b2c",
 				},
 				neutral: {
 					100: "#ffffff",

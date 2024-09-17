@@ -3,15 +3,14 @@ import Image from "next/image"
 import Link from "next/link"
 import React from "react"
 
-import { ComponentUpdateProps } from "@/types"
+import { FadeTransition, Seo } from "../shared"
 import { getting_started } from "./data"
-import { Seo } from "../shared"
 
-const Page = ({}: ComponentUpdateProps) => {
+const Page = () => {
 	return (
 		<>
 			<Seo title="Done!" />
-			<div className="grid h-full w-full place-items-center">
+			<FadeTransition className="grid h-full w-full place-items-center">
 				<div className="grid w-full grid-cols-2">
 					<div className="w-full">
 						<div className="flex w-[360px] flex-col gap-6">
@@ -53,7 +52,7 @@ const Page = ({}: ComponentUpdateProps) => {
 						</div>
 					</div>
 				</div>
-			</div>
+			</FadeTransition>
 		</>
 	)
 }
