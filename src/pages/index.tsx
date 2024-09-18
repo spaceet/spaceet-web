@@ -1,11 +1,11 @@
 import { useQueries } from "@tanstack/react-query"
 import React from "react"
 
-import { GetAllPropertiesQuery, GetPropertiesByLocationQuery, GetAllReviewsQuery } from "@/queries"
+import { GetAllPropertiesQuery, GetPropertiesByLocationQuery } from "@/queries"
 import { Appbar, Footer, Seo } from "@/components/shared"
 
 const Page = () => {
-	const [{}, {}, {}] = useQueries({
+	const [{}, {}] = useQueries({
 		queries: [
 			{
 				queryFn: () => GetAllPropertiesQuery({ limit: 12, page: 1 }),
@@ -15,11 +15,6 @@ const Page = () => {
 			{
 				queryFn: () => GetPropertiesByLocationQuery(),
 				queryKey: ["properties-by-location"],
-				enabled: false,
-			},
-			{
-				queryFn: () => GetAllReviewsQuery({}),
-				queryKey: ["get-reviews"],
 				enabled: false,
 			},
 		],
