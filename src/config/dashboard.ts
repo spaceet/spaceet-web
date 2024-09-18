@@ -1,10 +1,12 @@
 import {
 	RiCalendarCheckLine,
+	RiCalendarEventFill,
 	RiHome8Line,
 	RiHotelBedLine,
 	RiHotelLine,
 	RiMessage2Line,
 	RiPsychotherapyLine,
+	RiQuestionnaireFill,
 	RiQuestionnaireLine,
 	RiSettingsLine,
 } from "@remixicon/react"
@@ -23,7 +25,7 @@ export const dashboard_links = [
 	{
 		label: "others",
 		links: [
-			{ name: "Help Center", icon: RiQuestionnaireLine, url: "/dashboard/" },
+			{ name: "Help Center", icon: RiQuestionnaireLine, url: "/dashboard/help-center" },
 			{
 				name: "Language & Translation",
 				icon: RiPsychotherapyLine,
@@ -33,3 +35,35 @@ export const dashboard_links = [
 		],
 	},
 ]
+
+export const quick_actions = [
+	{
+		label: "Need help?",
+		icon: RiQuestionnaireFill,
+		url: "/dashboard/help-center",
+		content: "As a new Host, you can get access to a well trained support team.",
+		text: "Connect me",
+	},
+	{
+		label: "Set up Calendar",
+		icon: RiCalendarEventFill,
+		url: "/dashboard/calendar",
+		content: "Set up your calendar and manage your availability.",
+		text: "Get Started",
+	},
+	{
+		label: "Manage Listing",
+		icon: RiHotelBedLine,
+		url: "/dashboard/listings",
+		content: "Manage your listings and add new listings.",
+		text: "Manage",
+	},
+]
+
+export const filters = [
+	"all",
+	"last 7 days",
+	"last 30 days",
+	"last 60 days",
+	"last 90 days",
+] as const

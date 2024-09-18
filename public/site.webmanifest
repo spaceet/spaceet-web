@@ -1,7 +1,7 @@
 {
 	"name": "Spaceet",
 	"short_name": "Spaceet",
-	"description": "",
+	"description": "Discover and book unique accommodations in Nigeria on Spaceet. From cozy apartments to luxurious villas, find the perfect stay for your next adventure. Experience hospitality and create unforgettable memories.",
 	"start_url": "/",
 	"icons": [
 		{
@@ -23,7 +23,7 @@
 			"form_factor": "wide"
 		},
 		{
-			"src": "/meta/screenshot.png",
+			"src": "/meta/android-chrome-512x512.png",
 			"sizes": "512x512",
 			"type": "image/png",
 			"form_factor": "narrow"
@@ -31,5 +31,6 @@
 	],
 	"background_color": "#ffffff",
 	"theme_color": "#eab221",
+	"orientation": "portrait",
 	"display": "standalone"
 }

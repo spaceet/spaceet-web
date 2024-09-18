@@ -1,17 +1,27 @@
-import { AmenitiesIconName } from "@/types"
+import { AmenitiesIconName, ApartmentType } from "@/types"
 
 export type ProfileFormProps = {
 	address: string
 	bio: string
 	city: string
 	firstName: string
-	idImages: File[]
-	idNumber: string
-	idType: "bankVerificationNumber" | "passport" | "nationalIdentificationNumber"
-	image: File
+	image: File | null
 	lastName: string
 	phoneNumber: string
 	state: string
+}
+
+export type IdentityFormProps = {
+	idExpiry: string
+	idImages: File[]
+	idNumber: string
+	idType:
+		| "bankVerificationNumber"
+		| "driversLicense"
+		| "internationlPassport"
+		| "nationalIdentificationNumber"
+		| "permanentVotersCard"
+		| (string & {})
 }
 
 export type PropertyFormProps = {
@@ -20,15 +30,25 @@ export type PropertyFormProps = {
 	bathrooms: number
 	city: string
 	description: string
-	documentImages: File[]
-	documentType: string
-	images: File[]
 	name: string
 	price: number
-	propertyType: string
+	propertyType: ApartmentType
+	serviceCharge: number
 	state: string
+	postalCode?: string
+}
+
+export type UploadFormProps = {
+	images: File[]
+}
+
+export type DocumentFormProps = {
+	documentImages: File[]
+	documentType: string
+}
+
+export type UtilitiesFormProps = {
 	utilities: AmenitiesIconName[]
-	zipCode: string
 }
 
 export type RulesFormProps = {
@@ -41,4 +61,10 @@ export type RulesFormProps = {
 	pets: boolean
 	quietHours: boolean
 	smoking: boolean
+}
+
+export type CancellationFormProps = {
+	refundable: boolean
+	refundableUntil: string
+	refundableUntilType: string
 }

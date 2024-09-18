@@ -32,3 +32,34 @@ export const normalized = (path?: string): string => {
 	}
 	return normalPath
 }
+
+export const toKebabCase = (value: string) => {
+	return value
+		.replace(/([a-z])([A-Z])/g, "$1-$2")
+		.replace(/[\s_]+/g, "-")
+		.toLowerCase()
+}
+
+export const fromKebabCase = (value: string) => value.split("-").join(" ")
+
+export const toTitleCase = (value: string) => {
+	return value
+		.replace(/([a-z])([A-Z])/g, "$1 $2")
+		.replace(/[\s_]+/g, " ")
+		.replace(/(^|\s)\S/g, (match) => match.toUpperCase())
+}
+
+export const urlify = (text: string) => {
+	const urlRegex = /(https?:\/\/[^\s]+)/g
+	return text.replace(urlRegex, (url) => {
+		return "<a href=" + url + " target='_blank' rel='noreferrer noopener'>" + url + "</a>"
+	})
+}
+
+export const createFlagEmoji = (code: string) => {
+	const codePoints = code
+		.toUpperCase()
+		.split("")
+		.map((char) => 127397 + char.charCodeAt(0))
+	return String.fromCodePoint(...codePoints)
+}

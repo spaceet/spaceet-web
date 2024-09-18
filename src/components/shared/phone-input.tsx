@@ -18,6 +18,7 @@ const PhoneInput = React.forwardRef<HTMLInputElement, InputProps>(
 		ref
 	) => {
 		const [selectedCountry, setSelectedCountry] = React.useState(countries[0])
+		const containerRef = React.useRef<HTMLDivElement>(null)!
 		const [inputValue, setInputValue] = React.useState("")
 		const [isOpen, setIsOpen] = React.useState(false)
 
@@ -47,6 +48,17 @@ const PhoneInput = React.forwardRef<HTMLInputElement, InputProps>(
 			// eslint-disable-next-line react-hooks/exhaustive-deps
 		}, [inputValue, selectedCountry.dial_code])
 
+		const handleClickOutside = (e: MouseEvent) => {
+			if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+				setIsOpen(false)
+			}
+		}
+
+		React.useEffect(() => {
+			document.addEventListener("mousedown", handleClickOutside)
+			return () => document.removeEventListener("mousedown", handleClickOutside)
+		})
+
 		return (
 			<div className={cn("flex w-full flex-col gap-2", wrapperClassName)}>
 				{label && (
@@ -72,7 +84,9 @@ const PhoneInput = React.forwardRef<HTMLInputElement, InputProps>(
 							/>
 						</button>
 						{isOpen && (
-							<div className="absolute z-10 mt-1 max-h-60 w-36 overflow-auto rounded-md border bg-white shadow-lg">
+							<div
+								ref={containerRef}
+								className="absolute z-10 mt-1 max-h-60 w-36 overflow-auto rounded-md border bg-white shadow-lg">
 								{sorted.map((country, index) => (
 									<button
 										key={index}

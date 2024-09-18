@@ -1,4 +1,4 @@
-import { Check, ChevronsUpDown } from "lucide-react"
+import { Check, ChevronDown } from "lucide-react"
 import React from "react"
 
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
@@ -34,7 +34,7 @@ export function ComboBox({ data, onValueChange, value, placeholder }: ComboxProp
 					aria-expanded={open}
 					className={`flex h-[45px] w-full items-center justify-between rounded-md border border-neutral-400 px-3 ${value ? "text-neutral-900" : "text-neutral-400"}`}>
 					{value ? data.find((item) => item.value === value)?.label : placeholder}
-					<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+					<ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 				</button>
 			</PopoverTrigger>
 			<PopoverContent className="w-full bg-white">

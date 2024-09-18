@@ -1,24 +1,29 @@
 import { createPersistMiddleware } from "@/store/middleware"
-import { Currency } from "@/types"
+import { CountryProps, Currency } from "@/types"
 
 interface GlobalStore {
 	currency: Currency
 	setCurrency: (currency: Currency) => void
-	language: string
-	setLanguage: (language: string) => void
+	locale: CountryProps
+	setLocale: (locale: CountryProps) => void
 }
 
 const initialState: GlobalStore = {
 	currency: "NGN",
 	setCurrency: () => {},
-	language: "en-US",
-	setLanguage: () => {},
+	locale: {
+		language: "English",
+		region: "United States",
+		code: "en-US",
+		flag: "US",
+	},
+	setLocale: () => {},
 }
 
 const useGlobalStore = createPersistMiddleware<GlobalStore>("spaceet-global", (set) => ({
 	...initialState,
-	setCurrency: (currency: Currency) => set({ currency }),
-	setLanguage: (language: string) => set({ language }),
+	setCurrency: (currency) => set({ currency }),
+	setLocale: (locale) => set({ locale }),
 }))
 
 export { useGlobalStore }

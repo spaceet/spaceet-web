@@ -29,7 +29,7 @@ export const Appbar = () => {
 	const [isOpen, setIsOpen] = React.useState(false)
 	const [current, setCurrent] = React.useState(0)
 	const [open, setOpen] = React.useState(false)
-	const { language } = useGlobalStore()
+	const { locale } = useGlobalStore()
 	const { user } = useUserStore()
 	const router = useRouter()
 
@@ -47,7 +47,11 @@ export const Appbar = () => {
 					<Dialog open={open} onOpenChange={setOpen}>
 						<DialogTrigger asChild>
 							<button className="flex items-center">
-								<span className="min-w-16 font-medium">{language}</span>
+								<span
+									style={{ backgroundImage: `url(https://flagsapi.com/${locale.flag}/flat/64.png)` }}
+									className="size-4 rounded-full bg-cover bg-center"
+								/>
+								<span className="min-w-16 font-medium">{locale.code}</span>
 								<ChevronDown
 									className={`transition-transform duration-300 ${open ? "rotate-180" : "rotate-0"}`}
 									size={12}
@@ -83,9 +87,15 @@ export const Appbar = () => {
 							<Link href="/apartments" className="link">
 								Book a Space
 							</Link>
-							<Link href="/become-a-host" className="link">
-								Become a Host
-							</Link>
+							{user && user.role === "host" ? (
+								<Link href="/dashboard" className="link">
+									Dashboard
+								</Link>
+							) : (
+								<Link href="/become-a-host" className="link">
+									Become a Host
+								</Link>
+							)}
 						</div>
 					)}
 				</div>

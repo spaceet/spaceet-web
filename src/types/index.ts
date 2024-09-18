@@ -1,6 +1,6 @@
 import { RemixiconComponentType } from "@remixicon/react"
 
-import { currencyCodes } from "@/config"
+import { amenities_list, apartment_types, currencyCodes } from "@/config"
 
 export type Maybe<T> = T | null
 
@@ -49,6 +49,7 @@ export type Pagination<T> = {
 }
 
 export type Currency = (typeof currencyCodes)[number]
+export type ApartmentType = (typeof apartment_types)[number] | (string & {})
 
 export type Node = {
 	__typename?: "Node"
@@ -86,8 +87,9 @@ export type PropertyProps = Node & {
 	location: string
 	max_guests: number
 	name: string
-	price: number
 	policies: string[]
+	price: number
+	propertyType: ApartmentType
 	rating: number
 	service_charge: number
 	slug: string
@@ -101,7 +103,7 @@ export type AmenityProps = Node & {
 
 export type BookingProps = Node & {
 	__typename?: "Booking"
-	Property: PropertyProps
+	property: PropertyProps
 	endDate: Date | string
 	startDate: Date | string
 	user: UserProps
@@ -146,36 +148,7 @@ export type LocationSearchProps = {
 	location: string
 }
 
-export const amenitiesIconNames = [
-	"air-conditioner",
-	"airport",
-	"balcony",
-	"bath",
-	"bed",
-	"cable",
-	"dishwasher",
-	"elevator",
-	"fitness",
-	"fireplace",
-	"free-wifi",
-	"garden",
-	"handicap-accessible",
-	"heating",
-	"jacuzzi",
-	"kitchen",
-	"laundry",
-	"max-guests",
-	"microwave",
-	"parking",
-	"pet-friendly",
-	"ps5",
-	"refrigerator",
-	"security-system",
-	"streaming-service",
-	"swimming-pool",
-] as const
-
-export type AmenitiesIconName = (typeof amenitiesIconNames)[number]
+export type AmenitiesIconName = (typeof amenities_list)[number]
 
 export interface ComponentUpdateProps {
 	active: string
@@ -183,7 +156,25 @@ export interface ComponentUpdateProps {
 		name: string
 		icon: RemixiconComponentType
 	}[]
+	handleGoTo: (index: number) => void
 	handlePrev: () => void
 	label: string
 	subtitle: string
+	updateCanProceed: (value: boolean) => void
+}
+
+export type UsableAmenitiesProps = {
+	__typename?: "UsableAmenities"
+	class: string
+	amenities_list: {
+		name: string
+		icon: AmenitiesIconName
+	}[]
+}
+
+export type CountryProps = {
+	language: string
+	region: string
+	code: string
+	flag: string
 }

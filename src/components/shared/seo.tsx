@@ -17,7 +17,7 @@ interface SeoProps {
 
 export function Seo({
 	title = "",
-	description = "",
+	description = "Discover and book unique accommodations in Nigeria on Spaceet. From cozy apartments to luxurious villas, find the perfect stay for your next adventure. Experience hospitality and create unforgettable memories.",
 	siteName = "Spaceet Apartments",
 	canonical = APP_URL,
 	ogImage = DEFAULT_OG_IMAGE,
@@ -35,7 +35,7 @@ export function Seo({
 				<meta name="description" content={description} />
 				<meta
 					name="keywords"
-					content="data data science ai machine learning neural networks learn ai learn machine learning fun learning gamified learning"
+					content="vacation rentals, short-term rentals, holiday homes, apartments, houses, unique stays, local experiences, travel accommodations, homestays, bed and breakfast, lodging, getaways, city breaks, beach houses, mountain cabins, lakefront properties, urban lofts, country retreats, family vacations, romantic escapes, business travel, group accommodation, pet-friendly rentals, luxury villas, budget-friendly stays, international travel, domestic travel, staycations, adventure travel, cultural experiences, host community, traveler reviews, instant booking, flexible cancellation, superhost, plus homes, experiences, online experiences, long-term stays, work from anywhere, local recommendations, travel tips, sustainable travel, responsible hosting, home sharing, global destinations, neighborhood guides, travel insurance, wishlist, group bookings, last-minute deals, unique accommodations, treehouse rentals, houseboat stays, glamping, farm stays, eco-friendly lodging, digital nomad-friendly, remote work retreats"
 				/>
 				<meta name="author" content="Spaceet" />
 				<link rel="canonical" href="https://spaceet.com" />
@@ -69,7 +69,12 @@ export function Seo({
 				<meta key="twitter:domain" name="twitter:domain" content={APP_URL} />
 
 				<link rel="shortcut icon" href="/favicon.ico" />
-				<link rel="apple-touch-icon" sizes="180x180" href="/meta/apple-touch-icon.png" />
+				<link
+					rel="apple-touch-icon"
+					sizes="180x180"
+					type="image/png"
+					href="/meta/apple-touch-icon.png"
+				/>
 				<link rel="icon" type="image/png" sizes="32x32" href="/meta/favicon-32x32.png" />
 				<link rel="icon" type="image/png" sizes="16x16" href="/meta/favicon-16x16.png" />
 				<link rel="manifest" href="/site.webmanifest" />
@@ -87,8 +92,11 @@ export function Seo({
 																	url: "https://spaceet.com",
 																	applicationCategory: "BusinessApplication",
 																	operatingSystem: "Any",
-																	description: "",
-																	features: "",
+																	description,
+																	features:
+																		"Instant booking, Flexible cancellation, Long-term stays, Advanced search filters, Map-based search, Wishlist creation, Personalized recommendations, Host profiles, Guest profiles, Verified ID system, Two-way reviews, Superhost program, Dynamic pricing, Multiple currency support, Secure payments, Split payments, In-app messaging, Automated messaging, Translation services, Local experiences, Online experiences, Adventure travel, Calendar management, Smart pricing, Professional photography, Co-hosting, Mobile apps, Offline access, Push notifications, Host Guarantee, Host protection insurance, 24/7 support, Neighborhood safety info, Accessibility features, Business travel tools, Airbnb Plus, Airbnb Luxe, Emergency housing, Digital nomad options, Eco-friendly stays, Carbon footprint info, Travel partnerships, Market insights, Gift cards, Virtual tours, Neighborhood guides, Group booking tools, Wedding venue options, Pet-friendly filters, Home sharing, Design system",
+																	keywords:
+																		"vacation rentals, short-term rentals, holiday homes, apartments, houses, unique stays, local experiences, travel accommodations, homestays, bed and breakfast, lodging, getaways, city breaks, beach houses, mountain cabins, lakefront properties, urban lofts, country retreats, family vacations, romantic escapes, business travel, group accommodation, pet-friendly rentals, luxury villas, budget-friendly stays, international travel, domestic travel, staycations, adventure travel, cultural experiences, host community, traveler reviews, instant booking, flexible cancellation, superhost, plus homes, experiences, online experiences, long-term stays, work from anywhere, local recommendations, travel tips, sustainable travel, responsible hosting, home sharing, global destinations, neighborhood guides, travel insurance, wishlist, group bookings, last-minute deals, unique accommodations, treehouse rentals, houseboat stays, glamping, farm stays, eco-friendly lodging, digital nomad-friendly, remote work retreats",
 																	screenshot: "https://www.spaceet.com/meta/screenshot.png",
 																	creator: {
 																		"@type": "Organization",

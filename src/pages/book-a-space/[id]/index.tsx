@@ -1,6 +1,7 @@
 import { addDays, differenceInCalendarDays, formatDate } from "date-fns"
 import { RiErrorWarningLine } from "@remixicon/react"
 import { ChevronLeftCircle } from "lucide-react"
+import { useQuery } from "@tanstack/react-query"
 import { useRouter } from "next/router"
 import { useFormik } from "formik"
 import { toast } from "sonner"
@@ -14,6 +15,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { NotFound } from "@/components/layouts"
 import { Button } from "@/components/ui/button"
 import { properties } from "@/mock/properties"
+import { GetPropertyQuery } from "@/queries"
 import { formatCurrency } from "@/lib"
 import {
 	Dialog,
@@ -36,14 +38,19 @@ const Page = () => {
 	const { check_in, check_out, guests, id } = router.query
 
 	const apartment = properties.find((apartment) => apartment.id === id)
+	const {} = useQuery({
+		queryFn: () => GetPropertyQuery(String(id)),
+		queryKey: ["get-apartment", id],
+		enabled: false,
+	})
 
 	const handleReservation = () => {
-		if (!agreed) {
-			toast.error("Please agree to the terms and conditions")
-			return
-		}
 		if (paymentMethod === null) {
 			toast.error("Please select a payment method")
+			return
+		}
+		if (!agreed) {
+			toast.error("Please agree to the terms and conditions")
 			return
 		}
 		console.log("Reserving a space")
@@ -62,7 +69,7 @@ const Page = () => {
 
 	React.useEffect(() => {
 		setDateDifference(differenceInCalendarDays(new Date(values.check_out), new Date(values.check_in)))
-	}, [check_out, check_in])
+	}, [values.check_out, values.check_in])
 
 	if (!apartment) return <NotFound />
 
@@ -113,7 +120,7 @@ const Page = () => {
 											onClick={() => setPaymentMethod("debit card")}
 											className={`relative size-4 rounded-full border border-neutral-900 before:absolute before:left-1/2 before:top-1/2 before:size-2 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-primary-100 ${paymentMethod === "debit card" ? "before:block" : "before:hidden"}`}
 										/>
-										<span className="font-medium capitalize lg:text-sm">Debt Card</span>
+										<span className="font-medium capitalize lg:text-sm">Debit Card</span>
 									</div>
 									{paymentMethod === "debit card" && (
 										<div className="w-full rounded-2xl border px-5 py-[18px]">

@@ -1,4 +1,4 @@
-import { RiArrowDownSLine, RiNotification4Line } from "@remixicon/react"
+import { RiAddLine, RiArrowDownSLine, RiNotification4Line } from "@remixicon/react"
 import { useRouter } from "next/router"
 import Image from "next/image"
 import Link from "next/link"
@@ -10,6 +10,7 @@ import { getInitials, normalized } from "@/lib"
 import { useUserStore } from "@/store/z-store"
 import { useAppHeader } from "./app-header"
 import { dashboard_links } from "@/config"
+import { Button } from "../ui/button"
 
 interface Props {
 	children: React.ReactNode
@@ -26,7 +27,9 @@ const DashboardLayout = ({ children }: Props) => {
 		<div className="flex h-screen w-screen overflow-hidden">
 			<aside className="h-full w-64">
 				<div className="grid h-24 w-full place-items-center border-b">
-					<Image src="/spaceet.svg" alt="spaceet" width={140} height={30} priority />
+					<Link href="/">
+						<Image src="/spaceet.svg" alt="spaceet" width={140} height={30} priority />
+					</Link>
 				</div>
 				<div className="h-full w-full px-6 py-8">
 					<div className="flex w-full flex-col gap-6">
@@ -46,6 +49,10 @@ const DashboardLayout = ({ children }: Props) => {
 								</div>
 							</div>
 						))}
+						<Button className="h-9 w-full">
+							<RiAddLine size={20} />
+							New Apartment
+						</Button>
 					</div>
 				</div>
 			</aside>
@@ -78,7 +85,7 @@ const DashboardLayout = ({ children }: Props) => {
 						</button>
 					</div>
 				</nav>
-				<div className="h-full w-full px-8 py-[35px]">{children}</div>
+				<div className="h-[calc(100vh-96px)] w-full overflow-hidden">{children}</div>
 			</main>
 		</div>
 	)

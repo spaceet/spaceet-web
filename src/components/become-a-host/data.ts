@@ -20,3 +20,11 @@ export const getting_started = [
 		icon: Rules3d,
 	},
 ]
+
+export const identity_types = [
+	{ label: "Bank Verification Number(BVN)", value: "bankVerificationNumber" },
+	{ label: "Driver's License", value: "driversLicense" },
+	{ label: "International Passport", value: "internationlPassport" },
+	{ label: "National Identification Number(NIN)", value: "nationalIdentificationNumber" },
+	{ label: "Permanent Voter's Card(PVC)", value: "permanentVotersCard" },
+]

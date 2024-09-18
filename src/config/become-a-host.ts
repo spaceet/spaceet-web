@@ -24,7 +24,8 @@ import {
 export const become_a_host = [
 	{
 		label: "Welcome to Spaccet for Hosts",
-		subtitle: "",
+		subtitle: "Things to get started. Read our policy",
+		image: "/assets/images/house-3d.png",
 		components: [{ name: "Welcome", component: Welcome, icon: RiUserLine }],
 	},
 	{
@@ -54,8 +55,10 @@ export const become_a_host = [
 		],
 	},
 	{
-		label: "Finish",
-		subtitle: "",
+		label: "Your Listing is All Done!",
+		image: "/assets/images/listing-done.png",
+		subtitle:
+			"Thank you for listing your apartment on Spaceet.com, continue to your dashboard to manage your listing.",
 		components: [{ name: "Finish", component: Finish, icon: RiCheckboxCircleLine }],
 	},
 ]

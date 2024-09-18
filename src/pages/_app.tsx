@@ -2,6 +2,7 @@ import "@/styles/globals.css"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { GoogleOAuthProvider } from "@react-oauth/google"
 import type { AppProps } from "next/app"
+import React from "react"
 
 import { QueryProvider, SSRProvider } from "@/providers"
 import { Toaster } from "@/components/ui/sonner"
