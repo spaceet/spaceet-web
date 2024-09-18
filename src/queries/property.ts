@@ -32,9 +32,16 @@ const GetPropertyQuery = async (id: string) => {
 	return axios.get<PropertyProps>(endpoints(id).properties.get_one).then((res) => res.data)
 }
 
-const SearchPropertiesQuery = async (query: SearchPropertyDto) => {
+const SearchPropertiesQuery = async ({
+	bedrooms,
+	location,
+	price,
+	propertyType,
+}: SearchPropertyDto) => {
 	return axios
-		.get<Pagination<PropertyProps>>(endpoints(null, { ...query }).properties.search)
+		.get<
+			Pagination<PropertyProps>
+		>(endpoints(null).properties.search, { params: { bedrooms, location, price, propertyType } })
 		.then((res) => res.data)
 }
 
