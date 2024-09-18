@@ -21,7 +21,7 @@ export const flash = {
 		tranformOrigin: "center",
 		transition: { ...transition, delay: 0.75 },
 	},
-	animate: {
+	whileInView: {
 		height: "100%",
 		transition: { ...transition, delay: 0 },
 	},
@@ -30,15 +30,21 @@ export const flash = {
 export const slide = (direction: AnimationDirectionProps) => {
 	return {
 		initial: {
-			x: direction === "left" ? -100 : direction === "right" ? 100 : 0,
-			y: direction === "up" ? 100 : direction === "down" ? -100 : 0,
+			x: direction === "left" ? "-100%" : direction === "right" ? "100%" : 0,
+			y: direction === "up" ? "100%" : direction === "down" ? "-100%" : 0,
 			opacity: 0,
 			transition: { ...transition, delay: 0.75 },
 		},
-		animate: {
+		whileInView: {
 			x: 0,
 			y: 0,
 			opacity: 1,
+			transition: { ...transition, delay: 0 },
+		},
+		exit: {
+			x: direction === "left" ? "100%" : direction === "right" ? "-100%" : 0,
+			y: direction === "up" ? "-100%" : direction === "down" ? "100%" : 0,
+			opacity: 0,
 			transition: { ...transition, delay: 0 },
 		},
 	}
@@ -46,12 +52,12 @@ export const slide = (direction: AnimationDirectionProps) => {
 export const stagger = (direction: StaggerDirectionProps, index: number) => {
 	return {
 		initial: {
-			x: direction === "left" ? -100 : direction === "right" ? 100 : 0,
-			y: direction === "up" ? 100 : direction === "down" ? -100 : 0,
+			x: direction === "left" ? "-100%" : direction === "right" ? "100%" : 0,
+			y: direction === "up" ? "100%" : direction === "down" ? "-100%" : 0,
 			opacity: 0,
 			transition: { ...transition, delay: 0.75 },
 		},
-		animate: {
+		whileInView: {
 			x: 0,
 			y: 0,
 			opacity: 1,
@@ -67,7 +73,7 @@ export const zoom = (direction: AnimationZoomProps) => {
 			opacity: 0,
 			transition: { ...transition, delay: 0.75 },
 		},
-		animate: {
+		whileInView: {
 			scale: 1,
 			opacity: 1,
 			transition: { ...transition, delay: 0 },

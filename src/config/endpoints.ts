@@ -7,12 +7,7 @@ export const encodeQueryParams = (params: { [key: string]: string | number }) =>
 		.join("&")
 }
 
-const endpoints = (path?: Maybe<string>, params?: { [key: string]: string | number }) => {
-	let queryString = ""
-	if (params) {
-		queryString = "?" + encodeQueryParams(params)
-	}
-
+const endpoints = (id?: Maybe<string>) => {
 	const auth = {
 		signin: `/auth/signin`,
 		signup: `/auth/signup`,
@@ -25,44 +20,44 @@ const endpoints = (path?: Maybe<string>, params?: { [key: string]: string | numb
 	}
 
 	const bookings = {
-		get_all: `/bookings${queryString}`,
-		get_one: `/bookings/${path}`,
+		get_all: `/bookings`,
+		get_one: `/bookings/${id}`,
 		create: `/bookings`,
-		update: `/bookings/${path}`,
-		delete: `/bookings/${path}`,
+		update: `/bookings/${id}`,
+		delete: `/bookings/${id}`,
 	}
 
 	const payments = {
-		get_all: `/payments${queryString}`,
-		get_one: `/payments/${path}`,
+		get_all: `/payments`,
+		get_one: `/payments/${id}`,
 		create: `/payments`,
-		update: `/payments/${path}`,
-		delete: `/payments/${path}`,
+		update: `/payments/${id}`,
+		delete: `/payments/${id}`,
 	}
 
 	const properties = {
-		get_all: `/properties${queryString}`,
+		get_all: `/properties`,
 		get_by_location: `/properties/location}`,
-		get_one: `/properties/${path}`,
-		search: `/properties/search${queryString}`,
+		get_one: `/properties/${id}`,
+		search: `/properties/search`,
 		create: `/properties`,
-		update: `/properties/${path}`,
-		delete: `/properties/${path}`,
+		update: `/properties/${id}`,
+		delete: `/properties/${id}`,
 	}
 
 	const reviews = {
-		get_all: `/reviews${queryString}`,
-		get_one: `/reviews/${path}`,
+		get_all: `/reviews`,
+		get_one: `/reviews/${id}`,
 		create: `/reviews`,
-		update: `/reviews/${path}`,
-		delete: `/reviews/${path}`,
+		update: `/reviews/${id}`,
+		delete: `/reviews/${id}`,
 	}
 
 	const users = {
-		get_all: `/users${queryString}`,
-		get_one: `/users/${path}`,
-		update: `/users/${path}`,
-		delete: `/users/${path}`,
+		get_all: `/users`,
+		get_one: `/users/${id}`,
+		update: `/users/${id}`,
+		delete: `/users/${id}`,
 	}
 
 	return {

@@ -1,7 +1,8 @@
 import { addDays, differenceInCalendarDays, differenceInYears } from "date-fns"
 import { ChevronLeft, ChevronLeftCircle } from "lucide-react"
-// import { useQuery } from "@tanstack/react-query"
+import { useQueries } from "@tanstack/react-query"
 import { useRouter } from "next/router"
+import { motion } from "framer-motion"
 import { useFormik } from "formik"
 import { toast } from "sonner"
 import Image from "next/image"
@@ -9,16 +10,23 @@ import Link from "next/link"
 import React from "react"
 
 import { Bath, Bed, CheckIn, Danger, Dumbells2, UserCheck, Users } from "@/assets/svg"
-import { Appbar, Footer, Icon, Rating, Seo } from "@/components/shared"
+import { Appbar, Footer, Icon, Rating, RatingForm, Seo } from "@/components/shared"
+import { GetPropertyQuery, GetAllReviewsQuery } from "@/queries"
 import { Avatar, AvatarImage } from "@/components/ui/avatar"
 import { Separator } from "@/components/ui/separator"
+import { encodeQueryParams, slide } from "@/config"
 import { capitalize, formatCurrency } from "@/lib"
 import { Button } from "@/components/ui/button"
 import { NotFound } from "@/components/layouts"
 import { properties } from "@/mock/properties"
 import { Input } from "@/components/ui/input"
-import { encodeQueryParams } from "@/config"
-// import { GetPropertyQuery } from "@/queries"
+import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogTitle,
+	DialogTrigger,
+} from "@/components/ui/dialog"
 
 const tablist = ["overview", "amenities", "pricing", "policies", "reviews", "host"] as const
 type TabList = (typeof tablist)[number]
@@ -32,17 +40,29 @@ const initialValues = {
 const Page = () => {
 	const [current, setcurrent] = React.useState<TabList>("overview")
 	const [dateDifference, setDateDifference] = React.useState(0)
-	// const [coords, setCoords] = React.useState()
+	// const [coords, setCoords] = React.useState({lat:0,lng:0})
+	const [currentImage, setCurrentImage] = React.useState(0)
+	const ref = React.useRef<HTMLDivElement>(null)!
+	const [open, setOpen] = React.useState(false)
 
 	const minimumCheckInDate = addDays(new Date(), 7).toISOString().split("T")[0]
 	const router = useRouter()
 	const { id } = router.query
 
-	// const { data: apartment } = useQuery({
-	// 	queryFn: () => GetPropertyQuery(String(id)),
-	// 	queryKey: ["get-apartment", id],
-	// 	enabled: !!id,
-	// })
+	const [] = useQueries({
+		queries: [
+			{
+				queryFn: () => GetPropertyQuery(String(id)),
+				queryKey: ["get-apartment", id],
+				enabled: false,
+			},
+			{
+				queryFn: () => GetAllReviewsQuery(String(id), {}),
+				queryKey: ["get-reviews", id],
+				enabled: false,
+			},
+		],
+	})
 
 	const { handleChange, handleSubmit, values } = useFormik({
 		initialValues,
@@ -72,11 +92,25 @@ const Page = () => {
 		}
 	}
 
+	const scroll = (direction: "left" | "right") => {
+		if (ref.current) {
+			const scrollAmount = ref.current.clientWidth / 2
+			ref.current.scrollBy({
+				left: direction === "left" ? -scrollAmount : scrollAmount,
+				behavior: "smooth",
+			})
+		}
+	}
+
 	React.useEffect(() => {
 		setDateDifference(differenceInCalendarDays(new Date(values.check_out), new Date(values.check_in)))
 	}, [values.check_out, values.check_in])
 
 	if (!apartment) return <NotFound />
+
+	const handleNextImage = () => setCurrentImage((prev) => (prev + 1) % apartment.images.length)
+	const handlePrevImage = () =>
+		setCurrentImage((prev) => (prev - 1 + apartment.images.length) % apartment.images.length)
 
 	return (
 		<>
@@ -103,9 +137,50 @@ const Page = () => {
 						{apartment.images.slice(1, 5).map((image, index) => (
 							<div key={index} className="relative aspect-square w-full">
 								{index === 3 && (
-									<button className="absolute bottom-3 right-3 !z-10 flex items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-light text-neutral-900">
-										Show more photos
-									</button>
+									<Dialog>
+										<DialogTrigger asChild>
+											<button className="absolute bottom-3 right-3 !z-10 flex items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-light text-neutral-900">
+												Show more photos
+											</button>
+										</DialogTrigger>
+										<DialogContent className="aspect-[3/2] w-full max-w-[75vw]">
+											<DialogTitle>Photos</DialogTitle>
+											<DialogDescription hidden></DialogDescription>
+											<div className="flex w-full flex-col items-center justify-center gap-5 overflow-hidden">
+												<div className="flex w-[75%] items-center justify-center">
+													{apartment.images.map((image, index) => (
+														<motion.div
+															{...slide("left")}
+															key={index}
+															className={`relative aspect-[3/2] w-full ${index === currentImage ? "block" : "hidden"}`}>
+															<Image
+																src={image}
+																alt={`apartment-image-${index}`}
+																fill
+																sizes="(max-width: 1024px)100%"
+																className="rounded-[10px] object-cover saturate-150"
+															/>
+														</motion.div>
+													))}
+												</div>
+												<div className="flex items-center justify-center gap-6">
+													<button
+														onClick={handlePrevImage}
+														className="grid size-8 place-items-center rounded-full border">
+														<ChevronLeft size={20} />
+													</button>
+													<span className="font-medium text-neutral-900">
+														{currentImage + 1}/{apartment.images.length}
+													</span>
+													<button
+														onClick={handleNextImage}
+														className="grid size-8 place-items-center rounded-full border">
+														<ChevronLeft size={20} className="rotate-180" />
+													</button>
+												</div>
+											</div>
+										</DialogContent>
+									</Dialog>
 								)}
 								<Image
 									src={image}
@@ -172,16 +247,34 @@ const Page = () => {
 						<div id="amenities" className="flex flex-col gap-6">
 							<p className="font-semibold lg:text-xl">Amenities</p>
 							<div className="grid grid-cols-3 gap-y-5">
-								{apartment.amenities.map((amenity) => (
+								{apartment.amenities.slice(0, 9).map((amenity) => (
 									<div key={amenity.id} className="flex items-center gap-3">
 										<Icon name={amenity.name} />
 										<span className="capitalize text-neutral-900 lg:text-sm">{amenity.name}</span>
 									</div>
 								))}
 							</div>
-							<button className="w-fit font-semibold text-neutral-900 underline lg:text-sm">
-								Show more amenities
-							</button>
+							{apartment.amenities.length > 9 && (
+								<Dialog>
+									<DialogTrigger asChild>
+										<button className="w-fit font-semibold text-neutral-900 underline lg:text-sm">
+											Show more amenities
+										</button>
+									</DialogTrigger>
+									<DialogContent className="w-full max-w-[600px]">
+										<DialogTitle className="font-body">Amenities</DialogTitle>
+										<DialogDescription hidden></DialogDescription>
+										<div className="mt-5 grid grid-cols-3 gap-y-5">
+											{apartment.amenities.map((amenity) => (
+												<div key={amenity.id} className="flex items-center gap-3">
+													<Icon name={amenity.name} />
+													<span className="capitalize text-neutral-900 lg:text-sm">{amenity.name}</span>
+												</div>
+											))}
+										</div>
+									</DialogContent>
+								</Dialog>
+							)}
 						</div>
 					</div>
 					<div className="w-full rounded-3xl border p-6">
@@ -205,6 +298,7 @@ const Page = () => {
 									type="date"
 									min={values.check_in}
 									innerClassName="rounded-3xl"
+									disabled={values.check_in === ""}
 									labelClassName="text-neutral-500 font-normal"
 								/>
 							</div>
@@ -293,18 +387,40 @@ const Page = () => {
 								4
 							</span>
 						</div>
-						<div className="flex items-center gap-6">
-							<button className="grid size-8 place-items-center rounded-full border">
-								<ChevronLeft size={20} />
-							</button>
-							<button className="grid size-8 place-items-center rounded-full border">
-								<ChevronLeft size={20} className="rotate-180" />
-							</button>
+						<div className="flex items-center gap-5">
+							<Dialog open={open} onOpenChange={setOpen}>
+								<DialogTrigger asChild>
+									<button className="w-fit font-semibold text-neutral-900 underline lg:text-sm">
+										Write review
+									</button>
+								</DialogTrigger>
+								<DialogContent className="w-[400px]">
+									<DialogTitle className="font-body">Reviews and Ratings</DialogTitle>
+									<DialogDescription hidden></DialogDescription>
+									<RatingForm id={String(id)} onClose={() => setOpen(false)} />
+								</DialogContent>
+							</Dialog>
+							<div className="flex items-center gap-6">
+								<button
+									onClick={() => scroll("left")}
+									className="grid size-8 place-items-center rounded-full border">
+									<ChevronLeft size={20} />
+								</button>
+								<button
+									onClick={() => scroll("right")}
+									className="grid size-8 place-items-center rounded-full border">
+									<ChevronLeft size={20} className="rotate-180" />
+								</button>
+							</div>
 						</div>
 					</div>
-					<div className="grid w-full grid-cols-4 gap-5">
-						{[...Array(4)].map((_, index) => (
-							<div key={index} className="aspect-[107/100] w-full rounded-2xl border px-5 py-6"></div>
+					<div ref={ref} className="flex w-auto items-center gap-x-5 overflow-x-scroll scroll-smooth">
+						{[...Array(10)].map((_, index) => (
+							<div
+								key={index}
+								className="aspect-[1.07/1] w-[276px] flex-shrink-0 rounded-2xl border px-5 py-6">
+								{index + 1}
+							</div>
 						))}
 					</div>
 				</div>

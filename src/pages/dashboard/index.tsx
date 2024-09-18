@@ -5,7 +5,7 @@ import React from "react"
 import DashboardLayout from "@/components/layouts/dashboard-layout"
 import { Separator } from "@/components/ui/separator"
 import { filters, quick_actions } from "@/config"
-import { DataCard } from "@/components/dasboard"
+import { DataCard } from "@/components/dashboard"
 import { Seo } from "@/components/shared"
 import {
 	Select,

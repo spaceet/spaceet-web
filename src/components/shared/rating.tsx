@@ -11,7 +11,7 @@ export const Rating = ({ rating }: Props) => {
 		const fillPercentage = Math.min(Math.max((rating - index) * 100, 0), 100)
 
 		return (
-			<div key={index} className="inline-block size-4">
+			<button key={index} className="inline-block size-4">
 				<svg
 					fill="#c0c0c0"
 					width={16}
@@ -28,7 +28,7 @@ export const Rating = ({ rating }: Props) => {
 						mask={`url(#star-mask-${index})`}
 					/>
 				</svg>
-			</div>
+			</button>
 		)
 	})
 

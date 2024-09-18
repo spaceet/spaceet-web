@@ -16,9 +16,9 @@ const AddReviewMutation = async (payload: AddReviewDto) => {
 		.then((res) => res.data)
 }
 
-const GetAllReviewsQuery = async ({ limit, page }: PaginationDto) => {
+const GetAllReviewsQuery = async (id: string, { limit, page }: PaginationDto) => {
 	return await axios
-		.get<Pagination<ReviewProps>>(endpoints().reviews.get_all, { params: { limit, page } })
+		.get<Pagination<ReviewProps>>(endpoints(id).reviews.get_all, { params: { limit, page } })
 		.then((res) => res.data)
 }
 

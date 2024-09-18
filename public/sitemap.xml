@@ -7,19 +7,73 @@
       <priority>1.0</priority>
    </url>
    <url>
-      <loc>http://www.spaceet.com/cookie</loc>
+      <loc>http://www.spaceet.com/signin</loc>
+      <lastmod>2024-04-01</lastmod>
+      <changefreq>yearly</changefreq>
+      <priority>1.0</priority>
+   </url>
+   <url>
+      <loc>http://www.spaceet.com/signup</loc>
+      <lastmod>2024-04-01</lastmod>
+      <changefreq>yearly</changefreq>
+      <priority>1.0</priority>
+   </url>
+   <url>
+      <loc>http://www.spaceet.com/search</loc>
+      <lastmod>2024-04-01</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>1.0</priority>
+   </url>
+   <url>
+      <loc>http://www.spaceet.com/apartments</loc>
+      <lastmod>2024-04-01</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>1.0</priority>
+   </url>
+   <url>
+      <loc>http://www.spaceet.com/book-a-space</loc>
+      <lastmod>2024-04-01</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>1.0</priority>
+   </url>
+   <url>
+      <loc>http://www.spaceet.com/become-a-host</loc>
+      <lastmod>2024-04-01</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>1.0</priority>
+   </url>
+   <url>
+      <loc>http://www.spaceet.com/help-center</loc>
       <lastmod>2024-04-01</lastmod>
       <changefreq>yearly</changefreq>
       <priority>0.5</priority>
    </url>
    <url>
-      <loc>http://www.spaceet.com/privacy</loc>
+      <loc>http://www.spaceet.com/help-center/cancellation-policy</loc>
       <lastmod>2024-04-01</lastmod>
       <changefreq>yearly</changefreq>
       <priority>0.5</priority>
    </url>
    <url>
-      <loc>http://www.spaceet.com/terms</loc>
+      <loc>http://www.spaceet.com/help-center/faqs</loc>
+      <lastmod>2024-04-01</lastmod>
+      <changefreq>yearly</changefreq>
+      <priority>0.5</priority>
+   </url>
+   <url>
+      <loc>http://www.spaceet.com/help-center/legal</loc>
+      <lastmod>2024-04-01</lastmod>
+      <changefreq>yearly</changefreq>
+      <priority>0.5</priority>
+   </url>
+   <url>
+      <loc>http://www.spaceet.com/help-center/privacy-policy</loc>
+      <lastmod>2024-04-01</lastmod>
+      <changefreq>yearly</changefreq>
+      <priority>0.5</priority>
+   </url>
+   <url>
+      <loc>http://www.spaceet.com/help-center/terms-of-service</loc>
       <lastmod>2024-04-01</lastmod>
       <changefreq>yearly</changefreq>
       <priority>0.5</priority>
