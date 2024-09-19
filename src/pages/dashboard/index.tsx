@@ -105,7 +105,13 @@ const Page = () => {
 								</span>
 							</p>
 						</div>
-						<div className="flex w-full items-center gap-5 overflow-x-auto"></div>
+						<div className="flex w-full items-center gap-5 overflow-x-auto">
+							{[...Array(3)].map((_, index) => (
+								<div key={index} className="h-[257px] w-[362px] flex-shrink-0">
+									<div className="h-[200px] w-full bg-red-300"></div>
+								</div>
+							))}
+						</div>
 					</div>
 				</div>
 			</DashboardLayout>
