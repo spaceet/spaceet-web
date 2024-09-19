@@ -1,4 +1,13 @@
-import { addMonths, eachDayOfInterval, endOfMonth, format, startOfMonth, subMonths } from "date-fns"
+import {
+	addDays,
+	addMonths,
+	eachDayOfInterval,
+	endOfMonth,
+	format,
+	startOfMonth,
+	subDays,
+	subMonths,
+} from "date-fns"
 import { RiArrowLeftSLine } from "@remixicon/react"
 import React from "react"
 
@@ -20,10 +29,11 @@ const Page = () => {
 	})
 
 	const firstDayOfMonth = startOfMonth(date).getDay()
-
 	const adjustedFirstDay = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1
-
-	const calendarDays = Array(42).fill(null)
+	const lastDayOfMonth = endOfMonth(date)
+	const startDate = subDays(firstDayOfMonth, adjustedFirstDay)
+	const endDate = addDays(lastDayOfMonth, 35 - adjustedFirstDay - daysInMonth.length)
+	const calendarDays = eachDayOfInterval({ start: startDate, end: endDate })
 
 	daysInMonth.forEach((day, index) => {
 		calendarDays[index + adjustedFirstDay] = day
@@ -59,15 +69,21 @@ const Page = () => {
 							</div>
 						))}
 					</div>
-					<div className="h-full w-full overflow-y-auto pb-5">
-						<div className="grid w-full grid-cols-7">
-							{calendarDays.map((day, index) => (
+					<div className="h-full w-full overflow-y-auto pb-28">
+						<div className="grid h-auto w-full grid-cols-7">
+							{calendarDays.slice(0, 42).map((day, index) => (
 								<div
 									key={index}
-									className={`h-[158px] w-full flex-shrink-0 border-b border-l py-3 first:border-l-0 hover:bg-primary-100/15 ${index % 7 === 0 ? "px-[37px]" : ""}`}>
+									className={`h-[158px] w-full flex-shrink-0 border-b border-l py-3 first:border-l-0 ${index % 7 === 0 ? "px-[37px]" : ""}`}>
 									{day && (
 										<p
-											className={`px-[7px] text-sm ${format(day, "MM-dd") === format(new Date(), "MM-dd") ? "font-bold" : ""}`}>
+											className={`px-[7px] text-sm ${
+												format(day, "MM-dd") === format(new Date(), "MM-dd")
+													? "font-bold text-primary-100"
+													: format(day, "MM") !== format(date, "MM")
+														? "text-neutral-400"
+														: ""
+											}`}>
 											{format(day, "d")}
 										</p>
 									)}
@@ -80,5 +96,4 @@ const Page = () => {
 		</>
 	)
 }
-
 export default Page

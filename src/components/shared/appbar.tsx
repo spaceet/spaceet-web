@@ -41,7 +41,7 @@ export const Appbar = () => {
 			className="static left-0 top-0 !z-30 flex max-h-[100px] w-screen items-center justify-center border-b bg-white px-4 lg:px-0">
 			<div className="container mx-auto flex h-[100px] items-center justify-between overflow-hidden">
 				<div className="flex items-center gap-4 text-sm text-neutral-600">
-					<Link href="/" className="text-xl font-bold">
+					<Link href="/">
 						<Image src="/spaceet.svg" alt="spaceet" width={140} height={30} priority />
 					</Link>
 					<Dialog open={open} onOpenChange={setOpen}>

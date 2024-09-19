@@ -103,10 +103,13 @@ export type AmenityProps = Node & {
 
 export type BookingProps = Node & {
 	__typename?: "Booking"
-	property: PropertyProps
+	guest: UserProps
 	endDate: Date | string
+	numberOfGuests: number
+	price: number
+	apartment: PropertyProps
 	startDate: Date | string
-	user: UserProps
+	status: "upcoming" | "cancelled" | "completed"
 }
 
 export type PaymentProps = Node & {
