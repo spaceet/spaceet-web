@@ -38,7 +38,7 @@ export const Appbar = () => {
 	return (
 		<nav
 			role="menubar"
-			className="static left-0 top-0 !z-30 flex max-h-[100px] w-screen items-center justify-center border-b bg-white">
+			className="static left-0 top-0 !z-30 flex max-h-[100px] w-screen items-center justify-center border-b bg-white px-4 lg:px-0">
 			<div className="container mx-auto flex h-[100px] items-center justify-between overflow-hidden">
 				<div className="flex items-center gap-4 text-sm text-neutral-600">
 					<Link href="/" className="text-xl font-bold">
@@ -46,7 +46,7 @@ export const Appbar = () => {
 					</Link>
 					<Dialog open={open} onOpenChange={setOpen}>
 						<DialogTrigger asChild>
-							<button className="flex items-center">
+							<button className="hidden items-center lg:flex">
 								<span
 									style={{ backgroundImage: `url(https://flagsapi.com/${locale.flag}/flat/64.png)` }}
 									className="size-4 rounded-full bg-cover bg-center"
@@ -81,9 +81,9 @@ export const Appbar = () => {
 							</div>
 						</DialogContent>
 					</Dialog>
-					<Separator orientation="vertical" className="h-6" />
+					<Separator orientation="vertical" className="hidden h-6 lg:block" />
 					{!isOnBecomeAHostPage && (
-						<div className="flex items-center gap-4">
+						<div className="hidden items-center gap-4 lg:flex">
 							<Link href="/apartments" className="link">
 								Book a Space
 							</Link>
@@ -100,15 +100,15 @@ export const Appbar = () => {
 					)}
 				</div>
 				{isOnBecomeAHostPage ? (
-					<div className="flex items-center gap-4">
+					<div className="hidden items-center gap-4 lg:block">
 						<Link href="/">Go to Homepage</Link>
 					</div>
 				) : (
 					<div className="flex items-center gap-4">
 						{user ? (
-							<p className="font-medium capitalize text-neutral-900">{user.firstName}</p>
+							<p className="hidden font-medium capitalize text-neutral-900 lg:block">{user.firstName}</p>
 						) : (
-							<Link href="/signin" className="link font-medium text-neutral-900">
+							<Link href="/signin" className="link hidden font-medium text-neutral-900 lg:block">
 								Log In
 							</Link>
 						)}

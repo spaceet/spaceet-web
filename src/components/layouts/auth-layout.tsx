@@ -9,9 +9,9 @@ interface Props {
 
 export const AuthLayout = ({ children }: Props) => {
 	return (
-		<main className="grid h-screen w-screen grid-cols-2 gap-7 px-4">
+		<main className="grid h-screen w-screen grid-cols-1 gap-7 px-4 lg:grid-cols-2">
 			<div className="grid h-full w-full place-items-center">{children}</div>
-			<div className="grid h-full w-full grid-cols-3 gap-5 overflow-hidden">
+			<div className="hidden h-full w-full grid-cols-3 gap-5 overflow-hidden lg:grid">
 				<AutoScroll images={images} />
 				<AutoScroll images={images} offset={-75} />
 				<AutoScroll images={images} />
