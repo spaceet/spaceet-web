@@ -59,12 +59,12 @@ const Page = () => {
 							</div>
 						))}
 					</div>
-					<div className="h-full w-full overflow-y-scroll pb-5">
+					<div className="h-full w-full overflow-y-auto pb-5">
 						<div className="grid w-full grid-cols-7">
 							{calendarDays.map((day, index) => (
 								<div
 									key={index}
-									className={`aspect-[1.2/1] min-h-[145px] w-full border-b border-l py-3 first:border-l-0 ${index % 7 === 0 ? "px-[37px]" : ""}`}>
+									className={`h-[158px] w-full flex-shrink-0 border-b border-l py-3 first:border-l-0 hover:bg-primary-100/15 ${index % 7 === 0 ? "px-[37px]" : ""}`}>
 									{day && (
 										<p
 											className={`px-[7px] text-sm ${format(day, "MM-dd") === format(new Date(), "MM-dd") ? "font-bold" : ""}`}>
