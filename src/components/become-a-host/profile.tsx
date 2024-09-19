@@ -9,6 +9,7 @@ import { capitalizeWords, getFileExtension, getFileSizeInMb, getImageDimensions 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
 import { FadeTransition, PhoneInput, Seo } from "../shared"
 import { ProfileFormProps } from "./form-components"
+import { ProfileValidationSchema } from "./schema"
 import { defaultAvatar } from "@/assets/images"
 import { ComponentUpdateProps } from "@/types"
 import { Textarea } from "../ui/textarea"
@@ -48,8 +49,10 @@ const Page = ({
 		}
 	}
 
-	const { handleChange, handleSubmit, setFieldValue, values } = useFormik({
+	const { dirty, errors, handleChange, handleSubmit, isValid, setFieldValue, values } = useFormik({
 		initialValues,
+		validationSchema: ProfileValidationSchema,
+		validateOnChange: true,
 		onSubmit: (values) => {
 			console.log(values)
 		},
@@ -79,9 +82,12 @@ const Page = ({
 	}
 
 	React.useEffect(() => {
-		updateCanProceed(true)
+		const hasError = Object.values(errors).some((error) => error)
+		if (dirty && isValid && !hasError) {
+			updateCanProceed(true)
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	}, [dirty, errors, isValid])
 
 	React.useEffect(() => {
 		if (values.image) {

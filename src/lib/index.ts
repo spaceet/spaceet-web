@@ -1,6 +1,7 @@
 export * from "./analytics"
 export * from "./axios"
 export * from "./currency"
+export * from "./date"
 export * from "./encryption"
 export * from "./file"
 export * from "./i18n"

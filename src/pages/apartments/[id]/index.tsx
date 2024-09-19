@@ -116,14 +116,29 @@ const Page = () => {
 		<>
 			<Seo title={capitalize(apartment.name)} />
 			<Appbar />
-			<main className="container mx-auto my-12 flex flex-col gap-8">
+			<main className="container mx-auto my-12 flex flex-col gap-8 px-4 lg:px-0">
 				<div className="flex items-center gap-2">
 					<button onClick={() => router.back()}>
 						<ChevronLeftCircle className="stroke-[1px]" />
 					</button>
 					<h3 className="font-medium lg:text-2xl">{apartment.name}</h3>
 				</div>
-				<div className="grid w-full grid-cols-2 gap-5">
+				<div className="flex items-center justify-center lg:hidden">
+					{apartment.images.map((image, index) => (
+						<div
+							key={index}
+							className={`relative aspect-[1.3/1] w-full ${index === currentImage ? "block" : "hidden"}`}>
+							<Image
+								src={image}
+								alt={apartment.name}
+								fill
+								sizes="(max-width: 1024px)100%"
+								className="rounded-[10px] object-cover"
+							/>
+						</div>
+					))}
+				</div>
+				<div className="hidden w-full grid-cols-2 gap-5 lg:grid">
 					<div className="relative aspect-square w-full">
 						<Image
 							src={apartment.images[0]}
@@ -193,7 +208,7 @@ const Page = () => {
 						))}
 					</div>
 				</div>
-				<div className="flex w-fit items-center rounded-[43px] border p-1">
+				<div className="hidden w-fit items-center rounded-[43px] border p-1 lg:flex">
 					{tablist.map((tab) => (
 						<button
 							key={tab}
@@ -201,22 +216,22 @@ const Page = () => {
 								setcurrent(tab)
 								scrollIntoView(tab)
 							}}
-							className={`flex w-[122px] items-center justify-center rounded-[43px] py-3 text-xs capitalize transition-all duration-500 lg:text-sm ${current === tab ? "bg-primary-100 font-semibold text-white" : "bg-transparent font-light text-neutral-600"}`}>
+							className={`flex w-[122px] items-center justify-center rounded-[43px] py-3 text-sm capitalize transition-all duration-500 ${current === tab ? "bg-primary-100 font-semibold text-white" : "bg-transparent font-light text-neutral-600"}`}>
 							{tab}
 						</button>
 					))}
 				</div>
-				<div id="overview" className="grid w-full grid-cols-3 gap-8">
+				<div id="overview" className="grid w-full grid-cols-1 gap-8 lg:grid-cols-3">
 					<div className="col-span-2 w-full rounded-3xl border p-6">
 						<div className="flex w-full items-center justify-between">
-							<div className="flex items-center gap-4">
+							<div className="flex w-full items-center justify-between gap-4 lg:w-fit lg:justify-start">
 								<p className="font-semibold lg:text-xl">{apartment.location}</p>
-								<Link href={`/`} className="text-neutral-500 underline lg:text-sm">
+								<Link href={`/`} className="text-sm text-neutral-500 underline">
 									10 reviews
 								</Link>
 							</div>
-							<div className="flex items-center gap-2">
-								<p className="text-neutral-500 lg:text-sm">
+							<div className="hidden items-center gap-2 lg:flex">
+								<p className="text-sm text-neutral-500">
 									Rating: <span className="text-neutral-900">{apartment.rating}</span>
 								</p>
 								<Rating rating={apartment.rating} />
@@ -224,40 +239,38 @@ const Page = () => {
 						</div>
 						<hr className="my-6" />
 						<div className="flex w-full flex-col gap-6">
-							<p className="font-light text-neutral-500">{apartment.description}</p>
-							<button className="w-fit font-semibold text-neutral-900 underline lg:text-sm">
-								Read more
-							</button>
+							<p className="text-sm font-light text-neutral-500 lg:text-base">{apartment.description}</p>
+							<button className="w-fit text-sm font-semibold text-neutral-900 underline">Read more</button>
 						</div>
-						<div className="mt-6 flex items-center gap-2">
+						<div className="mt-6 flex flex-wrap items-center gap-2">
 							<div className="flex w-[150px] items-center justify-center gap-3 rounded-3xl border py-2">
 								<Bed />
-								<span className="text-neutral-900 lg:text-sm">{apartment.bedrooms} bedrooms</span>
+								<span className="text-sm text-neutral-900">{apartment.bedrooms} bedrooms</span>
 							</div>
 							<div className="flex w-[150px] items-center justify-center gap-3 rounded-3xl border py-2">
 								<Bath />
-								<span className="text-neutral-900 lg:text-sm">{apartment.bathrooms} bathrooms</span>
+								<span className="text-sm text-neutral-900">{apartment.bathrooms} bathrooms</span>
 							</div>
 							<div className="flex w-[150px] items-center justify-center gap-3 rounded-3xl border py-2">
 								<Users />
-								<span className="text-neutral-900 lg:text-sm">{apartment.max_guests} guest (max)</span>
+								<span className="text-sm text-neutral-900">{apartment.max_guests} guest (max)</span>
 							</div>
 						</div>
 						<hr className="my-6" />
 						<div id="amenities" className="flex flex-col gap-6">
 							<p className="font-semibold lg:text-xl">Amenities</p>
-							<div className="grid grid-cols-3 gap-y-5">
+							<div className="grid grid-cols-2 gap-y-5 lg:grid-cols-3">
 								{apartment.amenities.slice(0, 9).map((amenity) => (
 									<div key={amenity.id} className="flex items-center gap-3">
 										<Icon name={amenity.name} />
-										<span className="capitalize text-neutral-900 lg:text-sm">{amenity.name}</span>
+										<span className="text-sm capitalize text-neutral-900">{amenity.name}</span>
 									</div>
 								))}
 							</div>
 							{apartment.amenities.length > 9 && (
 								<Dialog>
 									<DialogTrigger asChild>
-										<button className="w-fit font-semibold text-neutral-900 underline lg:text-sm">
+										<button className="w-fit text-sm font-semibold text-neutral-900 underline">
 											Show more amenities
 										</button>
 									</DialogTrigger>
@@ -268,7 +281,7 @@ const Page = () => {
 											{apartment.amenities.map((amenity) => (
 												<div key={amenity.id} className="flex items-center gap-3">
 													<Icon name={amenity.name} />
-													<span className="capitalize text-neutral-900 lg:text-sm">{amenity.name}</span>
+													<span className="text-sm capitalize text-neutral-900">{amenity.name}</span>
 												</div>
 											))}
 										</div>
@@ -277,7 +290,7 @@ const Page = () => {
 							)}
 						</div>
 					</div>
-					<div className="w-full rounded-3xl border p-6">
+					<div className="hidden w-full rounded-3xl border p-6 lg:block">
 						<p className="font-semibold lg:text-2xl">{formatCurrency(apartment.price, "NGN")}/night</p>
 						<hr className="my-6" />
 						<div className="flex w-full flex-col gap-4">
@@ -314,7 +327,7 @@ const Page = () => {
 							/>
 						</div>
 						<div className="mt-6 flex flex-col gap-4">
-							<p className="font-semibold lg:text-sm">Cost Breakdown</p>
+							<p className="text-sm font-semibold">Cost Breakdown</p>
 							<form onSubmit={handleSubmit} className="flex w-full flex-col gap-3">
 								<div className="flex w-full items-center justify-between">
 									<p className="font-light text-neutral-400">
@@ -350,32 +363,32 @@ const Page = () => {
 								<Button type="submit" className="rounded-3xl">
 									Reserve
 								</Button>
-								<p className="text-center text-neutral-400 lg:text-sm">You won&apos;t be charged yet!</p>
+								<p className="text-center text-sm text-neutral-400">You won&apos;t be charged yet!</p>
 							</form>
 						</div>
 					</div>
 				</div>
 				<div id="policies" className="flex w-full flex-col gap-6 rounded-3xl border p-6">
 					<p className="font-semibold lg:text-xl">Policies</p>
-					<div className="grid w-full grid-cols-4 gap-5">
+					<div className="grid w-full grid-cols-1 gap-5 lg:grid-cols-4">
 						<div className="aspect-[107/100] w-full rounded-2xl border px-5 py-6">
 							<CheckIn />
-							<p className="mb-2 mt-3 font-semibold lg:text-sm">Check In/Check Out</p>
+							<p className="mb-2 mt-3 text-sm font-semibold">Check In/Check Out</p>
 						</div>
 						<div className="aspect-[107/100] w-full rounded-2xl border px-5 py-6">
 							<Dumbells2 />
-							<p className="mb-2 mt-3 font-semibold lg:text-sm">Pets</p>
+							<p className="mb-2 mt-3 text-sm font-semibold">Pets</p>
 						</div>
 						<div className="aspect-[107/100] w-full rounded-2xl border px-5 py-6">
 							<Danger />
-							<p className="mb-2 mt-3 font-semibold lg:text-sm">Cancellaton/prepayment</p>
+							<p className="mb-2 mt-3 text-sm font-semibold">Cancellaton/prepayment</p>
 						</div>
 						<div className="aspect-[107/100] w-full rounded-2xl border px-5 py-6">
 							<UserCheck />
-							<p className="mb-2 mt-3 font-semibold lg:text-sm">Age restriction</p>
+							<p className="mb-2 mt-3 text-sm font-semibold">Age restriction</p>
 						</div>
 					</div>
-					<button className="w-fit font-semibold text-neutral-900 underline lg:text-sm">
+					<button className="w-fit text-sm font-semibold text-neutral-900 underline">
 						Show more policies
 					</button>
 				</div>
@@ -390,7 +403,7 @@ const Page = () => {
 						<div className="flex items-center gap-5">
 							<Dialog open={open} onOpenChange={setOpen}>
 								<DialogTrigger asChild>
-									<button className="w-fit font-semibold text-neutral-900 underline lg:text-sm">
+									<button className="w-fit text-sm font-semibold text-neutral-900 underline">
 										Write review
 									</button>
 								</DialogTrigger>
@@ -414,11 +427,13 @@ const Page = () => {
 							</div>
 						</div>
 					</div>
-					<div ref={ref} className="flex w-auto items-center gap-x-5 overflow-x-scroll scroll-smooth">
-						{[...Array(10)].map((_, index) => (
+					<div
+						ref={ref}
+						className="flex w-auto flex-col items-center gap-x-0 gap-y-5 overflow-x-scroll scroll-smooth lg:flex-row lg:gap-x-5 lg:gap-y-0">
+						{[...Array(4)].map((_, index) => (
 							<div
 								key={index}
-								className="aspect-[1.07/1] w-[276px] flex-shrink-0 rounded-2xl border px-5 py-6">
+								className="aspect-[1.07/1] w-full flex-shrink-0 rounded-2xl border px-5 py-6 lg:w-[276px]">
 								{index + 1}
 							</div>
 						))}
@@ -426,10 +441,10 @@ const Page = () => {
 				</div>
 				<div id="host" className="flex w-full flex-col gap-6 rounded-3xl border p-6">
 					<p className="font-semibold lg:text-xl">Meet your host</p>
-					<div className="flex h-[269px] w-full items-center rounded-2xl border px-5 py-6">
-						<div className="h-full flex-1">
-							<div className="flex w-full items-center justify-between">
-								<div className="flex items-center gap-4">
+					<div className="flex w-full flex-col items-center rounded-2xl border px-5 py-6 lg:h-[269px] lg:flex-row">
+						<div className="flex h-full flex-1 flex-col items-center lg:items-start">
+							<div className="flex w-full flex-col items-center gap-4 lg:flex-row lg:justify-between">
+								<div className="flex flex-col items-center gap-4 lg:flex-row">
 									<Avatar className="size-24">
 										<AvatarImage
 											src={apartment.host.imageUrl}
@@ -441,10 +456,10 @@ const Page = () => {
 										<p className="font-medium lg:text-2xl">
 											{apartment.host.firstName} {apartment.host.lastName}
 										</p>
-										<p className="text-neutral-400 lg:text-sm">
+										<p className="text-sm text-neutral-400">
 											Hosting since {new Date(apartment.host.createdAt).getFullYear()}
 										</p>
-										<p className="text-neutral-400 lg:text-sm"></p>
+										<p className="text-sm text-neutral-400"></p>
 									</div>
 								</div>
 								<Link href={`/host/${apartment.host.id}`} className="w-fit">
@@ -456,31 +471,34 @@ const Page = () => {
 							<div className="mb-5 mt-6 flex items-center gap-2">
 								<p className="font-semibold">Top rated host</p>
 							</div>
-							<div className="grid w-full grid-cols-3">
-								<div className="flex w-full flex-col">
+							<div className="grid w-full grid-cols-3 text-center lg:text-left">
+								<div className="flex w-full flex-col items-center lg:items-start">
 									<p className="font-semibold lg:text-2xl">
 										{differenceInYears(new Date(), new Date(apartment.host.createdAt))}
 									</p>
-									<p className="text-neutral-400 lg:text-sm">Years of hosting</p>
+									<p className="text-sm text-neutral-400">Years of hosting</p>
 								</div>
-								<div className="flex w-full flex-col">
+								<div className="flex w-full flex-col items-center lg:items-start">
 									<p className="font-semibold lg:text-2xl">120</p>
-									<p className="text-neutral-400 lg:text-sm">Customer reviews</p>
+									<p className="text-sm text-neutral-400">Customer reviews</p>
 								</div>
-								<div className="flex w-full flex-col">
+								<div className="flex w-full flex-col items-center lg:items-start">
 									<p className="font-semibold lg:text-2xl">{apartment.host.rating}</p>
-									<p className="text-neutral-400 lg:text-sm">Ratings</p>
+									<p className="text-sm text-neutral-400">Ratings</p>
 								</div>
 							</div>
 						</div>
-						<Separator orientation="vertical" className="mx-6 bg-gray-300" />
+						<Separator orientation="vertical" className="mx-6 hidden bg-gray-300 lg:block" />
+						<Separator className="my-6 block bg-gray-300 lg:hidden" />
 						<div className="flex h-full flex-1 flex-col justify-between">
-							<div className="flex flex-col gap-2">
+							<div className="flex flex-col items-center gap-2 lg:items-start">
 								<p className="font-medium">About {apartment.host.firstName}</p>
-								<p className="font-light text-neutral-500 lg:text-sm">{apartment.host.bio}</p>
+								<p className="text-center text-sm font-light text-neutral-500 lg:text-left">
+									{apartment.host.bio}
+								</p>
 							</div>
-							<div className="flex w-full items-center justify-between">
-								<p className="text-neutral-400 lg:text-sm">
+							<div className="mt-6 flex w-full flex-col-reverse items-center justify-between gap-3 lg:mt-0 lg:flex-row lg:gap-0">
+								<p className="text-sm text-neutral-400">
 									Average response time: <span className="text-neutral-900">1 hr</span>
 								</p>
 								<Link href={`/messages?user=${apartment.host.id}`}>
@@ -496,7 +514,7 @@ const Page = () => {
 				</div>
 				<div id="location" className="flex w-full flex-col gap-6 rounded-3xl border p-6">
 					<p className="font-semibold lg:text-xl">Location</p>
-					<div className="h-[400px] w-full overflow-hidden rounded-xl border"></div>
+					<div className="h-[249px] w-full overflow-hidden rounded-xl border lg:h-[400px]"></div>
 				</div>
 			</main>
 			<Footer />

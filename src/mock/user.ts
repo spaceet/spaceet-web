@@ -13,7 +13,7 @@ export const mock_user: UserProps = {
 	imageUrl:
 		"https://images.unsplash.com/photo-1701025812558-ca9ca4e24d71?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fHVzZXIlMjBjYXJ0b29ufGVufDB8fDB8fHww",
 	isVerified: true,
-	role: "user",
+	role: "host",
 	updatedAt: null,
 	rating: 0,
 }

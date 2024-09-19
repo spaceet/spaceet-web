@@ -1,6 +1,6 @@
 import * as Yup from "yup"
 
-import { amenities_list, apartment_types } from "@/config"
+import { apartment_types } from "@/config"
 import {
 	DocumentFormProps,
 	IdentityFormProps,
@@ -8,7 +8,6 @@ import {
 	PropertyFormProps,
 	RulesFormProps,
 	UploadFormProps,
-	UtilitiesFormProps,
 } from "./form-components"
 
 export const DocumentValidationSchema: Yup.ObjectSchema<DocumentFormProps> = Yup.object({
@@ -88,9 +87,10 @@ export const UploadValidationSchema: Yup.ObjectSchema<UploadFormProps> = Yup.obj
 		.max(30, "You can only upload 30 images!"),
 })
 
-export const UtilitiesValidationSchema: Yup.ObjectSchema<UtilitiesFormProps> = Yup.object({
+export const UtilitiesValidationSchema = Yup.object({
 	utilities: Yup.array()
-		.of(Yup.string().oneOf(amenities_list, undefined).defined())
+		.of(Yup.string())
+		.min(1, "Please select at least 1 utility!")
 		.defined()
-		.required("Please select at least 1 utility!"),
+		.required("Utilities field is required"),
 })

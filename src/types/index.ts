@@ -148,7 +148,7 @@ export type LocationSearchProps = {
 	location: string
 }
 
-export type AmenitiesIconName = (typeof amenities_list)[number]
+export type AmenitiesIconName = (typeof amenities_list)[number] | (string & {})
 
 export interface ComponentUpdateProps {
 	active: string
