@@ -10,7 +10,7 @@ import Link from "next/link"
 import React from "react"
 
 import { Bath, Bed, CheckIn, Danger, Dumbells2, UserCheck, Users } from "@/assets/svg"
-import { Appbar, Footer, Icon, Rating, RatingForm, Seo } from "@/components/shared"
+import { Appbar, Icon, Rating, RatingForm, Seo } from "@/components/shared"
 import { GetPropertyQuery, GetAllReviewsQuery } from "@/queries"
 import { Avatar, AvatarImage } from "@/components/ui/avatar"
 import { Separator } from "@/components/ui/separator"
@@ -517,7 +517,6 @@ const Page = () => {
 					<div className="h-[249px] w-full overflow-hidden rounded-xl border lg:h-[400px]"></div>
 				</div>
 			</main>
-			<Footer />
 		</>
 	)
 }

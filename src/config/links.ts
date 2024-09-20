@@ -3,9 +3,12 @@ import {
 	RiHeadphoneLine,
 	RiHeartLine,
 	RiHome3Line,
+	RiInstagramLine,
+	RiLinkedinLine,
 	RiLogoutCircleRLine,
 	RiMessage3Line,
 	RiNotification3Line,
+	RiTwitterXLine,
 	RiUserLine,
 } from "@remixicon/react"
 
@@ -19,30 +22,35 @@ export const social_links = [
 
 export const footer_links = [
 	{
-		label: "",
+		label: "Useful links",
 		links: [
-			{ name: "", url: "" },
-			{ name: "", url: "" },
-			{ name: "", url: "" },
-			{ name: "", url: "" },
+			{ name: "Book a Space", url: "/book-a-space", icon: null },
+			{ name: "Become a Host", url: "/become-a-host", icon: null },
+			{ name: "About us", url: "/about-us", icon: null },
 		],
 	},
 	{
-		label: "",
+		label: "Support",
 		links: [
-			{ name: "", url: "" },
-			{ name: "", url: "" },
-			{ name: "", url: "" },
-			{ name: "", url: "" },
+			{ name: "Help center", url: "/help-center", icon: null },
+			{ name: "Cancellation policy", url: "/help-center/cancellation-policy", icon: null },
+			{ name: "Report an issue", url: "/help-center/report-an-issue", icon: null },
 		],
 	},
 	{
-		label: "",
+		label: "Support",
 		links: [
-			{ name: "", url: "" },
-			{ name: "", url: "" },
-			{ name: "", url: "" },
-			{ name: "", url: "" },
+			{ name: "Help center", url: "/help-center", icon: null },
+			{ name: "Cancellation policy", url: "/help-center/cancellation-policy", icon: null },
+			{ name: "Report an issue", url: "/help-center/report-an-issue", icon: null },
+		],
+	},
+	{
+		label: "Socials",
+		links: [
+			{ name: "X(Twitter)", url: "https://twitter.com/SpaceetHq", icon: RiTwitterXLine },
+			{ name: "LinkedIn", url: "https://www.linkedin.com/company/spaceet/", icon: RiLinkedinLine },
+			{ name: "Instagram", url: "https://instagram.com/spaceethq_", icon: RiInstagramLine },
 		],
 	},
 ]
