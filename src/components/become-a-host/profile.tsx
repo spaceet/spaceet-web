@@ -49,7 +49,7 @@ const Page = ({
 		}
 	}
 
-	const { dirty, errors, handleChange, handleSubmit, isValid, setFieldValue, values } = useFormik({
+	const { handleChange, handleSubmit, setFieldValue, values } = useFormik({
 		initialValues,
 		validationSchema: ProfileValidationSchema,
 		validateOnChange: true,
