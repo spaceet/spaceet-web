@@ -4,13 +4,17 @@ import {
 	RiHome8Line,
 	RiHotelBedLine,
 	RiHotelLine,
+	RiLockPasswordLine,
 	RiMessage2Line,
 	RiMoneyDollarCircleLine,
 	RiPsychotherapyLine,
 	RiQuestionnaireFill,
 	RiQuestionnaireLine,
 	RiSettingsLine,
+	RiUserLine,
 } from "@remixicon/react"
+
+import { Profile, Security } from "@/components/dashboard/user"
 
 export const dashboard_links = [
 	{
@@ -36,6 +40,11 @@ export const dashboard_links = [
 			{ name: "Settings", icon: RiSettingsLine, url: "/dashboard/settings" },
 		],
 	},
+]
+
+export const user_tabs = [
+	{ label: "peronal information", icon: RiUserLine, component: Profile },
+	{ label: "security", icon: RiLockPasswordLine, component: Security },
 ]
 
 export const quick_actions = [

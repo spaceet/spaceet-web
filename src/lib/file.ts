@@ -1,3 +1,5 @@
+import * as XLSX from "xlsx"
+
 export type FileMetricProps = "Kb" | "Mb" | "Gb"
 
 export const getFileExtension = (file: File) => {
@@ -44,4 +46,29 @@ export const getImageDimensions = async (
 
 export const getPreviewUrl = (file: File) => {
 	return URL.createObjectURL(file)
+}
+
+export const jsonToXlsx = (data: string) => {
+	const payload = JSON.parse(data)
+	const worksheet = XLSX.utils.json_to_sheet(payload)
+	const workbook = XLSX.utils.book_new()
+	XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1")
+
+	const excelBuffer = XLSX.write(workbook, {
+		bookType: "xlsx",
+		type: "array",
+	})
+	const file = new Blob([excelBuffer], {
+		type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+	})
+	return file
+}
+
+export const saveToFile = (file: Blob | File, fileName: string) => {
+	const a = document.createElement("a")
+	const url = URL.createObjectURL(file)
+	a.href = url
+	a.download = fileName
+	a.click()
+	URL.revokeObjectURL(url)
 }

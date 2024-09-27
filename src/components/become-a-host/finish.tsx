@@ -1,15 +1,22 @@
 import { RiCheckboxCircleFill } from "@remixicon/react"
+import Confetti from "react-confetti"
 import Image from "next/image"
 import Link from "next/link"
 import React from "react"
 
 import { FadeTransition, Seo } from "../shared"
 import { getting_started } from "./data"
+import { useWindowSize } from "@/hooks"
 
 const Page = () => {
+	const [width, height] = useWindowSize()
+
 	return (
 		<>
 			<Seo title="Done!" />
+			<div className="fixe left-0 top-0 w-screen">
+				<Confetti width={width} height={height} numberOfPieces={500} />
+			</div>
 			<FadeTransition className="grid h-full w-full place-items-center">
 				<div className="grid w-full grid-cols-2">
 					<div className="w-full">

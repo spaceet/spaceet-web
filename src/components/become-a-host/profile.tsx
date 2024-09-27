@@ -82,12 +82,9 @@ const Page = ({
 	}
 
 	React.useEffect(() => {
-		const hasError = Object.values(errors).some((error) => error)
-		if (dirty && isValid && !hasError) {
-			updateCanProceed(true)
-		}
+		updateCanProceed(true)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [dirty, errors, isValid])
+	}, [])
 
 	React.useEffect(() => {
 		if (values.image) {

@@ -10,7 +10,7 @@ interface Props {
 	icon: RemixiconComponentType
 	label: string
 	percentage: number
-	value: number
+	value: number | string
 }
 
 const pillClasses: Record<ArrowDirection, string> = {
