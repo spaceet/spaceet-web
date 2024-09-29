@@ -156,15 +156,19 @@ export type AmenitiesIconName = (typeof amenities_list)[number] | (string & {})
 
 export interface ComponentUpdateProps {
 	active: string
+	activeIndex: number
 	components: {
 		name: string
 		icon: RemixiconComponentType
 	}[]
 	handleGoTo: (index: number) => void
+	handleNext: () => void
 	handlePrev: () => void
+	isNotFirstOrLast: boolean
 	label: string
 	subtitle: string
-	updateCanProceed: (value: boolean) => void
+	totalItems: number
+	width: number
 }
 
 export type UsableAmenitiesProps = {

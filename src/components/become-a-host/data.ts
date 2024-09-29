@@ -21,10 +21,35 @@ export const getting_started = [
 	},
 ]
 
-export const identity_types = [
+export const identityTypes = [
 	{ label: "Bank Verification Number(BVN)", value: "bankVerificationNumber" },
 	{ label: "Driver's License", value: "driversLicense" },
 	{ label: "International Passport", value: "internationlPassport" },
 	{ label: "National Identification Number(NIN)", value: "nationalIdentificationNumber" },
 	{ label: "Permanent Voter's Card(PVC)", value: "permanentVotersCard" },
 ]
+
+export const idTypesWithExpiry = ["driversLicense", "internationlPassport"]
+
+export const idNumberValidator = {
+	bankVerificationNumber: {
+		pattern: /^[0-9]{11}$/,
+		message: "Please enter a valid BVN",
+	},
+	driversLicense: {
+		pattern: /^[0-9]{11}$/,
+		message: "Please enter a valid driver's license number",
+	},
+	internationlPassport: {
+		pattern: /^[A-Z0-9]{10}$/,
+		message: "Please enter a valid international passport number",
+	},
+	nationalIdentificationNumber: {
+		pattern: /^[0-9]{11}$/,
+		message: "Please enter a valid NIN",
+	},
+	permanentVotersCard: {
+		pattern: /^[0-9]{11}$/,
+		message: "Please enter a valid PVC number",
+	},
+}

@@ -1,21 +1,23 @@
-import { RiCheckboxCircleFill } from "@remixicon/react"
+import { RiArrowRightDoubleLine, RiCheckboxCircleFill } from "@remixicon/react"
 import Confetti from "react-confetti"
 import Image from "next/image"
 import Link from "next/link"
 import React from "react"
 
 import { FadeTransition, Seo } from "../shared"
+import { ComponentUpdateProps } from "@/types"
 import { getting_started } from "./data"
 import { useWindowSize } from "@/hooks"
+import { Button } from "../ui/button"
 
-const Page = () => {
-	const [width, height] = useWindowSize()
+const Page = ({ activeIndex, handleNext, totalItems, width }: ComponentUpdateProps) => {
+	const windowSize = useWindowSize()
 
 	return (
 		<>
 			<Seo title="Done!" />
 			<div className="fixe left-0 top-0 w-screen">
-				<Confetti width={width} height={height} numberOfPieces={500} />
+				<Confetti width={windowSize[0]} height={windowSize[1]} numberOfPieces={500} />
 			</div>
 			<FadeTransition className="grid h-full w-full place-items-center">
 				<div className="grid w-full grid-cols-2">
@@ -60,6 +62,31 @@ const Page = () => {
 					</div>
 				</div>
 			</FadeTransition>
+			<div className="fixed bottom-0 left-0 right-0 z-10 h-[100px] w-full bg-white">
+				<div className="flex h-[10px] w-full bg-neutral-300">
+					<div style={{ width: `${width}%` }} className="h-full bg-primary-100"></div>
+				</div>
+				<div className="container mx-auto flex h-[99px] items-center justify-end">
+					<div className="flex items-center gap-4">
+						{activeIndex > 0 && activeIndex < totalItems - 1 && (
+							<Button className="w-[170px]" variant="outline">
+								Save and Exit
+							</Button>
+						)}
+						<Button className="w-[170px]" type="button" onClick={handleNext}>
+							{activeIndex === 0 ? (
+								"Let's go!"
+							) : activeIndex === totalItems - 1 ? (
+								<span className="flex w-full items-center gap-2">
+									Go to Dashboard <RiArrowRightDoubleLine size={20} />
+								</span>
+							) : (
+								"Next"
+							)}
+						</Button>
+					</div>
+				</div>
+			</div>
 		</>
 	)
 }

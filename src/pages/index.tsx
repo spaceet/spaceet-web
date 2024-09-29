@@ -6,6 +6,12 @@ import Link from "next/link"
 import React from "react"
 
 import { GetAllPropertiesQuery, GetPropertiesByLocationQuery, GetAllReviewsQuery } from "@/queries"
+import { Filter as FilterIcon } from "@/assets/svg"
+import { booking_steps, places } from "@/config"
+import { Button } from "@/components/ui/button"
+import { properties } from "@/mock/properties"
+import { Input } from "@/components/ui/input"
+import { mock_reviews } from "@/mock/reviews"
 import {
 	Appbar,
 	Card,
@@ -15,12 +21,6 @@ import {
 	SearchWidget,
 	Seo,
 } from "@/components/shared"
-import { Filter as FilterIcon } from "@/assets/svg"
-import { booking_steps, places } from "@/config"
-import { Button } from "@/components/ui/button"
-import { properties } from "@/mock/properties"
-import { Input } from "@/components/ui/input"
-import { mock_reviews } from "@/mock/reviews"
 
 const EMAIL_REGEX =
 	/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
@@ -87,7 +87,7 @@ const Page = () => {
 				</div>
 				<section className="container mx-auto flex flex-col gap-6 py-[26px]">
 					<h4 className="text-[32px] font-medium">Explore Top Destinations</h4>
-					<ScrollContainer properties={properties} />
+					<ScrollContainer properties={properties.slice(0, 6)} />
 				</section>
 				<section className="w-full py-10">
 					<div className="container mx-auto py-6">
