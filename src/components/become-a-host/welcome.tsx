@@ -1,12 +1,20 @@
-import { RiCheckboxCircleFill } from "@remixicon/react"
+import { RiArrowRightDoubleLine, RiCheckboxCircleFill } from "@remixicon/react"
 import Image from "next/image"
 import Link from "next/link"
 import React from "react"
 
 import { FadeTransition, Seo } from "../shared"
+import { ComponentUpdateProps } from "@/types"
 import { getting_started } from "./data"
+import { Button } from "../ui/button"
 
-const Page = () => {
+const Page = ({
+	activeIndex,
+	handleNext,
+	isNotFirstOrLast,
+	totalItems,
+	width,
+}: ComponentUpdateProps) => {
 	return (
 		<>
 			<Seo title="Become a Host" />
@@ -59,6 +67,31 @@ const Page = () => {
 					</div>
 				</div>
 			</FadeTransition>
+			<div className="fixed bottom-0 left-0 right-0 z-10 h-[100px] w-full bg-white">
+				<div className="flex h-[10px] w-full bg-neutral-300">
+					<div style={{ width: `${width}%` }} className="h-full bg-primary-100"></div>
+				</div>
+				<div className="container mx-auto flex h-[99px] items-center justify-end">
+					<div className="flex items-center gap-4">
+						{activeIndex > 0 && activeIndex < totalItems - 1 && (
+							<Button className="w-[170px]" variant="outline">
+								Save and Exit
+							</Button>
+						)}
+						<Button className="w-[170px]" onClick={handleNext} disabled={!isNotFirstOrLast}>
+							{activeIndex === 0 ? (
+								"Let's go!"
+							) : activeIndex === totalItems - 1 ? (
+								<span className="flex w-full items-center gap-2">
+									Go to Dashboard <RiArrowRightDoubleLine size={20} />
+								</span>
+							) : (
+								"Next"
+							)}
+						</Button>
+					</div>
+				</div>
+			</div>
 		</>
 	)
 }

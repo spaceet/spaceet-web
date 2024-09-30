@@ -10,7 +10,6 @@ interface Props {
 }
 
 export const Reviews = ({ reviews }: Props) => {
-	const [isHovering, setIsHovering] = React.useState(false)
 	const ref = React.useRef<HTMLDivElement>(null)!
 
 	React.useEffect(() => {
@@ -23,31 +22,27 @@ export const Reviews = ({ reviews }: Props) => {
 		let lastTimestamp = 0
 
 		const animate = (timestamp: number) => {
-			if (!isHovering) {
-				if (lastTimestamp !== 0) {
-					const delta = timestamp - lastTimestamp
-					accumulatedTime += delta
-				}
-				lastTimestamp = timestamp
-				const progress = accumulatedTime * 0.05
-				row.scrollLeft = progress
-				if (progress >= row.scrollWidth) {
-					accumulatedTime = 0
-				}
+			if (lastTimestamp !== 0) {
+				const delta = timestamp - lastTimestamp
+				accumulatedTime += delta
+			}
+			lastTimestamp = timestamp
+			const progress = accumulatedTime * 0.05
+			row.scrollLeft = progress
+			if (progress >= row.scrollWidth) {
+				accumulatedTime = 0
 			}
 			animationFrameId = requestAnimationFrame(animate)
 		}
 
 		animationFrameId = requestAnimationFrame(animate)
 		return () => cancelAnimationFrame(animationFrameId)
-	}, [isHovering, ref])
+	}, [ref])
 
 	return (
 		<div className="w-full overflow-hidden">
 			<div
 				ref={ref}
-				onMouseEnter={() => setIsHovering(true)}
-				onMouseLeave={() => setIsHovering(false)}
 				className="mx-2 flex w-auto items-center gap-x-2 overflow-x-scroll"
 				style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
 				{reviews.map((review, index) => (
