@@ -62,3 +62,24 @@ export const become_a_host = [
 		components: [{ name: "Finish", component: Finish, icon: RiCheckboxCircleLine }],
 	},
 ]
+
+export const cancellation_policies = [
+	{
+		label: "flexible",
+		description: "Guests get a full refund if they cancel up to a day before check-in.",
+	},
+	{
+		label: "moderate",
+		description: "Guests get a full refund if they cancel up to 5 days before check-in.",
+	},
+	{
+		label: "firm",
+		description:
+			"Guests get a full refund if they cancel up to 30 days check-in, except in certain cases.",
+	},
+	{
+		label: "Non-refundable",
+		description:
+			"Flexible: Full refund if canceled before check-in. Non-refundable: 10% off, no refund.",
+	},
+]

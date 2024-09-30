@@ -103,11 +103,11 @@ export type AmenityProps = Node & {
 
 export type BookingProps = Node & {
 	__typename?: "Booking"
-	guest: UserProps
+	apartment: PropertyProps
 	endDate: Date | string
+	guest: UserProps
 	numberOfGuests: number
 	price: number
-	apartment: PropertyProps
 	startDate: Date | string
 	status: "upcoming" | "cancelled" | "completed"
 }
@@ -115,12 +115,13 @@ export type BookingProps = Node & {
 export type PaymentProps = Node & {
 	__typename?: "Payment"
 	amount: number
-	booking: BookingProps
+	apartment: PropertyProps
 	currency: Currency
+	numberOfGuests: number
 	paymentDate: Date | string
-	status: "pending" | "completed" | "failed"
+	status: "pending" | "succeeded" | "failed"
 	transactionId: string
-	user: UserProps
+	guest: UserProps
 }
 
 export type ReviewProps = Node & {
@@ -155,15 +156,19 @@ export type AmenitiesIconName = (typeof amenities_list)[number] | (string & {})
 
 export interface ComponentUpdateProps {
 	active: string
+	activeIndex: number
 	components: {
 		name: string
 		icon: RemixiconComponentType
 	}[]
 	handleGoTo: (index: number) => void
+	handleNext: () => void
 	handlePrev: () => void
+	isNotFirstOrLast: boolean
 	label: string
 	subtitle: string
-	updateCanProceed: (value: boolean) => void
+	totalItems: number
+	width: number
 }
 
 export type UsableAmenitiesProps = {

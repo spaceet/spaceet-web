@@ -1,16 +1,14 @@
-import { RiArrowRightDoubleLine } from "@remixicon/react"
-import { toast } from "sonner"
+import { useRouter } from "next/router"
 import React from "react"
 
 import { Appbar, Seo } from "@/components/shared"
-import { Button } from "@/components/ui/button"
 import { become_a_host } from "@/config"
 
 const Page = () => {
-	const [canProceed, setCanProceed] = React.useState(true)
 	const [activeIndex, setActiveIndex] = React.useState(0)
 	const [current, setCurrent] = React.useState(0)
 	const [width, setWidth] = React.useState(0)
+	const router = useRouter()
 
 	const isFirstStep = activeIndex === 0 && current === 0
 	const isLastStep =
@@ -18,17 +16,14 @@ const Page = () => {
 		current === become_a_host[activeIndex].components.length - 1
 
 	const handleNext = () => {
-		if (!isFirstStep && !isLastStep && !canProceed) {
-			toast.error("Please fill out the form to proceed!")
-			return
-		}
 		if (current < become_a_host[activeIndex].components.length - 1) {
 			setCurrent(current + 1)
 		} else if (activeIndex < become_a_host.length - 1) {
 			setActiveIndex(activeIndex + 1)
 			setCurrent(0)
+		} else {
+			router.push("/dashboard")
 		}
-		setCanProceed(false)
 	}
 
 	const handlePrev = () => {
@@ -45,8 +40,6 @@ const Page = () => {
 		setCurrent(targetIndex)
 	}
 
-	const updateCanProceed = (value: boolean) => setCanProceed(value)
-
 	const currentIteration = become_a_host[activeIndex]
 	const { component: ActiveComponent } = currentIteration.components[current]
 
@@ -59,44 +52,20 @@ const Page = () => {
 			<Seo title="Become a Host" />
 			<Appbar />
 			<main className="h-[calc(100vh-100px)] w-full overflow-hidden">
-				<div className="container mx-auto h-[calc(100vh-209px)] overflow-y-scroll">
+				<div className="container mx-auto h-full overflow-y-scroll">
 					<ActiveComponent
 						active={currentIteration.components[current].name}
+						activeIndex={activeIndex}
 						components={currentIteration.components}
 						handleGoTo={(index) => handleGoTo(activeIndex, index)}
+						handleNext={handleNext}
 						handlePrev={handlePrev}
+						isNotFirstOrLast={isFirstStep || isLastStep}
 						label={currentIteration.label}
 						subtitle={currentIteration.subtitle}
-						updateCanProceed={updateCanProceed}
+						totalItems={become_a_host.length}
+						width={width}
 					/>
-				</div>
-				<div className="w-full">
-					<div className="flex h-[10px] w-full bg-neutral-300">
-						<div style={{ width: `${width}%` }} className="h-full bg-primary-100"></div>
-					</div>
-					<div className="container mx-auto flex h-[99px] items-center justify-end">
-						<div className="flex items-center gap-4">
-							{activeIndex > 0 && activeIndex < become_a_host.length - 1 && (
-								<Button className="w-[170px]" variant="outline">
-									Save and Exit
-								</Button>
-							)}
-							<Button
-								className="w-[170px]"
-								onClick={handleNext}
-								disabled={!isFirstStep && !isLastStep && !canProceed}>
-								{activeIndex === 0 ? (
-									"Let's go!"
-								) : activeIndex === become_a_host.length - 1 ? (
-									<span className="flex w-full items-center gap-2">
-										Go to Dashboard <RiArrowRightDoubleLine size={20} />
-									</span>
-								) : (
-									"Next"
-								)}
-							</Button>
-						</div>
-					</div>
 				</div>
 			</main>
 		</>

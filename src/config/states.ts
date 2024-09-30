@@ -66,6 +66,7 @@ export const only_places = [
 	"Wuse II, FCT",
 ]
 export const places = [
+	{ label: "All", value: "all" },
 	{ label: "Surulere", value: "surulere" },
 	{ label: "Ikeja", value: "ikeja" },
 	{ label: "Lekki", value: "lekki" },

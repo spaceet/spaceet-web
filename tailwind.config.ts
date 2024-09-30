@@ -24,6 +24,8 @@ const config = {
 			backgroundImage: {
 				"hero-1": "url('/assets/images/hero-1.webp')",
 				"hero-2": "url('/assets/images/hero-2.webp')",
+				"hero-3": "url('/assets/images/hero-3.webp')",
+				footer: "url('/assets/images/footer.webp')",
 			},
 			colors: {
 				primary: {

@@ -4,6 +4,7 @@ import {
 	eachDayOfInterval,
 	endOfMonth,
 	format,
+	formatDate,
 	startOfMonth,
 	subDays,
 	subMonths,
@@ -64,7 +65,7 @@ const Page = () => {
 						{daysOfWeek.map((day, index) => (
 							<div
 								key={index}
-								className="flex items-center border-l px-[7px] first:border-l-0 first:px-[37px]">
+								className={`relative flex items-center border-l px-[7px] before:absolute before:left-0 before:top-full before:h-2 before:w-full before:bg-primary-100 first:border-l-0 first:px-[37px] ${String(day).toLowerCase() === formatDate(new Date(), "EEEE").toLowerCase() ? "before:block" : "before:hidden"}`}>
 								<p className="text-xs text-[#252525]">{day}</p>
 							</div>
 						))}
@@ -79,7 +80,7 @@ const Page = () => {
 										<p
 											className={`px-[7px] text-sm ${
 												format(day, "MM-dd") === format(new Date(), "MM-dd")
-													? "font-bold text-primary-100"
+													? "font-bold"
 													: format(day, "MM") !== format(date, "MM")
 														? "text-neutral-400"
 														: ""

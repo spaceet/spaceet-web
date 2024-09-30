@@ -1,4 +1,4 @@
-import { RiArrowLeftSLine } from "@remixicon/react"
+import { RiArrowRightDoubleLine, RiArrowLeftSLine } from "@remixicon/react"
 import { useFormik } from "formik"
 import Image from "next/image"
 import { toast } from "sonner"
@@ -9,7 +9,6 @@ import { capitalizeWords, getFileExtension, getFileSizeInMb, getImageDimensions 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
 import { FadeTransition, PhoneInput, Seo } from "../shared"
 import { ProfileFormProps } from "./form-components"
-import { ProfileValidationSchema } from "./schema"
 import { defaultAvatar } from "@/assets/images"
 import { ComponentUpdateProps } from "@/types"
 import { Textarea } from "../ui/textarea"
@@ -33,12 +32,15 @@ const initialValues: ProfileFormProps = {
 
 const Page = ({
 	active,
+	activeIndex,
 	components,
 	handleGoTo,
 	handlePrev,
+	handleNext,
 	label,
 	subtitle,
-	updateCanProceed,
+	totalItems,
+	width,
 }: ComponentUpdateProps) => {
 	const [previewUrl, setPreviewUrl] = React.useState<string | null>(null)
 	const input = React.useRef<HTMLInputElement>(null)
@@ -49,12 +51,27 @@ const Page = ({
 		}
 	}
 
-	const { dirty, errors, handleChange, handleSubmit, isValid, setFieldValue, values } = useFormik({
+	const { handleChange, handleSubmit, setFieldValue, values } = useFormik({
 		initialValues,
-		validationSchema: ProfileValidationSchema,
-		validateOnChange: true,
 		onSubmit: (values) => {
+			// if (!values.firstName || !values.lastName) {
+			// 	toast.error("Please enter your first and last name")
+			// 	return
+			// }
+			// if (!values.address || !values.city || !values.state) {
+			// 	toast.error("Please enter your full address, including city and state")
+			// 	return
+			// }
+			// if (!values.phoneNumber) {
+			// 	toast.error("Please enter your phone number")
+			// 	return
+			// }
+			// if (!values.image) {
+			// 	toast.error("Please select a profile image")
+			// 	return
+			// }
 			console.log(values)
+			handleNext()
 		},
 	})
 
@@ -82,14 +99,6 @@ const Page = ({
 	}
 
 	React.useEffect(() => {
-		const hasError = Object.values(errors).some((error) => error)
-		if (dirty && isValid && !hasError) {
-			updateCanProceed(true)
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [dirty, errors, isValid])
-
-	React.useEffect(() => {
 		if (values.image) {
 			const reader = new FileReader()
 			reader.onload = () => {
@@ -102,136 +111,163 @@ const Page = ({
 	return (
 		<>
 			<Seo title={capitalizeWords(label)} description="Become a Host" />
-			<FadeTransition className="my-[72px] grid w-full place-items-center">
-				<div className="grid w-full grid-cols-3">
-					<div className="w-full">
-						<div className="flex w-[329px] flex-col gap-4">
-							<button onClick={handlePrev} className="flex items-center font-semibold">
-								<RiArrowLeftSLine size={20} />
-								Back
-							</button>
-							<p className="text-4xl font-semibold">{label}</p>
-							<p className="text-sm text-neutral-500">
-								Things to get started. Read our{" "}
-								<Link href="/help-center" className="underline">
-									policy
-								</Link>
-							</p>
-							<div className="flex w-full flex-col gap-3 rounded-xl border p-6">
-								<p className="text-xs text-neutral-400">{subtitle}</p>
-								<div className="flex w-full flex-col gap-3">
-									{components.map(({ icon: Icon, name }, index) => (
-										<button
-											onClick={() => handleGoTo(index)}
-											key={index}
-											className={`flex w-full items-center gap-1 rounded-md p-2 font-medium ${active === name ? "bg-neutral-200" : ""}`}>
-											<Icon size={20} /> {name}
-										</button>
-									))}
+			<form onSubmit={handleSubmit} className="h-full w-full">
+				<FadeTransition className="my-[72px] grid w-full place-items-center">
+					<div className="grid w-full grid-cols-3">
+						<div className="w-full">
+							<div className="flex w-[329px] flex-col gap-4">
+								<button onClick={handlePrev} className="flex items-center font-semibold">
+									<RiArrowLeftSLine size={20} />
+									Back
+								</button>
+								<p className="text-4xl font-semibold">{label}</p>
+								<p className="text-sm text-neutral-500">
+									Things to get started. Read our{" "}
+									<Link href="/help-center" className="underline">
+										policy
+									</Link>
+								</p>
+								<div className="flex w-full flex-col gap-3 rounded-xl border p-6">
+									<p className="text-xs text-neutral-400">{subtitle}</p>
+									<div className="flex w-full flex-col gap-3">
+										{components.map(({ icon: Icon, name }, index) => (
+											<button
+												onClick={() => handleGoTo(index)}
+												key={index}
+												className={`flex w-full items-center gap-1 rounded-md p-2 font-medium ${active === name ? "bg-neutral-200" : ""}`}>
+												<Icon size={20} /> {name}
+											</button>
+										))}
+									</div>
 								</div>
+							</div>
+						</div>
+						<div className="col-span-2 flex w-full flex-col gap-4">
+							<div className="flex w-full items-center justify-between rounded-xl border p-6">
+								<div className="flex items-center gap-3">
+									<div className="relative size-16 rounded-full border">
+										<Image
+											src={previewUrl || defaultAvatar}
+											alt="image"
+											fill
+											sizes="(max-width: 1024px)100%"
+											className="rounded-full object-cover"
+										/>
+									</div>
+									<div className="flex flex-col">
+										<p className="font-semibold">Profile Image</p>
+										<p className="text-sm text-neutral-400">Min. 400x400px, PNG or JPEG</p>
+									</div>
+								</div>
+								<label htmlFor="image-upload" className="w-fit">
+									<input
+										ref={input}
+										type="file"
+										accept="image/*"
+										multiple={false}
+										id="image-upload"
+										className="hidden"
+										onChange={handleImage}
+									/>
+									<Button type="button" onClick={handleClick} variant="outline">
+										Upload Image
+									</Button>
+								</label>
+							</div>
+							<div className="flex w-full flex-col gap-4 rounded-xl border p-6">
+								<div className="grid w-full grid-cols-2 gap-4">
+									<Input
+										name="firstName"
+										onChange={handleChange}
+										label="First Name"
+										placeholder="First Name"
+										required
+									/>
+									<Input
+										name="lastName"
+										onChange={handleChange}
+										label="Last Name"
+										placeholder="Last Name"
+										required
+									/>
+								</div>
+								<PhoneInput
+									name="phoneNumber"
+									label="Phone Number"
+									onPhoneNumberChange={(value) => setFieldValue("phoneNumber", value)}
+									placeholder="(+1) 123-456-7890"
+									required
+								/>
+								<div className="grid w-full grid-cols-2 gap-4">
+									<div className="w-full">
+										<Label htmlFor="state">State</Label>
+										<Select value={values.state} onValueChange={(value) => setFieldValue("state", value)}>
+											<SelectTrigger>
+												<SelectValue placeholder="Select a state" />
+											</SelectTrigger>
+											<SelectContent>
+												{states.map((state) => (
+													<SelectItem key={state.value} value={state.value}>
+														{state.label}
+													</SelectItem>
+												))}
+											</SelectContent>
+										</Select>
+									</div>
+									<div className="w-full">
+										<Label htmlFor="city">City</Label>
+										<Select>
+											<SelectTrigger>
+												<SelectValue placeholder="Select a state" />
+											</SelectTrigger>
+											<SelectContent></SelectContent>
+										</Select>
+									</div>
+								</div>
+								<Input
+									name="address"
+									onChange={handleChange}
+									label="Home Address"
+									placeholder="Enter your home address"
+									required
+								/>
+								<Textarea
+									name="bio"
+									onChange={handleChange}
+									label="Enter Bio"
+									placeholder="Enter your description here"
+									required
+								/>
 							</div>
 						</div>
 					</div>
-					<form onSubmit={handleSubmit} className="col-span-2 flex w-full flex-col gap-4">
-						<div className="flex w-full items-center justify-between rounded-xl border p-6">
-							<div className="flex items-center gap-3">
-								<div className="relative size-16 rounded-full border">
-									<Image
-										src={previewUrl || defaultAvatar}
-										alt="image"
-										fill
-										sizes="(max-width: 1024px)100%"
-										className="rounded-full object-cover"
-									/>
-								</div>
-								<div className="flex flex-col">
-									<p className="font-semibold">Profile Image</p>
-									<p className="text-sm text-neutral-400">Min. 400x400px, PNG or JPEG</p>
-								</div>
-							</div>
-							<label htmlFor="image-upload" className="w-fit">
-								<input
-									ref={input}
-									type="file"
-									accept="image/*"
-									multiple={false}
-									id="image-upload"
-									className="hidden"
-									onChange={handleImage}
-								/>
-								<Button type="button" onClick={handleClick} variant="outline">
-									Upload Image
+				</FadeTransition>
+				<div className="fixed bottom-0 left-0 right-0 z-10 h-[100px] w-full bg-white">
+					<div className="flex h-[10px] w-full bg-neutral-300">
+						<div style={{ width: `${width}%` }} className="h-full bg-primary-100"></div>
+					</div>
+					<div className="container mx-auto flex h-[99px] items-center justify-end">
+						<div className="flex items-center gap-4">
+							{activeIndex > 0 && activeIndex < totalItems - 1 && (
+								<Button className="w-[170px]" variant="outline">
+									Save and Exit
 								</Button>
-							</label>
+							)}
+							<Button className="w-[170px]" type="submit">
+								{activeIndex === 0 ? (
+									"Let's go!"
+								) : activeIndex === totalItems - 1 ? (
+									<span className="flex w-full items-center gap-2">
+										Go to Dashboard <RiArrowRightDoubleLine size={20} />
+									</span>
+								) : (
+									"Next"
+								)}
+							</Button>
 						</div>
-						<div className="flex w-full flex-col gap-4 rounded-xl border p-6">
-							<div className="grid w-full grid-cols-2 gap-4">
-								<Input
-									name="firstName"
-									onChange={handleChange}
-									label="First Name"
-									placeholder="First Name"
-									required
-								/>
-								<Input
-									name="lastName"
-									onChange={handleChange}
-									label="Last Name"
-									placeholder="Last Name"
-									required
-								/>
-							</div>
-							<PhoneInput
-								name="phoneNumber"
-								label="Phone Number"
-								onPhoneNumberChange={(value) => setFieldValue("phoneNumber", value)}
-								placeholder="(+1) 123-456-7890"
-								required
-							/>
-							<div className="grid w-full grid-cols-2 gap-4">
-								<div className="w-full">
-									<Label htmlFor="state">State</Label>
-									<Select value={values.state} onValueChange={(value) => setFieldValue("state", value)}>
-										<SelectTrigger>
-											<SelectValue placeholder="Select a state" />
-										</SelectTrigger>
-										<SelectContent>
-											{states.map((state) => (
-												<SelectItem key={state.value} value={state.value}>
-													{state.label}
-												</SelectItem>
-											))}
-										</SelectContent>
-									</Select>
-								</div>
-								<div className="w-full">
-									<Label htmlFor="city">City</Label>
-									<Select>
-										<SelectTrigger>
-											<SelectValue placeholder="Select a state" />
-										</SelectTrigger>
-										<SelectContent></SelectContent>
-									</Select>
-								</div>
-							</div>
-							<Input
-								name="address"
-								onChange={handleChange}
-								label="Home Address"
-								placeholder="Enter your home address"
-								required
-							/>
-							<Textarea
-								name="bio"
-								onChange={handleChange}
-								label="Enter Bio"
-								placeholder="Enter your description here"
-								required
-							/>
-						</div>
-					</form>
+					</div>
 				</div>
-			</FadeTransition>
+			</form>
 		</>
 	)
 }
