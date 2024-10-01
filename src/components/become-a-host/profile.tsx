@@ -12,10 +12,10 @@ import { ProfileFormProps } from "./form-components"
 import { defaultAvatar } from "@/assets/images"
 import { ComponentUpdateProps } from "@/types"
 import { Textarea } from "../ui/textarea"
+import { statesAndLgas } from "@/config"
 import { Button } from "../ui/button"
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"
-import { states } from "@/config"
 
 const allowedExtensions = /jpeg|jpg|png|svg|webp/i
 
@@ -74,6 +74,13 @@ const Page = ({
 			handleNext()
 		},
 	})
+
+	const lgas = React.useMemo(() => {
+		return (
+			statesAndLgas.find((state) => state.name.toLowerCase() === values.state.toLowerCase())?.lgas ||
+			[]
+		)
+	}, [values.state])
 
 	const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (!e.target.files) return
@@ -206,9 +213,9 @@ const Page = ({
 												<SelectValue placeholder="Select a state" />
 											</SelectTrigger>
 											<SelectContent>
-												{states.map((state) => (
-													<SelectItem key={state.value} value={state.value}>
-														{state.label}
+												{statesAndLgas.map((state) => (
+													<SelectItem key={state.code} value={state.name}>
+														{state.name}
 													</SelectItem>
 												))}
 											</SelectContent>
@@ -216,11 +223,20 @@ const Page = ({
 									</div>
 									<div className="w-full">
 										<Label htmlFor="city">City</Label>
-										<Select>
+										<Select
+											value={values.city}
+											onValueChange={(value) => setFieldValue("city", value)}
+											disabled={!values.state}>
 											<SelectTrigger>
-												<SelectValue placeholder="Select a state" />
+												<SelectValue placeholder="Select a city" />
 											</SelectTrigger>
-											<SelectContent></SelectContent>
+											<SelectContent>
+												{lgas.map((lga) => (
+													<SelectItem key={lga} value={lga}>
+														{lga}
+													</SelectItem>
+												))}
+											</SelectContent>
 										</Select>
 									</div>
 								</div>

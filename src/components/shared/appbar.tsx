@@ -38,11 +38,11 @@ export const Appbar = () => {
 	return (
 		<nav
 			role="menubar"
-			className="static left-0 top-0 !z-30 flex max-h-[100px] w-screen items-center justify-center border-b bg-white px-4 lg:px-0">
+			className="static left-0 top-0 !z-30 flex h-[84px] w-screen items-center justify-center border-b bg-white px-4 lg:h-[100px] lg:px-0">
 			<div className="container mx-auto flex h-[100px] items-center justify-between overflow-hidden">
 				<div className="flex items-center gap-4 text-sm text-neutral-600">
-					<Link href="/">
-						<Image src="/spaceet.svg" alt="spaceet" width={140} height={30} priority />
+					<Link href="/" className="relative aspect-[4.7/1] h-auto w-[100px] lg:w-[140px]">
+						<Image src="/spaceet.svg" alt="spaceet" fill sizes="(max-width:1024px)100%" priority />
 					</Link>
 					<Dialog open={open} onOpenChange={setOpen}>
 						<DialogTrigger asChild>
@@ -115,9 +115,9 @@ export const Appbar = () => {
 						{user ? (
 							<Popover open={isOpen} onOpenChange={setIsOpen}>
 								<PopoverTrigger asChild>
-									<button className="flex h-14 items-center gap-3 rounded-[36px] border px-3">
-										<Menu size={24} />
-										<Avatar className="size-10 border bg-primary-100 text-white">
+									<button className="flex h-10 items-center gap-3 rounded-[36px] border px-3 lg:h-14">
+										<Menu className="size-4 lg:size-6" />
+										<Avatar className="size-7 border bg-primary-100 text-white lg:size-10">
 											<AvatarImage src={user.imageUrl} alt={user.firstName} />
 											<AvatarFallback className="text-sm font-medium">
 												{getInitials(`${user.firstName} ${user.lastName}`)}
