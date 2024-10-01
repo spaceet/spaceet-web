@@ -44,7 +44,9 @@ const Card = ({ apartment }: Props) => {
 	}
 
 	return (
-		<Link href={`/apartments/${apartment.id}`} className="flex w-full flex-col">
+		<Link
+			href={`/apartments/${apartment.id}`}
+			className="flex h-auto w-[214px] flex-shrink-0 flex-col lg:w-full">
 			<div className="flex aspect-[95/100] w-full items-center justify-center overflow-hidden rounded-md border bg-neutral-300">
 				{apartment.images.map((image, idx) => (
 					<motion.div
@@ -92,8 +94,8 @@ const Card = ({ apartment }: Props) => {
 				))}
 			</div>
 			<div className="flex w-full flex-col py-2">
-				<p className="font-semibold lg:text-lg">{apartment.name}</p>
-				<p className="text-meutral-400 font-light lg:text-sm">{apartment.location}</p>
+				<p className="text-sm font-semibold lg:text-lg">{apartment.name}</p>
+				<p className="text-meutral-400 text-xs font-light lg:text-sm">{apartment.location}</p>
 				<div className="text-meutral-900 flex items-center gap-2 font-semibold lg:text-sm">
 					{formatCurrency(apartment.price, "NGN")}/night
 				</div>

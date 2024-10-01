@@ -99,7 +99,7 @@ const Page = ({
 									don&apos;t.
 								</p>
 							</div>
-							<form onSubmit={handleSubmit} className="flex w-full flex-col gap-6 rounded-xl border p-6">
+							<div className="flex w-full flex-col gap-6 rounded-xl border p-6">
 								<div className="flex min-h-[37px] w-full items-center justify-between">
 									<p className="text-sm font-medium">Events allowed</p>
 									<CustomCheckable
@@ -223,7 +223,7 @@ const Page = ({
 										</DialogContent>
 									</Dialog>
 								</div>
-							</form>
+							</div>
 						</div>
 					</div>
 				</FadeTransition>
