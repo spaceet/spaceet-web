@@ -47,7 +47,7 @@ export const SearchWidget = () => {
 	})
 
 	return (
-		<div className="h-[360px] w-[350px] rounded-lg bg-white p-6">
+		<div className="aspect-[0.98/1] w-full rounded-lg bg-white p-6 lg:w-[350px]">
 			<form onSubmit={handleSubmit} className="flex h-full w-full flex-col gap-4">
 				<p className="text-sm font-medium">Select Preferences</p>
 				<div className="flex w-full flex-col gap-3 text-sm">
