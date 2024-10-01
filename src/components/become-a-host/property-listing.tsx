@@ -7,13 +7,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { AddressPicker, FadeTransition, Seo } from "../shared"
 import { PropertyFormProps } from "./form-components"
 import { ComponentUpdateProps } from "@/types"
-import { apartment_types } from "@/config"
+import { apartment_types, statesAndLgas } from "@/config"
 import { Textarea } from "../ui/textarea"
 import { capitalizeWords } from "@/lib"
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
-import { states } from "@/config"
 
 const initialValues: PropertyFormProps = {
 	address: "",
@@ -48,6 +47,13 @@ const Page = ({
 			handleNext()
 		},
 	})
+
+	const lgas = React.useMemo(() => {
+		return (
+			statesAndLgas.find((state) => state.name.toLowerCase() === values.state.toLowerCase())?.lgas ||
+			[]
+		)
+	}, [values.state])
 
 	return (
 		<>
@@ -193,9 +199,9 @@ const Page = ({
 												<SelectValue placeholder="Select a state" />
 											</SelectTrigger>
 											<SelectContent>
-												{states.map((state) => (
-													<SelectItem key={state.value} value={state.value}>
-														{state.label}
+												{statesAndLgas.map((state) => (
+													<SelectItem key={state.code} value={state.name}>
+														{state.name}
 													</SelectItem>
 												))}
 											</SelectContent>
@@ -203,11 +209,20 @@ const Page = ({
 									</div>
 									<div className="flex w-full flex-col gap-2">
 										<Label htmlFor="city">City</Label>
-										<Select value={values.city} onValueChange={(value) => setFieldValue("city", value)}>
+										<Select
+											value={values.city}
+											onValueChange={(value) => setFieldValue("city", value)}
+											disabled={!values.state}>
 											<SelectTrigger>
 												<SelectValue placeholder="Select a city" />
 											</SelectTrigger>
-											<SelectContent></SelectContent>
+											<SelectContent>
+												{lgas.map((lga) => (
+													<SelectItem key={lga} value={lga}>
+														{lga}
+													</SelectItem>
+												))}
+											</SelectContent>
 										</Select>
 									</div>
 								</div>
