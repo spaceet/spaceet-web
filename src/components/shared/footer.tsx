@@ -8,14 +8,14 @@ export const Footer = () => {
 	return (
 		<footer role="contentinfo" className="w-screen bg-neutral-900 px-5 py-10 lg:px-0 lg:py-[150px]">
 			<div className="container mx-auto flex flex-wrap items-start gap-8 text-neutral-300">
-				<div className="w-full lg:max-w-[350px]">
+				<div className="w-full lg:w-[350px]">
 					<Link href="/" className="text-2xl text-primary-100">
 						Spaceet.com
 					</Link>
 				</div>
 				<div className="flex w-full flex-1 flex-wrap items-start justify-between gap-[42px]">
 					{footer_links.map((item, index) => (
-						<div key={index} className="flex w-full min-w-[300px] flex-1 flex-col gap-5">
+						<div key={index} className="flex w-[300px] flex-1 flex-col gap-5 lg:w-[150px]">
 							<p className="font-semibold">{item.label}</p>
 							<div className="flex w-full flex-col gap-5">
 								{item.links.map((link, index) => (

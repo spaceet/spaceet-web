@@ -77,14 +77,14 @@ const Page = () => {
 		<>
 			<Seo title="Dashboard" />
 			<Appbar />
-			<main className="container mx-auto my-12 flex flex-col gap-8">
+			<main className="container mx-auto my-12 flex flex-col gap-8 px-5 lg:px-0">
 				<div className="flex items-center gap-2">
 					<button onClick={() => router.back()}>
 						<ChevronLeftCircle className="stroke-[1px]" />
 					</button>
 					<h3 className="font-medium lg:text-2xl">Reserving a space</h3>
 				</div>
-				<div className="grid w-full grid-cols-3 gap-8">
+				<div className="grid w-full grid-cols-1 gap-8 lg:grid-cols-3">
 					<div className="col-span-2 flex w-full flex-col gap-8">
 						<div className="flex w-full items-center gap-4 rounded-2xl border p-6">
 							<div className="relative h-[173px] w-[334px]">

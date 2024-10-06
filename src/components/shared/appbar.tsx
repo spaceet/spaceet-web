@@ -84,7 +84,7 @@ export const Appbar = () => {
 					<Separator orientation="vertical" className="hidden h-6 lg:block" />
 					{!isOnBecomeAHostPage && (
 						<div className="hidden items-center gap-4 lg:flex">
-							<Link href="/apartments" className="link">
+							<Link href="/search" className="link">
 								Book a Space
 							</Link>
 							{user && user.role === "host" ? (

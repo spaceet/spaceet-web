@@ -148,7 +148,7 @@ const Page = () => {
 											<h4 className="font-semibold lg:text-xl">{step.label}</h4>
 											<p className="text-sm leading-4 text-neutral-600 lg:text-base">{step.content}</p>
 										</div>
-										<Link href="/apartments" className="flex items-center gap-x-1">
+										<Link href="/search" className="flex items-center gap-x-1">
 											<span className="font-medium underline">Get Started</span>
 											<RiArrowRightUpLine size={16} />
 										</Link>

@@ -32,7 +32,7 @@ const Page = () => {
 			<Seo title={capitalize(host.firstName)} />
 			<Appbar />
 			<main className="container mx-auto my-12">
-				<div className="grid w-full grid-cols-3 gap-8">
+				<div className="grid w-full grid-cols-1 gap-8 px-5 lg:grid-cols-3 lg:px-0">
 					<div className="flex w-full flex-col gap-8">
 						<div className="flex w-fit items-center rounded-[43px] border p-1">
 							{tablist.map((tab) => (
@@ -93,7 +93,7 @@ const Page = () => {
 							</div>
 						</div>
 					</div>
-					<div className="col-span-2 flex w-full flex-col gap-8">
+					<div className="flex w-full flex-col gap-8 lg:col-span-2">
 						<div className="w-full rounded-3xl border p-6">
 							<div className="flex w-full items-center justify-between">
 								<p className="font-semibold lg:text-xl">About {host.firstName}</p>
@@ -129,9 +129,11 @@ const Page = () => {
 									</button>
 								</div>
 							</div>
-							<div className="grid w-full grid-cols-2 gap-5">
+							<div className="grid w-full grid-cols-1 gap-5 lg:grid-cols-2">
 								{[...Array(2)].map((_, index) => (
-									<div key={index} className="aspect-[1.25/1] w-full rounded-2xl border px-5 py-6"></div>
+									<div
+										key={index}
+										className="aspect-[1.25/1] w-full flex-shrink-0 rounded-2xl border px-5 py-6"></div>
 								))}
 							</div>
 						</div>
@@ -152,7 +154,7 @@ const Page = () => {
 									</button>
 								</div>
 							</div>
-							<div className="grid w-full grid-cols-2 gap-5">
+							<div className="grid w-full grid-cols-1 gap-5 lg:grid-cols-2">
 								{[...Array(2)].map((_, index) => (
 									<div key={index} className="aspect-[1.25/1] w-full rounded-2xl border px-5 py-6"></div>
 								))}

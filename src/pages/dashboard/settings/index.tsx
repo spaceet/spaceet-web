@@ -13,8 +13,18 @@ const Page = () => {
 		<>
 			<Seo title="Settings" />
 			<DashboardLayout>
-				<div className="flex h-full w-full items-start gap-8 px-8 py-12">
-					<div className="flex w-60 flex-col gap-4">
+				<div className="mt-9 flex w-full items-center border-b lg:hidden">
+					{user_tabs.map(({ label }, index) => (
+						<button
+							key={index}
+							onClick={() => setActive(index)}
+							className={`relative flex flex-1 items-center justify-center px-2 py-3 text-sm capitalize before:absolute before:bottom-0 before:left-0 before:h-0.5 before:bg-primary-100 ${active === index ? "font-medium text-primary-100 before:w-full" : "text-neutral-400"}`}>
+							{label}
+						</button>
+					))}
+				</div>
+				<div className="flex h-full w-full items-start gap-8 overflow-y-scroll px-5 py-12 lg:px-8">
+					<div className="hidden w-60 flex-col gap-4 lg:flex">
 						<button className="flex items-center gap-2 font-semibold">
 							<RiArrowLeftSLine size={20} /> Back
 						</button>
