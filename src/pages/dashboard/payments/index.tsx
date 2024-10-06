@@ -9,8 +9,8 @@ import {
 	RiSearch2Line,
 } from "@remixicon/react"
 
+import { DataCard, PaymentItem, Withdrawal } from "@/components/dashboard"
 import DashboardLayout from "@/components/layouts/dashboard-layout"
-import { DataCard, PaymentItem } from "@/components/dashboard"
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
 import { Seo } from "@/components/shared"
@@ -26,6 +26,13 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog"
 import {
+	Drawer,
+	DrawerContent,
+	DrawerDescription,
+	DrawerTitle,
+	DrawerTrigger,
+} from "@/components/ui/drawer"
+import {
 	Select,
 	SelectContent,
 	SelectItem,
@@ -40,7 +47,7 @@ type Filter = (typeof filters)[number] | (string & {})
 const Page = () => {
 	const [filter2, setFilter2] = React.useState<Filter2>("all")
 	const [filter, setFilter] = React.useState<Filter>("all")
-	const ref = React.useRef<HTMLInputElement>(null)!
+	const input = React.useRef<HTMLInputElement>(null)!
 	const [query, setQuery] = React.useState("")
 	useDebounce(query, 500)
 
@@ -50,9 +57,13 @@ const Page = () => {
 		if (e.ctrlKey || e.metaKey) {
 			if (e.key === "k") {
 				e.preventDefault()
-				if (ref.current) {
-					ref.current.focus()
+				if (input.current) {
+					input.current.focus()
 				}
+			}
+		} else if (e.key === "Escape") {
+			if (input.current) {
+				input.current.blur()
 			}
 		}
 	}
@@ -66,9 +77,9 @@ const Page = () => {
 		<>
 			<Seo title="Payments" />
 			<DashboardLayout>
-				<div className="flex h-full w-full flex-col gap-10 overflow-y-auto px-8 py-[35px]">
+				<div className="flex h-full w-full flex-col gap-10 overflow-y-auto px-0 py-[35px] lg:px-8">
 					<div className="flex w-full flex-col gap-5">
-						<div className="flex w-full items-center justify-between">
+						<div className="hidden w-full items-center justify-between lg:flex">
 							<p>Overview</p>
 							<div className="flex items-center gap-5">
 								<Select value={filter} onValueChange={setFilter}>
@@ -90,11 +101,65 @@ const Page = () => {
 									<DialogContent className="w-[400px]">
 										<DialogTitle className="font-body">Make Withdrawal</DialogTitle>
 										<DialogDescription hidden></DialogDescription>
+										<Withdrawal />
 									</DialogContent>
 								</Dialog>
 							</div>
 						</div>
-						<div className="flex h-[135px] w-full items-center rounded-md border">
+						<div className="flex w-full flex-col items-center gap-3 overflow-x-hidden px-5 lg:hidden">
+							<div className="flex w-full items-center gap-x-2 overflow-x-scroll">
+								<DataCard
+									direction="up"
+									icon={RiHome8Line}
+									label="Total Earnings"
+									percentage={5.6}
+									value={formatCurrency(3500, "NGN")}
+									className="w-[170px] rounded border p-4"
+								/>
+								<DataCard
+									direction="up"
+									icon={RiCalendarCheckLine}
+									label="Current Wallet Balance"
+									percentage={5.6}
+									value={formatCurrency(3500, "NGN")}
+									className="w-[170px] rounded border p-4"
+								/>
+								<DataCard
+									direction="down"
+									icon={RiHome8Line}
+									label="Total Withdrawals"
+									percentage={5.6}
+									value={formatCurrency(3500, "NGN")}
+									className="w-[170px] rounded border p-4"
+								/>
+								<DataCard
+									direction="up"
+									icon={RiHotelBedLine}
+									label="Total Bookings"
+									percentage={5.6}
+									value={formatCurrency(3500, "NGN")}
+									className="w-[170px] rounded border p-4"
+								/>
+							</div>
+							<div className="flex w-full items-center justify-center gap-[6px]">
+								{[...Array(4)].map((_, index) => (
+									<button key={index} className={`size-2 rounded-full bg-neutral-400`}></button>
+								))}
+							</div>
+							<Drawer>
+								<DrawerTrigger asChild>
+									<Button variant="outline" className="mt-5 w-full">
+										Make Withdrawal
+									</Button>
+								</DrawerTrigger>
+								<DrawerContent className="flex flex-col gap-4 p-5">
+									<DrawerTitle className="font-body text-base font-medium">Make Withdrawal</DrawerTitle>
+									<DrawerDescription hidden></DrawerDescription>
+									<Withdrawal />
+								</DrawerContent>
+							</Drawer>
+						</div>
+						<div className="hidden h-[135px] w-full items-center rounded-md border lg:flex">
 							<DataCard
 								direction="up"
 								icon={RiHome8Line}
@@ -129,25 +194,25 @@ const Page = () => {
 						</div>
 					</div>
 					<div className="flex h-full w-full flex-col gap-4">
-						<div className="flex w-fit items-center gap-6">
-							<p>Payment Hitory</p>
-							<div className="flex h-11 w-fit items-center rounded-lg border p-1">
+						<div className="flex w-full flex-col items-start gap-6 lg:w-fit lg:flex-row lg:items-center">
+							<p className="px-5 lg:px-0">Payment Hitory</p>
+							<div className="flex h-11 w-full items-center border-b p-1 lg:w-fit lg:rounded-lg lg:border">
 								{filters2.map((item) => (
 									<button
 										key={item}
 										onClick={() => setFilter2(item)}
-										className={`flex min-w-[107px] items-center justify-center rounded-md px-4 py-2 text-sm capitalize ${item === filter2 ? "bg-primary-100 text-white" : "bg-transparent"}`}>
+										className={`relative flex flex-1 items-center justify-center rounded-md px-4 py-2 text-sm capitalize before:absolute before:-bottom-[5px] before:left-0 before:h-0.5 before:bg-primary-100 lg:min-w-[107px] ${item === filter2 ? "text-primary-100 before:w-full lg:bg-primary-100 lg:text-white" : "bg-transparent before:w-0"}`}>
 										{item}
 									</button>
 								))}
 							</div>
 						</div>
-						<div className="flex h-full w-full flex-col gap-6 rounded-lg border px-5 py-3">
-							<div className="flex w-full items-center justify-between py-2">
-								<div className="flex h-9 min-w-[389px] items-center gap-2 rounded-md border px-3 py-[10px]">
+						<div className="flex h-full w-full flex-col gap-6 px-5 py-3 lg:rounded-lg lg:border lg:px-5">
+							<div className="flex w-full flex-col items-center justify-between gap-2 py-2 lg:flex-row">
+								<div className="flex h-9 w-full items-center gap-2 rounded-md border px-3 py-[10px] lg:min-w-[389px]">
 									<RiSearch2Line size={16} />
 									<input
-										ref={ref}
+										ref={input}
 										value={query}
 										onChange={(e) => setQuery(e.target.value)}
 										className="flex-1 bg-transparent text-sm outline-none"
@@ -157,18 +222,18 @@ const Page = () => {
 										<RiCommandLine size={16} /> K
 									</div>
 								</div>
-								<div className="flex items-center gap-4">
-									<Button className="h-9" variant="outline">
+								<div className="flex w-full items-center gap-4 lg:w-fit">
+									<Button className="h-9 w-full lg:w-fit" variant="outline">
 										<RiDownload2Line size={16} />
 										Export Data
 									</Button>
-									<Button className="h-9" variant="outline">
+									<Button className="h-9 w-full lg:w-fit" variant="outline">
 										<RiFilter3Line size={16} />
 										Filter
 									</Button>
 								</div>
 							</div>
-							<div className="h-full w-full">
+							<div className="hidden h-full w-full lg:block">
 								<div className="grid h-[30px] w-full grid-cols-12 gap-2 text-xs text-neutral-400">
 									<div className="col-span-4 w-full py-1">APARTMENT</div>
 									<div className="col-span-2 w-full py-1">GUEST NAME</div>

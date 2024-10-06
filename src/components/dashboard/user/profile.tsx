@@ -83,9 +83,9 @@ export const Profile = () => {
 	}, [values.image])
 
 	return (
-		<form onSubmit={handleSubmit} className="flex w-full max-w-[600px] flex-col gap-4">
-			<div className="flex w-full items-center justify-between rounded-xl border p-6">
-				<div className="flex items-center gap-3">
+		<form onSubmit={handleSubmit} className="flex w-full flex-col gap-4 lg:max-w-[600px]">
+			<div className="flex w-full flex-col items-center justify-between gap-6 rounded-xl border p-6 lg:flex-row lg:gap-6">
+				<div className="flex flex-col items-center gap-3 lg:flex-row">
 					<div className="relative size-16 rounded-full border">
 						<Image
 							src={previewUrl ? previewUrl : defaultAvatar}
@@ -110,7 +110,7 @@ export const Profile = () => {
 						className="hidden"
 						onChange={handleImage}
 					/>
-					<Button type="button" onClick={handleClick} variant="outline">
+					<Button type="button" onClick={handleClick} className="w-full lg:w-fit" variant="outline">
 						Upload Image
 					</Button>
 				</label>
@@ -179,14 +179,16 @@ export const Profile = () => {
 					placeholder="Enter your description here"
 					required
 				/>
-				<div className="grid w-full grid-cols-3 gap-4">
-					<Button type="button" variant="ghost" className="text-red-700">
+				<div className="mt-10 grid w-full grid-cols-2 gap-4 lg:mt-0 lg:grid-cols-3">
+					<Button type="button" variant="ghost" className="col-span-2 text-red-700 lg:col-span-1">
 						Delete Account
 					</Button>
-					<Button type="reset" variant="outline">
-						Reset Changes
-					</Button>
-					<Button type="submit">Save Changes</Button>
+					<div className="col-span-2 grid grid-cols-2 gap-4 border-t py-7 lg:border-none lg:py-0">
+						<Button type="reset" variant="outline">
+							Reset Changes
+						</Button>
+						<Button type="submit">Save Changes</Button>
+					</div>
 				</div>
 			</div>
 		</form>
