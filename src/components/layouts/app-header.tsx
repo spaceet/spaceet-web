@@ -46,7 +46,7 @@ export const useAppHeader = (pathname: string) => {
 
 const AppDashboardHeader = () => {
 	return (
-		<div className="flex items-center gap-3">
+		<div className="hidden items-center gap-3 lg:flex">
 			<div className="grid size-12 place-items-center rounded-full bg-neutral-200">
 				<RiHome8Line size={32} />
 			</div>
@@ -57,7 +57,7 @@ const AppDashboardHeader = () => {
 
 const AppCalendarHeader = () => {
 	return (
-		<div className="flex items-center gap-3">
+		<div className="hidden items-center gap-3 lg:flex">
 			<div className="grid size-12 place-items-center rounded-full bg-neutral-200">
 				<RiCalendarCheckLine size={32} />
 			</div>
@@ -68,7 +68,7 @@ const AppCalendarHeader = () => {
 
 const AppListingsHeader = () => {
 	return (
-		<div className="flex items-center gap-3">
+		<div className="hidden items-center gap-3 lg:flex">
 			<div className="grid size-12 place-items-center rounded-full bg-neutral-200">
 				<RiHotelBedLine size={32} />
 			</div>
@@ -79,7 +79,7 @@ const AppListingsHeader = () => {
 
 const AppReservationsHeader = () => {
 	return (
-		<div className="flex items-center gap-3">
+		<div className="hidden items-center gap-3 lg:flex">
 			<div className="grid size-12 place-items-center rounded-full bg-neutral-200">
 				<RiHotelLine size={32} />
 			</div>
@@ -90,7 +90,7 @@ const AppReservationsHeader = () => {
 
 const AppMessagesHeader = () => {
 	return (
-		<div className="flex items-center gap-3">
+		<div className="hidden items-center gap-3 lg:flex">
 			<div className="grid size-12 place-items-center rounded-full bg-neutral-200">
 				<RiMessage2Line size={32} />
 			</div>
@@ -101,7 +101,7 @@ const AppMessagesHeader = () => {
 
 const AppHelpCenterHeader = () => {
 	return (
-		<div className="flex items-center gap-3">
+		<div className="hidden items-center gap-3 lg:flex">
 			<div className="grid size-12 place-items-center rounded-full bg-neutral-200">
 				<RiQuestionnaireLine size={32} />
 			</div>
@@ -112,7 +112,7 @@ const AppHelpCenterHeader = () => {
 
 const AppLanguageHeader = () => {
 	return (
-		<div className="flex items-center gap-3">
+		<div className="hidden items-center gap-3 lg:flex">
 			<div className="grid size-12 place-items-center rounded-full bg-neutral-200">
 				<RiPsychotherapyLine size={32} />
 			</div>
@@ -123,7 +123,7 @@ const AppLanguageHeader = () => {
 
 const AppSettingsHeader = () => {
 	return (
-		<div className="flex items-center gap-3">
+		<div className="hidden items-center gap-3 lg:flex">
 			<div className="grid size-12 place-items-center rounded-full bg-neutral-200">
 				<RiSettingsLine size={32} />
 			</div>

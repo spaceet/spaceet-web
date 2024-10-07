@@ -51,7 +51,7 @@ export const Security = () => {
 					required
 				/>
 
-				<div className="flex w-full items-center justify-end gap-4">
+				<div className="flex w-full items-center justify-between gap-4 lg:justify-end">
 					<Button type="reset" variant="outline">
 						Reset Changes
 					</Button>

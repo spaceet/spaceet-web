@@ -1,4 +1,4 @@
-import { addDays, differenceInCalendarDays, differenceInYears } from "date-fns"
+import { addDays, differenceInCalendarDays, differenceInYears, formatDate } from "date-fns"
 import { ChevronLeft, ChevronLeftCircle } from "lucide-react"
 import { useQueries } from "@tanstack/react-query"
 import { useRouter } from "next/router"
@@ -67,6 +67,7 @@ const Page = () => {
 	const { handleChange, handleSubmit, values } = useFormik({
 		initialValues,
 		onSubmit: (values) => {
+			console.log(values)
 			if (!values.check_in) {
 				toast.error("Please select a check-in date")
 				return
@@ -116,7 +117,20 @@ const Page = () => {
 		<>
 			<Seo title={capitalize(apartment.name)} />
 			<Appbar />
-			<main className="container mx-auto my-12 flex flex-col gap-8 px-4 lg:px-0">
+			<main className="container relative mx-auto my-12 flex flex-col gap-8 px-4 lg:px-0">
+				<div className="fixed bottom-0 left-0 !z-10 flex h-[99px] w-full items-center justify-between border-t bg-white px-5 lg:hidden">
+					<p className="font-semibold lg:text-2xl">{formatCurrency(apartment.price, "NGN")}/night</p>
+					<Button
+						onClick={() =>
+							router.push(
+								`/book-a-space/${id}?${encodeQueryParams({ check_in: formatDate(new Date(), "yyyy-MM-dd").toString(), check_out: formatDate(new Date(), "yyyy-MM-dd").toString(), guests: 1 })}`
+							)
+						}
+						type="button"
+						className="w-[170px] rounded-3xl">
+						Reserve
+					</Button>
+				</div>
 				<div className="flex items-center gap-2">
 					<button onClick={() => router.back()}>
 						<ChevronLeftCircle className="stroke-[1px]" />

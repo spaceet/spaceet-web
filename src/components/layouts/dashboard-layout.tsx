@@ -1,4 +1,4 @@
-import { RiAddLine, RiArrowDownSLine, RiNotification4Line } from "@remixicon/react"
+import { RiAddLine, RiArrowDownSLine, RiMenuLine, RiNotification4Line } from "@remixicon/react"
 import { useRouter } from "next/router"
 import Image from "next/image"
 import Link from "next/link"
@@ -11,6 +11,13 @@ import { useUserStore } from "@/store/z-store"
 import { useAppHeader } from "./app-header"
 import { dashboard_links } from "@/config"
 import { Button } from "../ui/button"
+import {
+	Sheet,
+	SheetContent,
+	SheetDescription,
+	SheetTitle,
+	SheetTrigger,
+} from "@/components/ui/sheet"
 
 interface Props {
 	children: React.ReactNode
@@ -25,7 +32,7 @@ const DashboardLayout = ({ children }: Props) => {
 
 	return (
 		<div className="flex h-screen w-screen overflow-hidden">
-			<aside className="h-full w-64">
+			<aside className="hidden h-full w-0 lg:block lg:w-64">
 				<div className="grid h-24 w-full place-items-center border-b">
 					<Link href="/">
 						<Image src="/spaceet.svg" alt="spaceet" width={140} height={30} priority />
@@ -49,23 +56,39 @@ const DashboardLayout = ({ children }: Props) => {
 								</div>
 							</div>
 						))}
-						<Button className="h-9 w-full">
-							<RiAddLine size={20} />
-							New Apartment
-						</Button>
+						<Link href="/dashboard/listings/new">
+							<Button className="h-9 w-full">
+								<RiAddLine size={20} />
+								New Apartment
+							</Button>
+						</Link>
 					</div>
 				</div>
 			</aside>
 			<Separator orientation="vertical" className="bg-neutral-300" />
 			<main className="h-full w-full flex-1">
 				<nav className="flex h-24 w-full items-center justify-between border-b px-8">
+					<Link href="/" className="block lg:hidden">
+						<Image src="/spaceet.svg" alt="spaceet" width={140} height={30} priority />
+					</Link>
 					{useAppHeader(router.pathname)}
 					<div className="flex items-center gap-3">
 						<button className="relative grid size-10 place-items-center rounded-full border">
 							<RiNotification4Line size={24} />
 						</button>
-						<Separator orientation="vertical" className="h-7 bg-neutral-300" />
-						<button onClick={() => setOpen(!open)} className="flex items-center gap-2">
+						<Sheet>
+							<SheetTrigger asChild>
+								<button className="relative grid size-10 place-items-center rounded-full border">
+									<RiMenuLine size={24} />
+								</button>
+							</SheetTrigger>
+							<SheetContent className="bg-white">
+								<SheetTitle hidden></SheetTitle>
+								<SheetDescription hidden></SheetDescription>
+							</SheetContent>
+						</Sheet>
+						<Separator orientation="vertical" className="hidden h-7 bg-neutral-300 lg:block" />
+						<button onClick={() => setOpen(!open)} className="hidden items-center gap-2 lg:flex">
 							<Avatar className="size-10 border bg-primary-100 text-white">
 								<AvatarImage src={user?.imageUrl} alt={user?.firstName} />
 								<AvatarFallback className="text-sm font-medium">
