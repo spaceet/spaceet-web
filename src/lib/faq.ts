@@ -16,17 +16,20 @@ export const faqData = [
 	},
 	{
 		title: "Can I bring in Pets ?",
-		details: "Ensure you check the house policy before booking the space to know if your host would love to have pets around",
+		details:
+			"Ensure you check the house policy before booking the space to know if your host would love to have pets around",
 		url: "/",
 	},
 	{
 		title: "Can I bring in Pets ?",
-		details: "Ensure you check the house policy before booking the space to know if your host would love to have pets around",
+		details:
+			"Ensure you check the house policy before booking the space to know if your host would love to have pets around",
 		url: "/",
 	},
 	{
 		title: "Can I bring in Pets ?",
-		details: "Ensure you check the house policy before booking the space to know if your host would love to have pets around",
+		details:
+			"Ensure you check the house policy before booking the space to know if your host would love to have pets around",
 		url: "/",
 	},
 	{

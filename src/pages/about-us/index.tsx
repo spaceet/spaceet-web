@@ -12,17 +12,13 @@ import cassandra from "../../../public/assets/images/cassandra-williams.webp"
 import john from "../../../public/assets/images/john-niyon.webp"
 import mary from "../../../public/assets/images/mary-chinozie.webp"
 import { Input } from "@/components/ui/input"
-import {RiQuestionnaireFill, RiLightbulbFlashLine, RiAsterisk } from "@remixicon/react"
+import { RiQuestionnaireFill, RiLightbulbFlashLine, RiAsterisk } from "@remixicon/react"
 import { Icon } from "lucide-react"
-
 
 const EMAIL_REGEX =
 	/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
 
-
-
 const Page = () => {
-
 	const [email, setEmail] = React.useState("")
 
 	const handleSubmit = (e: React.FormEvent) => {
@@ -109,7 +105,7 @@ const Page = () => {
 
 					<div className="container mt-6 flex w-full flex-col gap-5 lg:w-[1000px] lg:flex-row">
 						<div className="w-full rounded-[5px] border border-neutral-600 px-6 py-4">
-							<Image src={RiAsterisk}/>
+							<Image src={RiAsterisk} />
 							<h2 className="mb-2">Simplicity</h2>
 							<p className="text-[13px]">We believe in making hosting as easy as possible</p>
 						</div>
@@ -137,45 +133,53 @@ const Page = () => {
 							standards.
 						</p>
 					</div>
-					<div className="w-full mt-8 mx-auto grid grid-cols-1 lg:grid-cols-3 gap-7 lg:justify-between">
+					<div className="mx-auto mt-8 grid w-full grid-cols-1 gap-7 lg:grid-cols-3 lg:justify-between">
 						<div className="w-[100%] lg:w-[100%]">
-							<div className="h-[450px] w-full mx-auto rounded-[9px] bg-neutral-300 overflow-hidden mb-5">
-								<Image src={john} alt="john niyon" className="h-full w-full object-center object-cover"/>
+							<div className="mx-auto mb-5 h-[450px] w-full overflow-hidden rounded-[9px] bg-neutral-300">
+								<Image src={john} alt="john niyon" className="h-full w-full object-cover object-center" />
 							</div>
 							<h3 className="text-[24px]">John Niyon</h3>
 							<p className="text-[16px]">Founder</p>
 						</div>
 						<div className="w-[100%] lg:w-[100%]">
-							<div className="h-[450px] w-full mx-auto rounded-[9px] bg-neutral-300 overflow-hidden mb-5">
-								<Image src={mary} alt="john niyon" className="h-full w-full object-center object-cover"/>
+							<div className="mx-auto mb-5 h-[450px] w-full overflow-hidden rounded-[9px] bg-neutral-300">
+								<Image src={mary} alt="john niyon" className="h-full w-full object-cover object-center" />
 							</div>
 							<h3 className="text-[24px]">Mary Chinozie</h3>
 							<p className="text-[16px]">Service Manager</p>
 						</div>
 						<div className="w-[100%] lg:w-[100%]">
-							<div className="h-[450px] w-full mx-auto rounded-[9px] bg-neutral-300 overflow-hidden mb-5">
-								<Image src={cassandra} alt="john niyon" className="h-full w-full object-top object-cover scale-150 mt-[-40px] ml-[20px]"/>
+							<div className="mx-auto mb-5 h-[450px] w-full overflow-hidden rounded-[9px] bg-neutral-300">
+								<Image
+									src={cassandra}
+									alt="john niyon"
+									className="ml-[20px] mt-[-40px] h-full w-full scale-150 object-cover object-top"
+								/>
 							</div>
 							<h3 className="text-[24px]">Cassandra Williams</h3>
 							<p className="text-[16px]">Customer Manager</p>
 						</div>
 						<div className="w-[100%] lg:w-[100%]">
-							<div className="h-[450px] w-full mx-auto rounded-[9px] bg-neutral-300 overflow-hidden mb-5">
-								<Image src={john} alt="john niyon" className="h-full w-full object-center object-cover"/>
+							<div className="mx-auto mb-5 h-[450px] w-full overflow-hidden rounded-[9px] bg-neutral-300">
+								<Image src={john} alt="john niyon" className="h-full w-full object-cover object-center" />
 							</div>
 							<h3 className="text-[24px]">John Niyon</h3>
 							<p className="text-[16px]">Founder</p>
 						</div>
 						<div className="w-[100%] lg:w-[100%]">
-							<div className="h-[450px] w-full mx-auto rounded-[9px] bg-neutral-300 overflow-hidden mb-5">
-								<Image src={mary} alt="john niyon" className="h-full w-full object-center object-cover"/>
+							<div className="mx-auto mb-5 h-[450px] w-full overflow-hidden rounded-[9px] bg-neutral-300">
+								<Image src={mary} alt="john niyon" className="h-full w-full object-cover object-center" />
 							</div>
 							<h3 className="text-[24px]">Mary Chinozie</h3>
 							<p className="text-[16px]">Service Manager</p>
 						</div>
 						<div className="w-[100%] lg:w-[100%]">
-							<div className="h-[450px] w-full mx-auto rounded-[9px] bg-neutral-300 overflow-hidden mb-5">
-								<Image src={cassandra} alt="john niyon" className="h-full w-full object-top object-cover scale-150 mt-[-40px] ml-[20px]"/>
+							<div className="mx-auto mb-5 h-[450px] w-full overflow-hidden rounded-[9px] bg-neutral-300">
+								<Image
+									src={cassandra}
+									alt="john niyon"
+									className="ml-[20px] mt-[-40px] h-full w-full scale-150 object-cover object-top"
+								/>
 							</div>
 							<h3 className="text-[24px]">Cassandra Williams</h3>
 							<p className="text-[16px]">Customer Manager</p>
@@ -229,6 +233,5 @@ const Page = () => {
 }
 
 export default Page
-
 
 // this is for new branch

@@ -55,25 +55,24 @@ const Page = () => {
 						</div>
 					</div>
 
-						<div className="grid items-center gap-x-8 gap-y-8 lg:grid-cols-3">
-							{faqData.map((faq, index) => (
-								<div
-									key={index}
-									className="mx-auto w-[350px] rounded-[5px] border border-neutral-400 px-6 py-4 lg:w-full">
-									<h3 className="mb-5 text-[18px] font-semibold">{faq.title}</h3>
-									<p className="color-neutral-300 mb-5 text-[14px]">{faq.details}</p>
-									<a href={faq.url} className="text-[12px] text-warning-300">
-										View More
-									</a>
-								</div>
-							))}
-						</div>
-				
+					<div className="grid items-center gap-x-8 gap-y-8 lg:grid-cols-3">
+						{faqData.map((faq, index) => (
+							<div
+								key={index}
+								className="mx-auto w-[350px] rounded-[5px] border border-neutral-400 px-6 py-4 lg:w-full">
+								<h3 className="mb-5 text-[18px] font-semibold">{faq.title}</h3>
+								<p className="color-neutral-300 mb-5 text-[14px]">{faq.details}</p>
+								<a href={faq.url} className="text-[12px] text-warning-300">
+									View More
+								</a>
+							</div>
+						))}
+					</div>
+
 					<div className="mx-auto mt-10 text-center">
 						<h2 className="mb-5 text-[25px] font-semibold">Didn't answer to your questions ? </h2>
 						<Button className="mx-auto h-[44px] w-[150px]">Send a message</Button>
 					</div>
-
 				</section>
 				<div></div>
 			</main>
