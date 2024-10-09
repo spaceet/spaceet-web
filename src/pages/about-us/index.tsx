@@ -53,8 +53,8 @@ const Page = () => {
 						<div className="text-sub-500 flex flex-col gap-5">
 							<p className="text-[15px]">
 								Spaceet was born out of a desire to make property hosting more accessible and efficient. We
-								understand the challenges hosts face in managing bookings, guests, and properties, and we&#39;re
-								here to provide the tools and support to help you succeed.
+								understand the challenges hosts face in managing bookings, guests, and properties, and
+								we&#39;re here to provide the tools and support to help you succeed.
 							</p>
 							<p className="text-[15px]">
 								Our mission is to empower property owners to become successful hosts by providing
@@ -104,17 +104,17 @@ const Page = () => {
 
 					<div className="container mt-6 flex w-full flex-col gap-5 lg:w-[1000px] lg:flex-row">
 						<div className="w-full rounded-[5px] border border-neutral-600 px-6 py-4">
-							<RiAsterisk className="fill-warning-300 mb-5"/>
+							<RiAsterisk className="mb-5 fill-warning-300" />
 							<h2 className="mb-5">Simplicity</h2>
 							<p className="text-[13px]">We believe in making hosting as easy as possible</p>
 						</div>
 						<div className="w-full rounded-[5px] border border-neutral-600 px-6 py-4">
-							<RiQuestionnaireFill className="fill-warning-300 mb-5" />
+							<RiQuestionnaireFill className="mb-5 fill-warning-300" />
 							<h2 className="mb-5">Support</h2>
 							<p className="text text-[13px]">We&#39;re here for our hosts at every step of the journey</p>
 						</div>
 						<div className="w-full rounded-[5px] border border-neutral-600 px-6 py-4">
-							<RiLightbulbFlashLine className="fill-warning-300 mb-5"/>
+							<RiLightbulbFlashLine className="mb-5 fill-warning-300" />
 							<h2 className="mb-5">Innovation</h2>
 							<p className="text-[13px]">We continuously improve to stay ahead of the hosting game</p>
 						</div>
