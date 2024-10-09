@@ -70,7 +70,7 @@ const Page = () => {
 					</div>
 
 					<div className="mx-auto mt-10 text-center">
-						<h2 className="mb-5 text-[25px] font-semibold">Didn't answer to your questions ? </h2>
+						<h2 className="mb-5 text-[25px] font-semibold">Didn&#39;t answer to your questions ? </h2>
 						<Button className="mx-auto h-[44px] w-[150px]">Send a message</Button>
 					</div>
 				</section>
