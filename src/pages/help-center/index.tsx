@@ -2,7 +2,7 @@ import React from "react"
 
 import { Appbar, Footer, Seo } from "@/components/shared"
 import { Button } from "@/components/ui/button"
-import { faqData } from "../../lib/faq"
+import { faqData } from "../../config/faq"
 
 const Page = () => {
 	return (

@@ -13,7 +13,6 @@ import john from "../../../public/assets/images/john-niyon.webp"
 import mary from "../../../public/assets/images/mary-chinozie.webp"
 import { Input } from "@/components/ui/input"
 import { RiQuestionnaireFill, RiLightbulbFlashLine, RiAsterisk } from "@remixicon/react"
-import { Icon } from "lucide-react"
 
 const EMAIL_REGEX =
 	/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
@@ -105,18 +104,18 @@ const Page = () => {
 
 					<div className="container mt-6 flex w-full flex-col gap-5 lg:w-[1000px] lg:flex-row">
 						<div className="w-full rounded-[5px] border border-neutral-600 px-6 py-4">
-							<Image src={RiAsterisk} />
-							<h2 className="mb-2">Simplicity</h2>
+							<RiAsterisk className="fill-warning-300 mb-5"/>
+							<h2 className="mb-5">Simplicity</h2>
 							<p className="text-[13px]">We believe in making hosting as easy as possible</p>
 						</div>
 						<div className="w-full rounded-[5px] border border-neutral-600 px-6 py-4">
-							<Image src={RiQuestionnaireFill} />
-							<h2 className="mb-2">Support</h2>
+							<RiQuestionnaireFill className="fill-warning-300 mb-5" />
+							<h2 className="mb-5">Support</h2>
 							<p className="text text-[13px]">We're here for our hosts at every step of the journey</p>
 						</div>
 						<div className="w-full rounded-[5px] border border-neutral-600 px-6 py-4">
-							<Image src={RiLightbulbFlashLine} />
-							<h2 className="mb-2">Innovation</h2>
+							<RiLightbulbFlashLine className="fill-warning-300 mb-5"/>
+							<h2 className="mb-5">Innovation</h2>
 							<p className="text-[13px]">We continuously improve to stay ahead of the hosting game</p>
 						</div>
 					</div>
