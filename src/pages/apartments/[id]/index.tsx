@@ -1,6 +1,6 @@
 import { addDays, differenceInCalendarDays, differenceInYears, formatDate } from "date-fns"
 import { ChevronLeft, ChevronLeftCircle } from "lucide-react"
-import { useQueries } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 import { useRouter } from "next/router"
 import { motion } from "framer-motion"
 import { useFormik } from "formik"
@@ -9,17 +9,16 @@ import Image from "next/image"
 import Link from "next/link"
 import React from "react"
 
+import { Appbar, Icon, Loading, Rating, RatingForm, Review, Seo } from "@/components/shared"
 import { Bath, Bed, CheckIn, Danger, Dumbells2, UserCheck, Users } from "@/assets/svg"
-import { Appbar, Icon, Rating, RatingForm, Seo } from "@/components/shared"
-import { GetPropertyQuery, GetAllReviewsQuery } from "@/queries"
-import { Avatar, AvatarImage } from "@/components/ui/avatar"
+import { calculateRating, capitalize, formatCurrency, getInitials } from "@/lib"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Separator } from "@/components/ui/separator"
 import { encodeQueryParams, slide } from "@/config"
-import { capitalize, formatCurrency } from "@/lib"
 import { Button } from "@/components/ui/button"
 import { NotFound } from "@/components/layouts"
-import { properties } from "@/mock/properties"
 import { Input } from "@/components/ui/input"
+import { GetPropertyQuery } from "@/queries"
 import {
 	Dialog,
 	DialogContent,
@@ -49,19 +48,10 @@ const Page = () => {
 	const router = useRouter()
 	const { id } = router.query
 
-	const [] = useQueries({
-		queries: [
-			{
-				queryFn: () => GetPropertyQuery(String(id)),
-				queryKey: ["get-apartment", id],
-				enabled: false,
-			},
-			{
-				queryFn: () => GetAllReviewsQuery(String(id), {}),
-				queryKey: ["get-reviews", id],
-				enabled: false,
-			},
-		],
+	const { data: apartment, isLoading } = useQuery({
+		queryFn: () => GetPropertyQuery(String(id)),
+		queryKey: ["get-apartment", id],
+		enabled: !!id,
 	})
 
 	const { handleChange, handleSubmit, values } = useFormik({
@@ -83,9 +73,6 @@ const Page = () => {
 			router.push(`/book-a-space/${id}?${encodeQueryParams(values)}`)
 		},
 	})
-
-	const apartment = properties.find((apartment) => apartment.id === id)
-
 	const scrollIntoView = (id: string) => {
 		const element = document.getElementById(id)
 		if (element) {
@@ -107,19 +94,25 @@ const Page = () => {
 		setDateDifference(differenceInCalendarDays(new Date(values.check_out), new Date(values.check_in)))
 	}, [values.check_out, values.check_in])
 
+	if (isLoading) return <Loading />
+
 	if (!apartment) return <NotFound />
 
-	const handleNextImage = () => setCurrentImage((prev) => (prev + 1) % apartment.images.length)
+	const handleNextImage = () => setCurrentImage((prev) => (prev + 1) % apartment.data.images.length)
 	const handlePrevImage = () =>
-		setCurrentImage((prev) => (prev - 1 + apartment.images.length) % apartment.images.length)
+		setCurrentImage(
+			(prev) => (prev - 1 + apartment.data.images.length) % apartment.data.images.length
+		)
 
 	return (
 		<>
-			<Seo title={capitalize(apartment.name)} />
+			<Seo title={capitalize(apartment.data.name)} />
 			<Appbar />
 			<main className="container relative mx-auto my-12 flex flex-col gap-8 px-4 lg:px-0">
 				<div className="fixed bottom-0 left-0 !z-10 flex h-[99px] w-full items-center justify-between border-t bg-white px-5 lg:hidden">
-					<p className="font-semibold lg:text-2xl">{formatCurrency(apartment.price, "NGN")}/night</p>
+					<p className="font-semibold lg:text-2xl">
+						{formatCurrency(apartment.data.price.cost_per_night, "NGN")}/night
+					</p>
 					<Button
 						onClick={() =>
 							router.push(
@@ -135,16 +128,16 @@ const Page = () => {
 					<button onClick={() => router.back()}>
 						<ChevronLeftCircle className="stroke-[1px]" />
 					</button>
-					<h3 className="font-medium lg:text-2xl">{apartment.name}</h3>
+					<h3 className="font-medium capitalize lg:text-2xl">{apartment.data.name}</h3>
 				</div>
 				<div className="flex items-center justify-center lg:hidden">
-					{apartment.images.map((image, index) => (
+					{apartment.data.images.map((image, index) => (
 						<div
 							key={index}
 							className={`relative aspect-[1.3/1] w-full ${index === currentImage ? "block" : "hidden"}`}>
 							<Image
 								src={image}
-								alt={apartment.name}
+								alt={apartment.data.name}
 								fill
 								sizes="(max-width: 1024px)100%"
 								className="rounded-[10px] object-cover"
@@ -155,15 +148,15 @@ const Page = () => {
 				<div className="hidden w-full grid-cols-2 gap-5 lg:grid">
 					<div className="relative aspect-square w-full">
 						<Image
-							src={apartment.images[0]}
-							alt={apartment.name}
+							src={apartment.data.cover_photo}
+							alt={apartment.data.name}
 							fill
 							sizes="(max-width: 1024px)100%"
 							className="rounded-[10px] object-cover"
 						/>
 					</div>
 					<div className="grid w-full grid-cols-2 gap-5">
-						{apartment.images.slice(1, 5).map((image, index) => (
+						{apartment.data.images.slice(0, 4).map((image, index) => (
 							<div key={index} className="relative aspect-square w-full">
 								{index === 3 && (
 									<Dialog>
@@ -177,7 +170,7 @@ const Page = () => {
 											<DialogDescription hidden></DialogDescription>
 											<div className="flex w-full flex-col items-center justify-center gap-5 overflow-hidden">
 												<div className="flex w-[75%] items-center justify-center">
-													{apartment.images.map((image, index) => (
+													{apartment.data.images.map((image, index) => (
 														<motion.div
 															{...slide("left")}
 															key={index}
@@ -199,7 +192,7 @@ const Page = () => {
 														<ChevronLeft size={20} />
 													</button>
 													<span className="font-medium text-neutral-900">
-														{currentImage + 1}/{apartment.images.length}
+														{currentImage + 1}/{apartment.data.images.length}
 													</span>
 													<button
 														onClick={handleNextImage}
@@ -239,49 +232,59 @@ const Page = () => {
 					<div className="col-span-2 w-full rounded-3xl border p-6">
 						<div className="flex w-full items-center justify-between">
 							<div className="flex w-full items-center justify-between gap-4 lg:w-fit lg:justify-start">
-								<p className="font-semibold lg:text-xl">{apartment.location}</p>
+								<p className="font-semibold capitalize lg:text-xl">
+									{apartment.data.city}, {apartment.data.state}
+								</p>
 								<Link href={`/`} className="text-sm text-neutral-500 underline">
 									10 reviews
 								</Link>
 							</div>
 							<div className="hidden items-center gap-2 lg:flex">
 								<p className="text-sm text-neutral-500">
-									Rating: <span className="text-neutral-900">{apartment.rating}</span>
+									Rating: <span className="text-neutral-900">{apartment.data.reviews.length}</span>
 								</p>
-								<Rating rating={apartment.rating} />
+								<Rating rating={calculateRating(apartment.data.reviews)} />
 							</div>
 						</div>
 						<hr className="my-6" />
 						<div className="flex w-full flex-col gap-6">
-							<p className="text-sm font-light text-neutral-500 lg:text-base">{apartment.description}</p>
+							<p className="text-sm font-light text-neutral-500 first-letter:capitalize lg:text-base">
+								{apartment.data.description}
+							</p>
 							<button className="w-fit text-sm font-semibold text-neutral-900 underline">Read more</button>
 						</div>
 						<div className="mt-6 flex flex-wrap items-center gap-2">
-							<div className="flex w-[150px] items-center justify-center gap-3 rounded-3xl border py-2">
+							<div className="flex w-fit items-center justify-center gap-3 rounded-3xl border px-5 py-2">
 								<Bed />
-								<span className="text-sm text-neutral-900">{apartment.bedrooms} bedrooms</span>
+								<span className="text-sm text-neutral-900">
+									{apartment.data.number_of_bedrooms} bedrooms
+								</span>
 							</div>
-							<div className="flex w-[150px] items-center justify-center gap-3 rounded-3xl border py-2">
+							<div className="flex w-fit items-center justify-center gap-3 rounded-3xl border px-5 py-2">
 								<Bath />
-								<span className="text-sm text-neutral-900">{apartment.bathrooms} bathrooms</span>
+								<span className="text-sm text-neutral-900">
+									{apartment.data.number_of_bathrooms} bathrooms
+								</span>
 							</div>
-							<div className="flex w-[150px] items-center justify-center gap-3 rounded-3xl border py-2">
+							<div className="flex w-fit items-center justify-center gap-3 rounded-3xl border px-5 py-2">
 								<Users />
-								<span className="text-sm text-neutral-900">{apartment.max_guests} guest (max)</span>
+								<span className="text-sm text-neutral-900">
+									{apartment.data.maximum_number_of_guests} guest (max)
+								</span>
 							</div>
 						</div>
 						<hr className="my-6" />
 						<div id="amenities" className="flex flex-col gap-6">
 							<p className="font-semibold lg:text-xl">Amenities</p>
 							<div className="grid grid-cols-2 gap-y-5 lg:grid-cols-3">
-								{apartment.amenities.slice(0, 9).map((amenity) => (
+								{apartment.data.amenities.slice(0, 9).map((amenity) => (
 									<div key={amenity.id} className="flex items-center gap-3">
 										<Icon name={amenity.name} />
 										<span className="text-sm capitalize text-neutral-900">{amenity.name}</span>
 									</div>
 								))}
 							</div>
-							{apartment.amenities.length > 9 && (
+							{apartment.data.amenities.length > 9 && (
 								<Dialog>
 									<DialogTrigger asChild>
 										<button className="w-fit text-sm font-semibold text-neutral-900 underline">
@@ -292,7 +295,7 @@ const Page = () => {
 										<DialogTitle className="font-body">Amenities</DialogTitle>
 										<DialogDescription hidden></DialogDescription>
 										<div className="mt-5 grid grid-cols-3 gap-y-5">
-											{apartment.amenities.map((amenity) => (
+											{apartment.data.amenities.map((amenity) => (
 												<div key={amenity.id} className="flex items-center gap-3">
 													<Icon name={amenity.name} />
 													<span className="text-sm capitalize text-neutral-900">{amenity.name}</span>
@@ -305,7 +308,9 @@ const Page = () => {
 						</div>
 					</div>
 					<div className="hidden w-full rounded-3xl border p-6 lg:block">
-						<p className="font-semibold lg:text-2xl">{formatCurrency(apartment.price, "NGN")}/night</p>
+						<p className="font-semibold lg:text-2xl">
+							{formatCurrency(apartment.data.price.cost_per_night, "NGN")}/night
+						</p>
 						<hr className="my-6" />
 						<div className="flex w-full flex-col gap-4">
 							<div className="grid w-full grid-cols-2 gap-5">
@@ -334,7 +339,7 @@ const Page = () => {
 								name="guests"
 								onChange={handleChange}
 								type="number"
-								max={apartment.max_guests}
+								max={apartment.data.maximum_number_of_guests}
 								placeholder="2"
 								innerClassName="rounded-3xl"
 								labelClassName="text-neutral-500 font-normal"
@@ -345,31 +350,36 @@ const Page = () => {
 							<form onSubmit={handleSubmit} className="flex w-full flex-col gap-3">
 								<div className="flex w-full items-center justify-between">
 									<p className="font-light text-neutral-400">
-										{formatCurrency(apartment.price, "NGN")} x {dateDifference} nights
+										{formatCurrency(apartment.data.price.cost_per_night, "NGN")} x {dateDifference} nights
 									</p>
 									<p className="font-medium text-neutral-900">
-										{formatCurrency(apartment.price * dateDifference || apartment.price, "NGN")}
+										{formatCurrency(
+											apartment.data.price.cost_per_night * dateDifference ||
+												apartment.data.price.cost_per_night,
+											"NGN"
+										)}
 									</p>
 								</div>
 								<div className="flex w-full items-center justify-between">
 									<p className="font-light text-neutral-400">Cleaning Fee</p>
 									<p className="font-medium text-neutral-900">
-										{formatCurrency(apartment.cleaning_fee, "NGN")}
+										{formatCurrency(apartment.data.price.cleaning_fee, "NGN")}
 									</p>
 								</div>
 								<div className="flex w-full items-center justify-between">
 									<p className="font-light text-neutral-400">Service Charge</p>
 									<p className="font-medium text-neutral-900">
-										{formatCurrency(apartment.service_charge, "NGN")}
+										{formatCurrency(apartment.data.price.service_charge, "NGN")}
 									</p>
 								</div>
 								<div className="mt-2 flex w-full items-center justify-between">
 									<p className="font-light text-neutral-400">Total</p>
 									<p className="font-medium text-neutral-900">
 										{formatCurrency(
-											apartment.cleaning_fee +
-												apartment.service_charge +
-												(apartment.price * dateDifference || apartment.price),
+											apartment.data.price.cleaning_fee +
+												apartment.data.price.service_charge +
+												(apartment.data.price.cost_per_night * dateDifference ||
+													apartment.data.price.cost_per_night),
 											"NGN"
 										)}
 									</p>
@@ -388,18 +398,42 @@ const Page = () => {
 						<div className="aspect-[107/100] w-full rounded-2xl border px-5 py-6">
 							<CheckIn />
 							<p className="mb-2 mt-3 text-sm font-semibold">Check In/Check Out</p>
+							<div>
+								<p className="text-sm text-neutral-500">
+									Check in from {apartment.data.policy.checkin_time}
+								</p>
+								<p className="text-sm text-neutral-500">
+									Check out before {apartment.data.policy.checkout_time}
+								</p>
+								<p className="text-sm text-neutral-500">
+									Guests are required to show a photo identification and credit card upon check-in.
+								</p>
+							</div>
 						</div>
 						<div className="aspect-[107/100] w-full rounded-2xl border px-5 py-6">
 							<Dumbells2 />
 							<p className="mb-2 mt-3 text-sm font-semibold">Pets</p>
+							<p className="text-sm text-neutral-500">
+								{apartment.data.policy.is_pet_allowed
+									? "Pets are allowed. Additional charges may be applicable"
+									: "No pets allowed."}
+							</p>
 						</div>
 						<div className="aspect-[107/100] w-full rounded-2xl border px-5 py-6">
 							<Danger />
 							<p className="mb-2 mt-3 text-sm font-semibold">Cancellaton/prepayment</p>
+							<p className="text-sm text-neutral-500 first-letter:capitalize">
+								{apartment.data.policy.cancellation_and_repayment_conditions}
+							</p>
 						</div>
 						<div className="aspect-[107/100] w-full rounded-2xl border px-5 py-6">
 							<UserCheck />
 							<p className="mb-2 mt-3 text-sm font-semibold">Age restriction</p>
+							<p className="text-sm text-neutral-500">
+								{apartment.data.policy.is_age_limit
+									? `The minimum age for check-in is ${apartment.data.policy.age_limit}`
+									: "No age restrictions."}
+							</p>
 						</div>
 					</div>
 					<button className="w-fit text-sm font-semibold text-neutral-900 underline">
@@ -411,7 +445,7 @@ const Page = () => {
 						<div className="flex items-center gap-2">
 							<p className="font-semibold lg:text-xl">Reviews</p>
 							<span className="grid size-5 place-items-center rounded-full bg-neutral-900 text-xs text-white">
-								4
+								{apartment.data.reviews.length}
 							</span>
 						</div>
 						<div className="flex items-center gap-5">
@@ -443,13 +477,9 @@ const Page = () => {
 					</div>
 					<div
 						ref={ref}
-						className="flex w-auto flex-col items-center gap-x-0 gap-y-5 overflow-x-scroll scroll-smooth lg:flex-row lg:gap-x-5 lg:gap-y-0">
-						{[...Array(4)].map((_, index) => (
-							<div
-								key={index}
-								className="aspect-[1.07/1] w-full flex-shrink-0 rounded-2xl border px-5 py-6 lg:w-[276px]">
-								{index + 1}
-							</div>
+						className="flex min-h-[269px] w-auto flex-col items-center gap-x-0 gap-y-5 overflow-x-scroll scroll-smooth lg:flex-row lg:gap-x-5 lg:gap-y-0">
+						{apartment.data.reviews.map((review) => (
+							<Review key={review.id} review={review} />
 						))}
 					</div>
 				</div>
@@ -461,22 +491,26 @@ const Page = () => {
 								<div className="flex flex-col items-center gap-4 lg:flex-row">
 									<Avatar className="size-24">
 										<AvatarImage
-											src={apartment.host.imageUrl}
-											alt={apartment.host.firstName}
+											src={apartment.data.host.profile_image}
+											alt={apartment.data.host.first_name}
 											className="object-cover"
 										/>
+										<AvatarFallback className="bg-black text-base font-bold text-white lg:text-3xl">
+											{getInitials(apartment.data.host.full_name)}
+										</AvatarFallback>
 									</Avatar>
 									<div className="flex flex-col">
-										<p className="font-medium lg:text-2xl">
-											{apartment.host.firstName} {apartment.host.lastName}
+										<p className="font-medium capitalize lg:text-2xl">
+											{/* {apartment.data.host.first_name} {apartment.data.host.last_name} */}
+											{apartment.data.host.full_name}
 										</p>
 										<p className="text-sm text-neutral-400">
-											Hosting since {new Date(apartment.host.createdAt).getFullYear()}
+											Hosting since {new Date(apartment.data.host.createdOn).getFullYear()}
 										</p>
 										<p className="text-sm text-neutral-400"></p>
 									</div>
 								</div>
-								<Link href={`/host/${apartment.host.id}`} className="w-fit">
+								<Link href={`/host/${apartment.data.host.id}`} className="w-fit">
 									<Button type="button" size="sm" variant="outline" className="rounded-3xl border-gray-300">
 										View Profile
 									</Button>
@@ -488,7 +522,7 @@ const Page = () => {
 							<div className="grid w-full grid-cols-3 text-center lg:text-left">
 								<div className="flex w-full flex-col items-center lg:items-start">
 									<p className="font-semibold lg:text-2xl">
-										{differenceInYears(new Date(), new Date(apartment.host.createdAt))}
+										{differenceInYears(new Date(), new Date(apartment.data.host.createdOn))}
 									</p>
 									<p className="text-sm text-neutral-400">Years of hosting</p>
 								</div>
@@ -497,7 +531,7 @@ const Page = () => {
 									<p className="text-sm text-neutral-400">Customer reviews</p>
 								</div>
 								<div className="flex w-full flex-col items-center lg:items-start">
-									<p className="font-semibold lg:text-2xl">{apartment.host.rating}</p>
+									<p className="font-semibold lg:text-2xl">{apartment.data.rating}</p>
 									<p className="text-sm text-neutral-400">Ratings</p>
 								</div>
 							</div>
@@ -506,16 +540,16 @@ const Page = () => {
 						<Separator className="my-6 block bg-gray-300 lg:hidden" />
 						<div className="flex h-full flex-1 flex-col justify-between">
 							<div className="flex flex-col items-center gap-2 lg:items-start">
-								<p className="font-medium">About {apartment.host.firstName}</p>
-								<p className="text-center text-sm font-light text-neutral-500 lg:text-left">
-									{apartment.host.bio}
+								<p className="font-medium">About {apartment.data.host.first_name}</p>
+								<p className="text-center text-sm font-light text-neutral-500 first-letter:capitalize lg:text-left">
+									{apartment.data.host.bio}
 								</p>
 							</div>
 							<div className="mt-6 flex w-full flex-col-reverse items-center justify-between gap-3 lg:mt-0 lg:flex-row lg:gap-0">
 								<p className="text-sm text-neutral-400">
 									Average response time: <span className="text-neutral-900">1 hr</span>
 								</p>
-								<Link href={`/messages?user=${apartment.host.id}`}>
+								<Link href={`/messages?user=${apartment.data.host.id}`}>
 									<Button
 										type="button"
 										className="rounded-3xl bg-neutral-900 text-white hover:bg-neutral-900/80">

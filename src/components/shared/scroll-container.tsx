@@ -3,10 +3,10 @@ import Image from "next/image"
 import Link from "next/link"
 import React from "react"
 
-import { LocationSearchProps, PropertyProps } from "@/types"
+import { LocationSearchProps, ApartmentProps } from "@/types"
 
 interface Props {
-	properties: PropertyProps[]
+	properties: ApartmentProps[]
 }
 
 export const ScrollContainer = ({ properties }: Props) => {
@@ -16,7 +16,7 @@ export const ScrollContainer = ({ properties }: Props) => {
 		right: false,
 	})
 
-	const aggregateByLocation = (apartments: PropertyProps[]) => {
+	const aggregateByLocation = (apartments: ApartmentProps[]) => {
 		return apartments.reduce(
 			(acc, apartment, index) => {
 				const location = apartment.location

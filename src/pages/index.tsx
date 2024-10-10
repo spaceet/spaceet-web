@@ -5,7 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import React from "react"
 
-import { GetAllPropertiesQuery, GetPropertiesByLocationQuery, GetAllReviewsQuery } from "@/queries"
+import { GetAllPropertiesQuery, GetAllReviewsQuery } from "@/queries"
 import { Filter as FilterIcon } from "@/assets/svg"
 import { booking_steps, places } from "@/config"
 import { Button } from "@/components/ui/button"
@@ -16,6 +16,7 @@ import {
 	Appbar,
 	Card,
 	Footer,
+	Loading,
 	Reviews,
 	ScrollContainer,
 	SearchWidget,
@@ -41,17 +42,11 @@ const Page = () => {
 		console.log(location)
 	}
 
-	const [{}, {}, {}] = useQueries({
+	const [{ data: apartments }, {}] = useQueries({
 		queries: [
 			{
 				queryFn: () => GetAllPropertiesQuery({ limit: 12, page: 1 }),
-				queryKey: ["all-properties"],
-				enabled: false,
-			},
-			{
-				queryFn: () => GetPropertiesByLocationQuery(),
-				queryKey: ["properties-by-location"],
-				enabled: false,
+				queryKey: ["all-apartments"],
 			},
 			{
 				queryFn: () => GetAllReviewsQuery("", {}),
@@ -61,11 +56,15 @@ const Page = () => {
 		],
 	})
 
+	if (!apartments) return <Loading />
+
 	const filtered = (location: string) => {
-		return properties.filter((property) => {
-			if (location === "all" || location === "") return property
-			return property.location.toLowerCase().includes(location.toLowerCase())
-		})
+		return (
+			apartments.data.data.filter((apartment) => {
+				if (location === "all" || location === "") return apartment
+				return apartment.Apartment_city.toLowerCase().includes(location.toLowerCase())
+			}) ?? []
+		)
 	}
 
 	return (

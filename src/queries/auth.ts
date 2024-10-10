@@ -3,15 +3,15 @@ import { endpoints } from "@/config"
 import { axios } from "@/lib"
 
 export interface SignUpDto {
-	firstName: string
-	lastName: string
+	first_name: string
+	last_name: string
 	email: string
 	password: string
-	phone: string
+	phone_number: string
 }
 
 export interface SignInDto {
-	email: string
+	email_or_phone_number: string
 	password: string
 }
 
@@ -21,39 +21,58 @@ export interface ResetPasswordDto {
 	token: string
 }
 
-export type SignInResponse = {
-	user: UserProps
-	token: string
-}
-
 const SignUpMutation = async (payload: SignUpDto) => {
-	return axios.post(endpoints().auth.signup, payload).then((res) => res.data)
+	return axios
+		.post<HttpResponse<UserProps>>(endpoints().auth.signup, payload)
+		.then((res) => res.data)
+		.catch((error) => {
+			throw new Error(error)
+		})
 }
 
 const SignInMutation = async (payload: SignInDto) => {
 	return axios
-		.post<HttpResponse<SignInResponse>>(endpoints().auth.signin, payload)
+		.post<HttpResponse<UserProps>>(endpoints().auth.signin, payload)
 		.then((res) => res.data)
+		.catch((error) => {
+			throw new Error(error)
+		})
 }
 
 const SignOutMutation = async () => {
-	return axios.post<HttpResponse<string>>(endpoints().auth.signout).then((res) => res.data)
+	return axios
+		.post<HttpResponse<string>>(endpoints().auth.signout)
+		.then((res) => res.data)
+		.catch((error) => {
+			throw new Error(error)
+		})
 }
 
-const VerifyAccountMutation = async () => {
-	return axios.post<HttpResponse<string>>(endpoints().auth.verify).then((res) => res.data)
+const VerifyAccountQuery = async (email: string, confirm: string) => {
+	return axios
+		.get<HttpResponse<UserProps>>(endpoints().auth.verify, { params: { email, confirm } })
+		.then((res) => res.data)
+		.catch((error) => {
+			throw new Error(error)
+		})
 }
 
 const ForgotPasswordMutation = async (email: string) => {
 	return axios
 		.post<HttpResponse<string>>(endpoints().auth.forgot_password, { email })
 		.then((res) => res.data)
+		.catch((error) => {
+			throw new Error(error)
+		})
 }
 
 const ResetPasswordMutation = async (payload: ResetPasswordDto) => {
 	return axios
 		.post<HttpResponse<string>>(endpoints().auth.reset_password, payload)
 		.then((res) => res.data)
+		.catch((error) => {
+			throw new Error(error)
+		})
 }
 
 export {
@@ -62,5 +81,5 @@ export {
 	SignInMutation,
 	SignOutMutation,
 	SignUpMutation,
-	VerifyAccountMutation,
+	VerifyAccountQuery,
 }

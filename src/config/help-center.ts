@@ -2,7 +2,7 @@ export const faqs = [
 	{
 		label: "How do I cancel a booking?",
 		content: `Click on <a href="bookings" class="link">My bookings</a> from your profile menu to view the booked space`,
-		url: "",
+		url: "/",
 	},
 	{
 		label: "Can I bring pets?",
@@ -17,7 +17,7 @@ export const faqs = [
 	{
 		label: "How do I cancel a booking?",
 		content: `Click on <a href="bookings" class="link">My bookings</a> from your profile menu to view the booked space`,
-		url: "",
+		url: "/",
 	},
 	{
 		label: "Can I bring pets?",

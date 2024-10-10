@@ -1,4 +1,5 @@
 import { RiArrowLeftSLine, RiArrowRightDoubleLine, RiCloseLine } from "@remixicon/react"
+import { useQuery } from "@tanstack/react-query"
 import { useFormik } from "formik"
 import Link from "next/link"
 import React from "react"
@@ -8,6 +9,7 @@ import { AmenitiesIconName, ComponentUpdateProps } from "@/types"
 import { UtilitiesFormProps } from "./form-components"
 import { FadeTransition, Icon, Seo } from "../shared"
 import { usable_amenities_list } from "@/config"
+import { GetAllAmenitiesQuery } from "@/queries"
 import { Button } from "../ui/button"
 import { Label } from "../ui/label"
 import { toast } from "sonner"
@@ -35,6 +37,11 @@ const Page = ({
 			console.log(values)
 			handleNext()
 		},
+	})
+
+	const {} = useQuery({
+		queryFn: () => GetAllAmenitiesQuery({}),
+		queryKey: ["get-amenities"],
 	})
 
 	const toggleUtility = (utility: AmenitiesIconName) => {

@@ -49,17 +49,17 @@ export const Reviews = ({ reviews }: Props) => {
 					<div
 						key={index}
 						className="flex h-[300px] w-[391px] flex-shrink-0 flex-col gap-6 rounded-2xl bg-white p-6">
-						<p className="h-[178px] w-full text-neutral-700">{review.comment}</p>
+						<p className="h-[178px] w-full text-neutral-700">{review.review}</p>
 						<div className="flex items-center gap-3">
 							<Avatar className="size-12 border bg-primary-50">
-								<AvatarImage src={review.user.imageUrl} alt={review.user.firstName} />
+								<AvatarImage src={review.user.profile_image} alt={review.user.first_name} />
 								<AvatarFallback>
-									{getInitials(`${review.user.firstName} ${review.user.lastName}`)}
+									{getInitials(`${review.user.first_name} ${review.user.last_name}`)}
 								</AvatarFallback>
 							</Avatar>
 							<div className="flex flex-col">
 								<p className="flex items-center gap-0.5 font-medium">
-									{review.user.firstName} {review.user.lastName}
+									{review.user.first_name} {review.user.last_name}
 								</p>
 								<div className="flex items-center gap-1 text-neutral-500">
 									{review.rating}

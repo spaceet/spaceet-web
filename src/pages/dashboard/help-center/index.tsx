@@ -15,7 +15,7 @@ const Page = () => {
 						<div className="flex w-full flex-col gap-3 lg:w-[330px]">
 							<p className="font-medium lg:text-xl">Welcome, how can we help you?</p>
 							<p className="text-neutral-500 lg:text-sm">
-								With so many choices, you might just become a fan of any city - ven your rivals.
+								With so many choices, you might just become a fan of any city - even your rivals.
 							</p>
 						</div>
 						<div className="grid w-full grid-cols-1 gap-5 lg:grid-cols-3">
