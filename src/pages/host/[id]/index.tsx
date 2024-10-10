@@ -29,7 +29,7 @@ const Page = () => {
 
 	return (
 		<>
-			<Seo title={capitalize(host.firstName)} />
+			<Seo title={capitalize(host.first_name)} />
 			<Appbar />
 			<main className="container mx-auto my-12">
 				<div className="grid w-full grid-cols-1 gap-8 px-5 lg:grid-cols-3 lg:px-0">
@@ -47,10 +47,10 @@ const Page = () => {
 						<div className="w-full rounded-2xl border p-6">
 							<div className="flex flex-col items-center">
 								<Avatar className="size-24">
-									<AvatarImage src={host.imageUrl} alt={host.firstName} className="object-cover" />
+									<AvatarImage src={host.profile_image} alt={host.first_name} className="object-cover" />
 								</Avatar>
 								<p className="mt-4 font-semibold lg:text-xl">
-									{host.firstName} {host.lastName}
+									{host.first_name} {host.last_name}
 								</p>
 								<p className="text-neutral-400 lg:text-sm">
 									Hosting since {new Date(host.createdAt).getFullYear()}
@@ -96,7 +96,7 @@ const Page = () => {
 					<div className="flex w-full flex-col gap-8 lg:col-span-2">
 						<div className="w-full rounded-3xl border p-6">
 							<div className="flex w-full items-center justify-between">
-								<p className="font-semibold lg:text-xl">About {host.firstName}</p>
+								<p className="font-semibold lg:text-xl">About {host.first_name}</p>
 								<div className="flex items-center gap-2">
 									<p className="text-neutral-500 lg:text-sm">
 										Rating: <span className="text-neutral-900">{host.rating}</span>

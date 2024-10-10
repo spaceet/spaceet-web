@@ -179,14 +179,14 @@ const Page = () => {
 							<div className="flex items-center gap-4">
 								<Avatar className="size-16">
 									<AvatarImage
-										src={apartment.host.imageUrl}
-										alt={apartment.host.firstName}
+										src={apartment.host.profile_image}
+										alt={apartment.host.first_name}
 										className="object-cover"
 									/>
 								</Avatar>
 								<div className="">
 									<p className="font-medium">
-										{apartment.host.firstName} {apartment.host.lastName}
+										{apartment.host.first_name} {apartment.host.last_name}
 									</p>
 									<p className="text-neutral-400 lg:text-sm">
 										Host • Joined since {new Date(apartment.host.createdAt).getFullYear()}

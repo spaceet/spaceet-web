@@ -19,7 +19,7 @@ export const ScrollContainer = ({ properties }: Props) => {
 	const aggregateByLocation = (apartments: ApartmentProps[]) => {
 		return apartments.reduce(
 			(acc, apartment, index) => {
-				const location = apartment.location
+				const location = apartment.city
 				if (!acc[location]) {
 					acc[location] = {
 						count: 0,
@@ -76,17 +76,17 @@ export const ScrollContainer = ({ properties }: Props) => {
 				style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
 				{aggregated.map((apartment) => (
 					<Link
-						href={`/search?${encodeURI(`bedrooms=0&location=${apartment.location}&price=0&propertyType=null`)}`}
+						href={`/search?${encodeURI(`bedrooms=0&location=${apartment.city}&price=0&propertyType=null`)}`}
 						key={apartment.id}
 						className="relative h-[225px] w-[235px] flex-shrink-0 rounded-lg lg:h-[310px] lg:w-[314px]">
 						<div className="absolute left-0 top-0 !z-[1] flex size-full flex-col justify-end rounded-lg p-4 text-white">
-							<p className="text-sm font-medium lg:text-xl">{apartment.location}</p>
+							<p className="text-sm font-medium lg:text-xl">{apartment.city}</p>
 							<p className="text-xs lg:text-sm">{apartment.count} Apartments</p>
 						</div>
 						<Image
 							key={apartment.id}
 							src={apartment.image}
-							alt={apartment.location}
+							alt={apartment.city}
 							fill
 							sizes="(max-width: 1024px)100%"
 							className="rounded-lg object-cover"
