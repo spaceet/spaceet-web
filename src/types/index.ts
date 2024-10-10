@@ -85,6 +85,7 @@ export type UserProps = Node & {
 	phone_number: string
 	profile_image: string
 	rating: number
+	reviews: ReviewProps[]
 	signup_verified: boolean
 	user_type: "USER" | "HOST"
 }
@@ -211,9 +212,8 @@ export type ReviewProps = {
 
 export type MessageProps = Node & {
 	__typename?: "Message"
-	content: string
-	receiver: UserProps
-	sender: UserProps
+	from: UserProps
+	message: string
 }
 
 export type NotificationProps = Node & {

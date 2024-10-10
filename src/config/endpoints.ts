@@ -42,6 +42,15 @@ const endpoints = (id?: Maybe<string>) => {
 		delete: `/bookings/${id}`,
 	}
 
+	const messages = {
+		get_all: `/messages`,
+		get_one: `/messages/${id}`,
+		delete: `/messages/${id}`,
+		send: `/messages/send`,
+		read: `/messages/read/${id}`,
+		archive: `/messages/archive/${id}`,
+	}
+
 	const payments = {
 		get_all: `/payments`,
 		get_one: `/payments/${id}`,
@@ -60,7 +69,8 @@ const endpoints = (id?: Maybe<string>) => {
 
 	const users = {
 		get_all: `/users`,
-		get_one: `/users/profile`,
+		get_one: `/users/view-host-profile/${id}`,
+		me: `/users/profile`,
 		update: `/users/${id}`,
 	}
 
@@ -69,6 +79,7 @@ const endpoints = (id?: Maybe<string>) => {
 		apartment,
 		auth,
 		bookings,
+		messages,
 		payments,
 		reviews,
 		users,

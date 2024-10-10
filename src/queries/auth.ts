@@ -75,8 +75,18 @@ const ResetPasswordMutation = async (payload: ResetPasswordDto) => {
 		})
 }
 
+const GetUserByIdQuery = async (id: string) => {
+	return axios
+		.get<HttpResponse<UserProps>>(endpoints(id).users.get_one)
+		.then((res) => res.data)
+		.catch((error) => {
+			throw new Error(error)
+		})
+}
+
 export {
 	ForgotPasswordMutation,
+	GetUserByIdQuery,
 	ResetPasswordMutation,
 	SignInMutation,
 	SignOutMutation,

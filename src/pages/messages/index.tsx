@@ -1,12 +1,13 @@
 import { EllipsisVertical, Search } from "lucide-react"
+import { useQueries } from "@tanstack/react-query"
 import { useRouter } from "next/router"
 import React from "react"
 
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { GetUserByIdQuery, GetAllMessagesQuery } from "@/queries"
 import { Avatar, AvatarImage } from "@/components/ui/avatar"
 import { Separator } from "@/components/ui/separator"
 import { Appbar, Seo } from "@/components/shared"
-import { properties } from "@/mock/properties"
 import { UserProps } from "@/types"
 
 const tablist = ["all", "read", "unread"] as const
@@ -19,13 +20,22 @@ const Page = () => {
 	const router = useRouter()
 	const { user } = router.query
 
-	const hosts = React.useMemo(() => {
-		return properties.map((property) => property.host)
-	}, [])
+	const hosts: UserProps[] = []
 
-	React.useEffect(() => {
-		setCurrentUser(hosts.find((host) => host.id === user) || null)
-	}, [hosts, user])
+	const [] = useQueries({
+		queries: [
+			{
+				queryFn: () => GetUserByIdQuery(String(user)),
+				queryKey: ["get-host", user],
+				enabled: !!user,
+			},
+			{
+				queryFn: () => GetAllMessagesQuery(),
+				queryKey: ["get-messages"],
+				enabled: false,
+			},
+		],
+	})
 
 	return (
 		<>
