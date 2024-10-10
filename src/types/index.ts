@@ -83,7 +83,7 @@ export type UserProps = Node & {
 	last_name: string
 	location: Maybe<string>
 	phone_number: string
-	profile_image: Undefined<string>
+	profile_image: string
 	rating: number
 	signup_verified: boolean
 	user_type: "USER" | "HOST"
