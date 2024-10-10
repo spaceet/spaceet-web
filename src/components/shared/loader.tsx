@@ -49,7 +49,7 @@ export const Loader = () => {
 	return loading ? <Loading /> : null
 }
 
-const Loading = ({ className, size, variant }: Props) => {
+export const Loading = ({ className, size, variant }: Props) => {
 	return (
 		<div
 			aria-label="loading"

@@ -10,8 +10,6 @@ const envs = [
 	"NEXT_PUBLIC_GOOGLE_SECRET",
 	"NEXT_PUBLIC_POSTHOG_HOST",
 	"NEXT_PUBLIC_POSTHOG_KEY",
-	"NEXT_PUBLIC_ENCRYPTION_SECRET_KEY",
-	"NEXT_PUBLIC_ENCRYPTION_INTIVECTOR",
 	"NODE_ENV",
 ] as const
 
@@ -31,8 +29,6 @@ declare global {
 			readonly NEXT_PUBLIC_GOOGLE_SECRET: string
 			readonly NEXT_PUBLIC_POSTHOG_HOST: string
 			readonly NEXT_PUBLIC_POSTHOG_KEY: string
-			readonly NEXT_PUBLIC_ENCRYPTION_SECRET_KEY: string
-			readonly NEXT_PUBLIC_ENCRYPTION_INTIVECTOR: string
 			readonly NODE_ENV: "test" | "development" | "production"
 		}
 	}

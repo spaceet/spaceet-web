@@ -21,7 +21,7 @@ export const BookingItem = ({ booking }: Props) => {
 				/>
 				<div className="flex flex-col">
 					<p className="font-medium text-neutral-900">{booking.apartment.name}</p>
-					<p className="text-sm">{booking.apartment.location}</p>
+					<p className="text-sm">{booking.apartment.city}</p>
 				</div>
 			</div>
 			<div className="col-span-2 w-full py-1 text-sm">DATE</div>
@@ -29,14 +29,14 @@ export const BookingItem = ({ booking }: Props) => {
 			<div className="w-full py-1">{booking.numberOfGuests} Guests</div>
 			<div className="col-span-2 flex w-full items-center gap-2 py-1 text-sm">
 				<Image
-					src={booking.guest.imageUrl}
-					alt={booking.guest.firstName}
+					src={booking.guest.profile_image}
+					alt={booking.guest.first_name}
 					width={24}
 					height={24}
 					className="rounded-full border"
 				/>
 				<p>
-					{booking.guest.firstName} {booking.guest.lastName}
+					{booking.guest.first_name} {booking.guest.last_name}
 				</p>
 			</div>
 			<div className="w-full py-1 text-sm text-neutral-900">
