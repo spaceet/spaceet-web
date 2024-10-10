@@ -1,18 +1,17 @@
+import { RiQuestionnaireFill, RiLightbulbFlashLine, RiAsterisk } from "@remixicon/react"
+import { toast } from "sonner"
+import Image from "next/image"
 import React from "react"
 
 import { Appbar, Footer, Seo, Reviews } from "@/components/shared"
 import { Button } from "@/components/ui/button"
-import { mock_reviews } from "@/mock/reviews"
-import { toast } from "sonner"
-import Image from "next/image"
-import diningImg from "../../../public/assets/images/dining.webp"
-import bedroomImg from "../../../public/assets/images/bedroom.webp"
-import dining_window from "../../../public/assets/images/dinning-beside-window.webp"
-import cassandra from "../../../public/assets/images/cassandra-williams.webp"
-import john from "../../../public/assets/images/john-niyon.webp"
-import mary from "../../../public/assets/images/mary-chinozie.webp"
 import { Input } from "@/components/ui/input"
-import { RiQuestionnaireFill, RiLightbulbFlashLine, RiAsterisk } from "@remixicon/react"
+import { mock_reviews } from "@/mock/reviews"
+import { team_members } from "@/config"
+
+import dining_window from "../../../public/assets/images/dinning-beside-window.webp"
+import bedroomImg from "../../../public/assets/images/bedroom.webp"
+import diningImg from "../../../public/assets/images/dining.webp"
 
 const EMAIL_REGEX =
 	/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
@@ -34,7 +33,7 @@ const Page = () => {
 			<main className="w-full">
 				<div className="place-tems-center grid h-[50vh] w-full bg-black/50 bg-hero-3 bg-cover bg-center bg-no-repeat bg-blend-overlay">
 					<div className="container mx-auto flex items-center justify-between">
-						<div className="flex w-[511px] flex-col gap-5 text-white">
+						<div className="flex w-full flex-col gap-5 px-4 text-white lg:w-[511px] lg:px-0">
 							<h1 className="text-[64px] font-bold leading-[70px]">About Us</h1>
 							<p className="text-xl">
 								With so many choices, you might just become a fan of any city - even your rivals.
@@ -54,7 +53,7 @@ const Page = () => {
 							<p className="text-[15px]">
 								Spaceet was born out of a desire to make property hosting more accessible and efficient. We
 								understand the challenges hosts face in managing bookings, guests, and properties, and
-								we&#39;re here to provide the tools and support to help you succeed.
+								we&apos;re here to provide the tools and support to help you succeed.
 							</p>
 							<p className="text-[15px]">
 								Our mission is to empower property owners to become successful hosts by providing
@@ -79,10 +78,10 @@ const Page = () => {
 					</div>
 					<div className="flex w-full justify-between lg:h-[494px] lg:w-[590px]">
 						<div className="flex w-[48%] flex-col justify-between lg:w-[285px]">
-							<div className="item-center flex h-2/5 h-[48%] w-full justify-center overflow-hidden rounded-[9px]">
+							<div className="item-center flex h-[48%] w-full justify-center overflow-hidden rounded-[9px]">
 								<Image src={bedroomImg} alt="Bedroom" className="h-full w-full object-cover" />
 							</div>
-							<div className="item-center flex h-2/5 h-[48%] w-full justify-center overflow-hidden rounded-[9px]">
+							<div className="item-center flex h-[48%] w-full justify-center overflow-hidden rounded-[9px]">
 								<Image src={diningImg} alt="Dinning area" className="h-full w-full object-cover" />
 							</div>
 						</div>
@@ -111,7 +110,9 @@ const Page = () => {
 						<div className="w-full rounded-[5px] border border-neutral-600 px-6 py-4">
 							<RiQuestionnaireFill className="mb-5 fill-warning-300" />
 							<h2 className="mb-5">Support</h2>
-							<p className="text text-[13px]">We&#39;re here for our hosts at every step of the journey</p>
+							<p className="text text-[13px]">
+								We&apos;re here for our hosts at every step of the journey
+							</p>
 						</div>
 						<div className="w-full rounded-[5px] border border-neutral-600 px-6 py-4">
 							<RiLightbulbFlashLine className="mb-5 fill-warning-300" />
@@ -133,56 +134,23 @@ const Page = () => {
 						</p>
 					</div>
 					<div className="mx-auto mt-8 grid w-full grid-cols-1 gap-7 lg:grid-cols-3 lg:justify-between">
-						<div className="w-[100%] lg:w-[100%]">
-							<div className="mx-auto mb-5 h-[450px] w-full overflow-hidden rounded-[9px] bg-neutral-300">
-								<Image src={john} alt="john niyon" className="h-full w-full object-cover object-center" />
+						{team_members.map((member, index) => (
+							<div key={index} className="flex w-full flex-col gap-5">
+								<div className="relative h-[300px] w-full rounded-lg bg-neutral-300 lg:aspect-[0.99/1]">
+									<Image
+										src={member.image}
+										alt={member.name}
+										fill
+										sizes="(max-width:1024px)100%"
+										className="rounded-lg object-cover"
+									/>
+								</div>
+								<div>
+									<h3 className="text-sm capitalize lg:text-xl">{member.name}</h3>
+									<p className="text-sm capitalize lg:text-base">{member.role}</p>
+								</div>
 							</div>
-							<h3 className="text-[24px]">John Niyon</h3>
-							<p className="text-[16px]">Founder</p>
-						</div>
-						<div className="w-[100%] lg:w-[100%]">
-							<div className="mx-auto mb-5 h-[450px] w-full overflow-hidden rounded-[9px] bg-neutral-300">
-								<Image src={mary} alt="john niyon" className="h-full w-full object-cover object-center" />
-							</div>
-							<h3 className="text-[24px]">Mary Chinozie</h3>
-							<p className="text-[16px]">Service Manager</p>
-						</div>
-						<div className="w-[100%] lg:w-[100%]">
-							<div className="mx-auto mb-5 h-[450px] w-full overflow-hidden rounded-[9px] bg-neutral-300">
-								<Image
-									src={cassandra}
-									alt="john niyon"
-									className="ml-[20px] mt-[-40px] h-full w-full scale-150 object-cover object-top"
-								/>
-							</div>
-							<h3 className="text-[24px]">Cassandra Williams</h3>
-							<p className="text-[16px]">Customer Manager</p>
-						</div>
-						<div className="w-[100%] lg:w-[100%]">
-							<div className="mx-auto mb-5 h-[450px] w-full overflow-hidden rounded-[9px] bg-neutral-300">
-								<Image src={john} alt="john niyon" className="h-full w-full object-cover object-center" />
-							</div>
-							<h3 className="text-[24px]">John Niyon</h3>
-							<p className="text-[16px]">Founder</p>
-						</div>
-						<div className="w-[100%] lg:w-[100%]">
-							<div className="mx-auto mb-5 h-[450px] w-full overflow-hidden rounded-[9px] bg-neutral-300">
-								<Image src={mary} alt="john niyon" className="h-full w-full object-cover object-center" />
-							</div>
-							<h3 className="text-[24px]">Mary Chinozie</h3>
-							<p className="text-[16px]">Service Manager</p>
-						</div>
-						<div className="w-[100%] lg:w-[100%]">
-							<div className="mx-auto mb-5 h-[450px] w-full overflow-hidden rounded-[9px] bg-neutral-300">
-								<Image
-									src={cassandra}
-									alt="john niyon"
-									className="ml-[20px] mt-[-40px] h-full w-full scale-150 object-cover object-top"
-								/>
-							</div>
-							<h3 className="text-[24px]">Cassandra Williams</h3>
-							<p className="text-[16px]">Customer Manager</p>
-						</div>
+						))}
 					</div>
 				</section>
 				<section className="bg-[#f5f5f5] px-5 py-16 lg:px-0 lg:py-[120px]">
@@ -230,7 +198,6 @@ const Page = () => {
 		</>
 	)
 }
-
 export default Page
 
 // this is for new branch

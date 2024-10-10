@@ -8,15 +8,30 @@ export const encodeQueryParams = (params: { [key: string]: string | number }) =>
 }
 
 const endpoints = (id?: Maybe<string>) => {
+	const amenities = {
+		get_all: `/apartment/get-amenities`,
+		get_one: `/apartment/${id}`,
+	}
+
+	const apartment = {
+		get_all: `/apartment/fetch`,
+		get_by_location: `/apartment/location}`,
+		get_one: `/apartment/view/${id}`,
+		search: `/apartment/search`,
+		create: `/apartment`,
+		update: `/apartment/${id}`,
+		delete: `/apartment/${id}`,
+	}
+
 	const auth = {
-		signin: `/auth/signin`,
-		signup: `/auth/signup`,
-		signout: `/auth/signout`,
-		google: `/auth/google`,
-		refresh: `/auth/refresh`,
-		verify: `/auth/verify`,
-		reset_password: `/auth/reset-password`,
-		forgot_password: `/auth/forgot-password`,
+		signin: `/users/login`,
+		signup: `/users/signup`,
+		signout: `/users/signout`,
+		google: `/users/google`,
+		verify: `/users/signup/verify`,
+		reset_password: `/users/reset-password`,
+		forgot_password: `/users/forgot-password`,
+		become_a_host: `/users/become-a-host`,
 	}
 
 	const bookings = {
@@ -27,6 +42,15 @@ const endpoints = (id?: Maybe<string>) => {
 		delete: `/bookings/${id}`,
 	}
 
+	const messages = {
+		get_all: `/messages`,
+		get_one: `/messages/${id}`,
+		delete: `/messages/${id}`,
+		send: `/messages/send`,
+		read: `/messages/read/${id}`,
+		archive: `/messages/archive/${id}`,
+	}
+
 	const payments = {
 		get_all: `/payments`,
 		get_one: `/payments/${id}`,
@@ -35,36 +59,28 @@ const endpoints = (id?: Maybe<string>) => {
 		delete: `/payments/${id}`,
 	}
 
-	const properties = {
-		get_all: `/properties`,
-		get_by_location: `/properties/location}`,
-		get_one: `/properties/${id}`,
-		search: `/properties/search`,
-		create: `/properties`,
-		update: `/properties/${id}`,
-		delete: `/properties/${id}`,
-	}
-
 	const reviews = {
 		get_all: `/reviews`,
 		get_one: `/reviews/${id}`,
-		create: `/reviews`,
+		create: `/apartment/review/write/${id}`,
 		update: `/reviews/${id}`,
 		delete: `/reviews/${id}`,
 	}
 
 	const users = {
 		get_all: `/users`,
-		get_one: `/users/${id}`,
+		get_one: `/users/view-host-profile/${id}`,
+		me: `/users/profile`,
 		update: `/users/${id}`,
-		delete: `/users/${id}`,
 	}
 
 	return {
+		amenities,
+		apartment,
 		auth,
 		bookings,
+		messages,
 		payments,
-		properties,
 		reviews,
 		users,
 	}

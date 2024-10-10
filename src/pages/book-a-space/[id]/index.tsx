@@ -14,7 +14,6 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar"
 import { Checkbox } from "@/components/ui/checkbox"
 import { NotFound } from "@/components/layouts"
 import { Button } from "@/components/ui/button"
-import { properties } from "@/mock/properties"
 import { GetPropertyQuery } from "@/queries"
 import { formatCurrency } from "@/lib"
 import {
@@ -36,9 +35,7 @@ const Page = () => {
 
 	const router = useRouter()
 	const { check_in, check_out, guests, id } = router.query
-
-	const apartment = properties.find((apartment) => apartment.id === id)
-	const {} = useQuery({
+	const { data: apartment } = useQuery({
 		queryFn: () => GetPropertyQuery(String(id)),
 		queryKey: ["get-apartment", id],
 		enabled: false,
@@ -89,8 +86,8 @@ const Page = () => {
 						<div className="flex w-full items-center gap-4 rounded-2xl border p-6">
 							<div className="relative h-[173px] w-[334px]">
 								<Image
-									src={apartment.images[0]}
-									alt={apartment.name}
+									src={apartment.data.images[0]}
+									alt={apartment.data.name}
 									fill
 									sizes="(max-width: 1024px)100%"
 									className="rounded-md object-cover"
@@ -98,16 +95,18 @@ const Page = () => {
 							</div>
 							<div className="flex flex-col gap-3">
 								<div className="flex items-center gap-4">
-									<p className="font-semibold lg:text-xl">{apartment.location}</p>
+									<p className="font-semibold capitalize lg:text-xl">
+										{apartment.data.city}, {apartment.data.state}
+									</p>
 									<Link href={`/`} className="text-neutral-500 underline lg:text-sm">
 										10 reviews
 									</Link>
 								</div>
 								<div className="flex items-center gap-2">
 									<p className="text-neutral-500 lg:text-sm">
-										Rating: <span className="text-neutral-900">{apartment.rating}</span>
+										Rating: <span className="text-neutral-900">{apartment.data.rating}</span>
 									</p>
-									<Rating rating={apartment.rating} />
+									<Rating rating={Number(apartment.data.rating)} />
 								</div>
 							</div>
 						</div>
@@ -179,17 +178,17 @@ const Page = () => {
 							<div className="flex items-center gap-4">
 								<Avatar className="size-16">
 									<AvatarImage
-										src={apartment.host.imageUrl}
-										alt={apartment.host.firstName}
+										src={apartment.data.host.profile_image}
+										alt={apartment.data.host.first_name}
 										className="object-cover"
 									/>
 								</Avatar>
 								<div className="">
 									<p className="font-medium">
-										{apartment.host.firstName} {apartment.host.lastName}
+										{apartment.data.host.first_name} {apartment.data.host.last_name}
 									</p>
 									<p className="text-neutral-400 lg:text-sm">
-										Host • Joined since {new Date(apartment.host.createdAt).getFullYear()}
+										Host • Joined since {new Date(apartment.data.host.createdOn).getFullYear()}
 									</p>
 								</div>
 							</div>
@@ -228,7 +227,9 @@ const Page = () => {
 					</div>
 					<div className="flex w-full flex-col gap-6 rounded-2xl border p-6">
 						<div className="flex w-full items-center justify-between">
-							<p className="font-semibold lg:text-xl">{formatCurrency(apartment.price, "NGN")}/night</p>
+							<p className="font-semibold lg:text-xl">
+								{formatCurrency(apartment.data.price.cost_per_night, "NGN")}/night
+							</p>
 							<Dialog open={open} onOpenChange={setOpen}>
 								<DialogTrigger asChild>
 									<button type="button" className="font-medium underline lg:text-sm">
@@ -264,31 +265,36 @@ const Page = () => {
 							<p className="font-semibold lg:text-sm">Cost Breakdown</p>
 							<div className="flex w-full items-center justify-between">
 								<p className="font-light text-neutral-400">
-									{formatCurrency(apartment.price, "NGN")} x {dateDifference} nights
+									{formatCurrency(apartment.data.price.cost_per_night, "NGN")} x {dateDifference} nights
 								</p>
 								<p className="font-medium text-neutral-900">
-									{formatCurrency(apartment.price * dateDifference || apartment.price, "NGN")}
+									{formatCurrency(
+										apartment.data.price.cost_per_night * dateDifference ||
+											apartment.data.price.cost_per_night,
+										"NGN"
+									)}
 								</p>
 							</div>
 							<div className="flex w-full items-center justify-between">
 								<p className="font-light text-neutral-400">Cleaning Fee</p>
 								<p className="font-medium text-neutral-900">
-									{formatCurrency(apartment.cleaning_fee, "NGN")}
+									{formatCurrency(apartment.data.price.cleaning_fee, "NGN")}
 								</p>
 							</div>
 							<div className="flex w-full items-center justify-between">
 								<p className="font-light text-neutral-400">Service Charge</p>
 								<p className="font-medium text-neutral-900">
-									{formatCurrency(apartment.service_charge, "NGN")}
+									{formatCurrency(apartment.data.price.service_charge, "NGN")}
 								</p>
 							</div>
 							<div className="mt-2 flex w-full items-center justify-between">
 								<p className="font-light text-neutral-400">Total</p>
 								<p className="font-medium text-neutral-900">
 									{formatCurrency(
-										apartment.cleaning_fee +
-											apartment.service_charge +
-											(apartment.price * dateDifference || apartment.price),
+										apartment.data.price.cleaning_fee +
+											apartment.data.price.service_charge +
+											(apartment.data.price.cost_per_night * dateDifference ||
+												apartment.data.price.cost_per_night),
 										"NGN"
 									)}
 								</p>

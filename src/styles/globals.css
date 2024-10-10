@@ -205,3 +205,33 @@ input[type="search"]::-webkit-search-results-decoration {
 	background-color: yellow;
 	color: var(--neutral-900);
 }
+
+.markdown {
+	display: flex;
+	flex-direction: column;
+}
+
+.markdown h3 {
+	font-size: 24px;
+	margin-bottom: 20px;
+}
+
+.markdown h6 {
+	font-size: 14px;
+	font-weight: 700;
+	margin: 20px 0 8px;
+}
+
+.markdown p {
+	font-size: 14px;
+	color: #525866;
+}
+
+.markdown ul {
+	list-style: none;
+	padding-left: 12px;
+}
+
+.markdown li {
+	display: list-item;
+}

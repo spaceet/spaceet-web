@@ -78,7 +78,7 @@ const DashboardLayout = ({ children }: Props) => {
 						</button>
 						<Sheet>
 							<SheetTrigger asChild>
-								<button className="relative grid size-10 place-items-center rounded-full border">
+								<button className="relative grid size-10 place-items-center rounded-full border lg:hidden">
 									<RiMenuLine size={24} />
 								</button>
 							</SheetTrigger>
@@ -90,14 +90,14 @@ const DashboardLayout = ({ children }: Props) => {
 						<Separator orientation="vertical" className="hidden h-7 bg-neutral-300 lg:block" />
 						<button onClick={() => setOpen(!open)} className="hidden items-center gap-2 lg:flex">
 							<Avatar className="size-10 border bg-primary-100 text-white">
-								<AvatarImage src={user?.imageUrl} alt={user?.firstName} />
+								<AvatarImage src={user?.profile_image} alt={user?.first_name} />
 								<AvatarFallback className="text-sm font-medium">
-									{getInitials(`${user?.firstName} ${user?.lastName}`)}
+									{getInitials(`${user?.first_name} ${user?.last_name}`)}
 								</AvatarFallback>
 							</Avatar>
 							<div className="flex flex-col items-start">
 								<p className="text-sm font-medium">
-									{user?.firstName} {user?.lastName}
+									{user?.first_name} {user?.last_name}
 								</p>
 								<p className="text-xs text-neutral-400">{user?.email}</p>
 							</div>

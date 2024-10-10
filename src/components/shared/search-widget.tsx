@@ -1,6 +1,5 @@
 import { useRouter } from "next/router"
 import { useFormik } from "formik"
-import { toast } from "sonner"
 import React from "react"
 
 import { apartment_types, encodeQueryParams, places } from "@/config"
@@ -17,10 +16,10 @@ import {
 } from "@/components/ui/select"
 
 const initialValues: SearchPropertyDto = {
-	bedrooms: 1,
+	bedrooms: 0,
 	location: "",
 	price: 0,
-	propertyType: "",
+	type: "",
 }
 
 export const SearchWidget = () => {
@@ -29,19 +28,12 @@ export const SearchWidget = () => {
 	const { handleChange, handleSubmit, setFieldValue, values } = useFormik({
 		initialValues,
 		onSubmit: (values) => {
-			if (!values.location) {
-				toast.error("Please select a location")
-				return
-			}
-			if (!values.propertyType) {
-				toast.error("Please select a property type")
-				return
-			}
-			if (!values.bedrooms) {
-				toast.error("Please enter the number of bedrooms")
-				return
-			}
-			const payload = { ...values }
+			Object.keys(values).forEach((key) => {
+				if (!values[key as keyof SearchPropertyDto]) {
+					delete values[key as keyof SearchPropertyDto]
+				}
+			})
+			const payload = { ...values, limit: 20, page: 1 }
 			router.push(`/search?${encodeQueryParams(payload)}`)
 		},
 	})
@@ -53,13 +45,11 @@ export const SearchWidget = () => {
 				<div className="flex w-full flex-col gap-3 text-sm">
 					<ComboBox
 						data={places}
-						value={values.location}
+						value={String(values.location)}
 						onValueChange={(location) => setFieldValue("location", location)}
 						placeholder="Location"
 					/>
-					<Select
-						value={values.propertyType}
-						onValueChange={(value) => setFieldValue("propertyType", value)}>
+					<Select value={values.type} onValueChange={(value) => setFieldValue("propertyType", value)}>
 						<SelectTrigger className="capitalize placeholder:text-neutral-300">
 							<SelectValue placeholder="Apartment Type" />
 						</SelectTrigger>
