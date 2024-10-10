@@ -9,7 +9,7 @@ const Page = () => {
 
 	return (
 		<>
-			<Seo title={capitalizeWords(String(`${user?.firstName} ${user?.lastName}`))} />
+			<Seo title={capitalizeWords(String(`${user?.first_name} ${user?.last_name}`))} />
 			<Appbar />
 			<main className="container mx-auto my-12"></main>
 		</>

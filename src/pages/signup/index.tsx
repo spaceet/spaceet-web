@@ -5,38 +5,44 @@ import { toast } from "sonner"
 import Link from "next/link"
 import React from "react"
 
-import { PhoneInput, Seo } from "@/components/shared"
+import { PhoneInput, Seo, Spinner } from "@/components/shared"
 import { SignUpDto, SignUpMutation } from "@/queries"
 import { AuthLayout } from "@/components/layouts"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { GoogleSvg } from "@/assets/svg"
+import { SignUpSchema } from "@/schema"
 import { HttpError } from "@/types"
 
-const initialValues: SignUpDto = { firstName: "", lastName: "", email: "", password: "", phone: "" }
+const initialValues: SignUpDto = {
+	first_name: "",
+	last_name: "",
+	email: "",
+	password: "",
+	phone_number: "",
+}
 
 const Page = () => {
 	const router = useRouter()
 
-	const { isPending } = useMutation({
+	const { isPending, mutateAsync } = useMutation({
 		mutationFn: (payload: SignUpDto) => SignUpMutation(payload),
 		mutationKey: ["register"],
-		onSuccess: (data) => {
-			console.log(data)
+		onSuccess: () => {
 			toast.success("Account created successfully")
 			router.push("/signin")
 		},
 		onError: ({ response }: HttpError) => {
 			const { message } = response.data
-			console.error(message)
 			toast.error(message)
 		},
 	})
 
-	const { handleChange, handleSubmit, setFieldValue } = useFormik({
+	const { errors, handleChange, handleSubmit, setFieldValue } = useFormik({
 		initialValues,
+		validationSchema: SignUpSchema,
 		onSubmit: (values) => {
-			console.log(values)
+			mutateAsync(values)
 		},
 	})
 
@@ -62,19 +68,48 @@ const Page = () => {
 					</div>
 					<form onSubmit={handleSubmit} className="flex flex-col gap-4">
 						<div className="grid w-full grid-cols-2 gap-4">
-							<Input type="text" name="firstName" label="First Name" onChange={handleChange} required />
-							<Input type="text" name="lastName" label="Last Name" onChange={handleChange} required />
+							<Input
+								type="text"
+								name="first_name"
+								label="First Name"
+								onChange={handleChange}
+								required
+								error={errors.first_name}
+							/>
+							<Input
+								type="text"
+								name="last_name"
+								label="Last Name"
+								onChange={handleChange}
+								required
+								error={errors.last_name}
+							/>
 						</div>
-						<Input type="email" name="email" label="Email Address" onChange={handleChange} required />
-						<PhoneInput
-							name="phone"
-							label="Phone Number"
-							onPhoneNumberChange={(value) => setFieldValue("phone", value)}
+						<Input
+							type="email"
+							name="email"
+							label="Email Address"
+							onChange={handleChange}
 							required
+							error={errors.email}
 						/>
-						<Input type="password" name="password" label="Password" onChange={handleChange} required />
+						<PhoneInput
+							name="phone_number"
+							label="Phone Number"
+							onPhoneNumberChange={(value) => setFieldValue("phone_number", value)}
+							required
+							error={errors.phone_number}
+						/>
+						<Input
+							type="password"
+							name="password"
+							label="Password"
+							onChange={handleChange}
+							required
+							error={errors.password}
+						/>
 						<Button type="submit" disabled={isPending}>
-							Register
+							{isPending ? <Spinner /> : "Register"}
 						</Button>
 						<p className="flex w-full items-center justify-center gap-1 text-center text-sm">
 							Already have a Spaceet account?{" "}

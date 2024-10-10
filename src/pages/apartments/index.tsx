@@ -2,17 +2,18 @@ import { useQuery } from "@tanstack/react-query"
 import React from "react"
 
 import { GetAllPropertiesQuery, PaginationDto } from "@/queries"
-import { Appbar, Card, Seo } from "@/components/shared"
-import { properties } from "@/mock/properties"
+import { Appbar, Card, Loading, Seo } from "@/components/shared"
 
 const Page = () => {
 	const [pagination] = React.useState<PaginationDto>({ page: 1, limit: 20 })
 
-	const {} = useQuery({
+	const { data: apartments } = useQuery({
 		queryFn: () => GetAllPropertiesQuery(pagination),
 		queryKey: ["get-apartments", pagination.page],
 		enabled: false,
 	})
+
+	if (!apartments) return <Loading />
 
 	return (
 		<>
@@ -21,8 +22,8 @@ const Page = () => {
 			<main className="container mx-auto my-12 flex flex-col gap-8">
 				<div className="flex w-full items-center justify-center"></div>
 				<section className="grid w-full grid-cols-4 gap-5 py-10">
-					{properties.map((property) => (
-						<Card key={property.id} apartment={property} />
+					{apartments.data.data.map((apartment) => (
+						<Card key={apartment.id} apartment={apartment} />
 					))}
 				</section>
 			</main>

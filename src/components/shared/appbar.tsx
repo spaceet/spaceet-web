@@ -87,15 +87,15 @@ export const Appbar = () => {
 							<Link href="/search" className="link">
 								Book a Space
 							</Link>
-							{user && user.role === "host" ? (
+							{/* {user && user.role === "host" ? (
 								<Link href="/dashboard" className="link">
 									Dashboard
 								</Link>
 							) : (
-								<Link href="/become-a-host" className="link">
-									Become a Host
-								</Link>
-							)}
+							)} */}
+							<Link href="/become-a-host" className="link">
+								Become a Host
+							</Link>
 						</div>
 					)}
 				</div>
@@ -106,7 +106,7 @@ export const Appbar = () => {
 				) : (
 					<div className="flex items-center gap-4">
 						{user ? (
-							<p className="hidden font-medium capitalize text-neutral-900 lg:block">{user.firstName}</p>
+							<p className="hidden font-medium capitalize text-neutral-900 lg:block">{user.first_name}</p>
 						) : (
 							<Link href="/signin" className="link hidden font-medium text-neutral-900 lg:block">
 								Log In
@@ -118,9 +118,9 @@ export const Appbar = () => {
 									<button className="flex h-10 items-center gap-3 rounded-[36px] border px-3 lg:h-14">
 										<Menu className="size-4 lg:size-6" />
 										<Avatar className="size-7 border bg-primary-100 text-white lg:size-10">
-											<AvatarImage src={user.imageUrl} alt={user.firstName} />
+											<AvatarImage src={user.profile_image} alt={user.first_name} />
 											<AvatarFallback className="text-sm font-medium">
-												{getInitials(`${user.firstName} ${user.lastName}`)}
+												{getInitials(`${user.first_name} ${user.last_name}`)}
 											</AvatarFallback>
 										</Avatar>
 									</button>

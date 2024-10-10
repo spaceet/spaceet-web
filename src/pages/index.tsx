@@ -5,17 +5,17 @@ import Image from "next/image"
 import Link from "next/link"
 import React from "react"
 
-import { GetAllPropertiesQuery, GetPropertiesByLocationQuery, GetAllReviewsQuery } from "@/queries"
+import { GetAllPropertiesQuery, GetAllReviewsQuery } from "@/queries"
 import { Filter as FilterIcon } from "@/assets/svg"
 import { booking_steps, places } from "@/config"
 import { Button } from "@/components/ui/button"
-import { properties } from "@/mock/properties"
 import { Input } from "@/components/ui/input"
 import { mock_reviews } from "@/mock/reviews"
 import {
 	Appbar,
 	Card,
 	Footer,
+	Loading,
 	Reviews,
 	ScrollContainer,
 	SearchWidget,
@@ -41,17 +41,11 @@ const Page = () => {
 		console.log(location)
 	}
 
-	const [{}, {}, {}] = useQueries({
+	const [{ data: apartments }, {}] = useQueries({
 		queries: [
 			{
 				queryFn: () => GetAllPropertiesQuery({ limit: 12, page: 1 }),
-				queryKey: ["all-properties"],
-				enabled: false,
-			},
-			{
-				queryFn: () => GetPropertiesByLocationQuery(),
-				queryKey: ["properties-by-location"],
-				enabled: false,
+				queryKey: ["all-apartments"],
 			},
 			{
 				queryFn: () => GetAllReviewsQuery("", {}),
@@ -61,11 +55,15 @@ const Page = () => {
 		],
 	})
 
+	if (!apartments) return <Loading />
+
 	const filtered = (location: string) => {
-		return properties.filter((property) => {
-			if (location === "all" || location === "") return property
-			return property.location.toLowerCase().includes(location.toLowerCase())
-		})
+		return (
+			apartments.data.data.filter((apartment) => {
+				if (location === "all" || location === "") return apartment
+				return apartment.Apartment_city.toLowerCase().includes(location.toLowerCase())
+			}) ?? []
+		)
 	}
 
 	return (
@@ -91,7 +89,7 @@ const Page = () => {
 					<div className="flex w-full items-center justify-between">
 						<h4 className="text-xl font-medium lg:text-[32px]">Explore Top Destinations</h4>
 					</div>
-					<ScrollContainer properties={properties.slice(0, 6)} />
+					<ScrollContainer properties={apartments.data.data.slice(0, 6)} />
 				</section>
 				<section className="w-full px-5 py-8 lg:px-0 lg:py-10">
 					<div className="container mx-auto py-2 lg:py-6">

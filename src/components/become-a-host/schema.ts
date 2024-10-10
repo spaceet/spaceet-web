@@ -33,9 +33,9 @@ export const ProfileValidationSchema: Yup.ObjectSchema<ProfileFormProps> = Yup.o
 	address: Yup.string().required("Please enter your address!"),
 	bio: Yup.string().required("Please enter your bio!"),
 	city: Yup.string().required("Please select your city of residency!"),
-	firstName: Yup.string().required("Please enter your first name!"),
+	first_name: Yup.string().required("Please enter your first name!"),
 	image: Yup.mixed<File>().defined("Please select a profile photo!"),
-	lastName: Yup.string().required("Please enter your last name!"),
+	last_name: Yup.string().required("Please enter your last name!"),
 	phoneNumber: Yup.string()
 		.required("Please enter your phone number!")
 		.matches(

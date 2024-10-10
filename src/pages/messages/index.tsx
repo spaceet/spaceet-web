@@ -69,12 +69,12 @@ const Page = () => {
 											onClick={() => setCurrentUser(host)}
 											className={`flex h-20 w-full items-center gap-3 border-t px-5 ${host.id === currentUser?.id ? "bg-neutral-200" : "bg-white"}`}>
 											<Avatar className="size-10">
-												<AvatarImage src={host.imageUrl} alt={host.firstName} className="object-cover" />
+												<AvatarImage src={host.profile_image} alt={host.first_name} className="object-cover" />
 											</Avatar>
 											<div className="flex w-full flex-col gap-2">
 												<div className="flex w-full items-center justify-between">
 													<p className="font-medium lg:text-sm">
-														{host.firstName} {host.lastName}
+														{host.first_name} {host.last_name}
 													</p>
 													<p className="text-neutral-400 lg:text-xs">11:12 AM</p>
 												</div>
@@ -100,14 +100,14 @@ const Page = () => {
 								<div className="flex items-center gap-3">
 									<Avatar className="size-10">
 										<AvatarImage
-											src={currentUser.imageUrl}
-											alt={currentUser.firstName}
+											src={currentUser.profile_image}
+											alt={currentUser.first_name}
 											className="object-cover"
 										/>
 									</Avatar>
 									<div className="flex flex-col">
 										<p className="font-medium lg:text-sm">
-											{currentUser.firstName} {currentUser.lastName}
+											{currentUser.first_name} {currentUser.last_name}
 										</p>
 										<p className="text-neutral-400 lg:text-xs">Online</p>
 									</div>

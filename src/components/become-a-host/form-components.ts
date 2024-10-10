@@ -4,9 +4,9 @@ export type ProfileFormProps = {
 	address: string
 	bio: string
 	city: string
-	firstName: string
+	first_name: string
 	image: File | null
-	lastName: string
+	last_name: string
 	phoneNumber: string
 	state: string
 }

@@ -23,9 +23,9 @@ const initialValues: ProfileFormProps = {
 	address: "",
 	bio: "",
 	city: "",
-	firstName: "",
+	first_name: "",
 	image: null,
-	lastName: "",
+	last_name: "",
 	phoneNumber: "",
 	state: "",
 }
@@ -54,7 +54,7 @@ const Page = ({
 	const { handleChange, handleSubmit, setFieldValue, values } = useFormik({
 		initialValues,
 		onSubmit: (values) => {
-			// if (!values.firstName || !values.lastName) {
+			// if (!values.first_name || !values.last_name) {
 			// 	toast.error("Please enter your first and last name")
 			// 	return
 			// }
@@ -184,14 +184,14 @@ const Page = ({
 							<div className="flex w-full flex-col gap-4 rounded-xl border p-6">
 								<div className="grid w-full grid-cols-2 gap-4">
 									<Input
-										name="firstName"
+										name="first_name"
 										onChange={handleChange}
 										label="First Name"
 										placeholder="First Name"
 										required
 									/>
 									<Input
-										name="lastName"
+										name="last_name"
 										onChange={handleChange}
 										label="Last Name"
 										placeholder="Last Name"

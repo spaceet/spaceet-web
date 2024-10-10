@@ -30,20 +30,20 @@ export const flash = {
 export const slide = (direction: AnimationDirectionProps) => {
 	return {
 		initial: {
-			x: direction === "left" ? "-100%" : direction === "right" ? "100%" : 0,
-			y: direction === "up" ? "100%" : direction === "down" ? "-100%" : 0,
+			x: direction === "left" ? "-50%" : direction === "right" ? "50%" : 0,
+			y: direction === "up" ? "50%" : direction === "down" ? "-50%" : 0,
 			opacity: 0,
 			transition: { ...transition, delay: 0.75 },
 		},
-		whileInView: {
+		animate: {
 			x: 0,
 			y: 0,
 			opacity: 1,
 			transition: { ...transition, delay: 0 },
 		},
 		exit: {
-			x: direction === "left" ? "100%" : direction === "right" ? "-100%" : 0,
-			y: direction === "up" ? "-100%" : direction === "down" ? "100%" : 0,
+			x: direction === "left" ? "50%" : direction === "right" ? "-50%" : 0,
+			y: direction === "up" ? "-50%" : direction === "down" ? "50%" : 0,
 			opacity: 0,
 			transition: { ...transition, delay: 0 },
 		},

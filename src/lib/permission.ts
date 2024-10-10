@@ -8,13 +8,13 @@ enum PermissionLevel {
 }
 
 type PermissionProps = {
-	host: PermissionLevel[]
-	user: PermissionLevel[]
+	HOST: PermissionLevel[]
+	USER: PermissionLevel[]
 }
 
 const RolePermissions: PermissionProps = {
-	host: [PermissionLevel.Create, PermissionLevel.Delete, PermissionLevel.Edit, PermissionLevel.View],
-	user: [PermissionLevel.View],
+	HOST: [PermissionLevel.Create, PermissionLevel.Delete, PermissionLevel.Edit, PermissionLevel.View],
+	USER: [PermissionLevel.View],
 }
 
 interface HasPermission {
@@ -23,7 +23,7 @@ interface HasPermission {
 }
 
 const hasPermission = ({ user, permission }: HasPermission) => {
-	const permissions = RolePermissions[user.role]
+	const permissions = RolePermissions[user.user_type]
 	return permissions.includes(permission)
 }
 

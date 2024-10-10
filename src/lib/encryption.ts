@@ -3,8 +3,8 @@ import CryptoJs from "crypto-js"
 const key = process.env.NEXT_PUBLIC_ENCRYPTION_SECRET_KEY
 const intiVector = process.env.NEXT_PUBLIC_ENCRYPTION_INTIVECTOR
 
-const secretKey = CryptoJs.enc.Utf8.parse(key)
-const iv = CryptoJs.enc.Utf8.parse(intiVector)
+const secretKey = CryptoJs.enc.Utf8.parse(String(key))
+const iv = CryptoJs.enc.Utf8.parse(String(intiVector))
 
 export const encryptHandler = (data: object) => {
 	const preEncrypted = CryptoJs.AES.encrypt(JSON.stringify(data), secretKey, {

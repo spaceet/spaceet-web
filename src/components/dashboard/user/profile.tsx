@@ -29,9 +29,9 @@ export const Profile = () => {
 		address: "",
 		bio: "",
 		city: "",
-		firstName: "",
+		first_name: "",
 		image: null,
-		lastName: "",
+		last_name: "",
 		phoneNumber: "",
 		state: "",
 	}
@@ -118,14 +118,14 @@ export const Profile = () => {
 			<div className="flex w-full flex-col gap-4 rounded-xl border p-6">
 				<div className="grid w-full grid-cols-2 gap-4">
 					<Input
-						name="firstName"
+						name="first_name"
 						onChange={handleChange}
 						label="First Name"
 						placeholder="First Name"
 						required
 					/>
 					<Input
-						name="lastName"
+						name="last_name"
 						onChange={handleChange}
 						label="Last Name"
 						placeholder="Last Name"

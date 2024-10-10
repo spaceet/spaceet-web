@@ -1,10 +1,16 @@
+import { useMutation } from "@tanstack/react-query"
 import { useFormik } from "formik"
+import { toast } from "sonner"
 import React from "react"
 
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group"
+import { AddReviewDto, AddReviewMutation } from "@/queries"
+import { queryClient } from "@/providers"
 import { Textarea } from "../ui/textarea"
 import { Button } from "../ui/button"
 import { Label } from "../ui/label"
+import { Spinner } from "./spinner"
+import { HttpError } from "@/types"
 
 interface Props {
 	id: string
@@ -12,16 +18,38 @@ interface Props {
 }
 
 const MAX_RATING = 5
-const initialValues = {
+const initialValues: AddReviewDto = {
 	rating: 0,
 	review: "",
 }
 
-export const RatingForm = ({}: Props) => {
+export const RatingForm = ({ id, onClose }: Props) => {
+	const { isPending, mutateAsync } = useMutation({
+		mutationFn: (payload: AddReviewDto) => AddReviewMutation(id, payload),
+		mutationKey: ["add-review"],
+		onSuccess: () => {
+			toast.success("Review added successfully")
+			queryClient.invalidateQueries({ queryKey: ["get-apartment", id] })
+			onClose()
+		},
+		onError: ({ response }: HttpError) => {
+			const { message } = response.data
+			toast.error(message)
+		},
+	})
+
 	const { handleChange, handleSubmit, setFieldValue, values } = useFormik({
 		initialValues,
 		onSubmit: (values) => {
-			console.log(values)
+			if (!values.rating) {
+				toast.error("Please select a rating")
+				return
+			}
+			if (!values.review) {
+				toast.error("Please write a review")
+				return
+			}
+			mutateAsync(values)
 		},
 	})
 
@@ -60,7 +88,9 @@ export const RatingForm = ({}: Props) => {
 					placeholder="Enter your review"
 				/>
 			</div>
-			<Button type="submit"></Button>
+			<Button type="submit" disabled={isPending}>
+				{isPending ? <Spinner /> : "Submit response"}
+			</Button>
 		</form>
 	)
 }

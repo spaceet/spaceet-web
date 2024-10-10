@@ -16,7 +16,7 @@ export const AddressPicker = ({ address, onValueChange }: Props) => {
 
 	React.useEffect(() => {
 		dummyGeocodeAddress(_address).then((res) => setCoordinates(res))
-	}, [address])
+	}, [_address])
 
 	return (
 		<div className="flex w-full flex-col gap-3">

@@ -6,7 +6,7 @@ import { Maybe, UserProps } from "@/types"
 
 interface UserStore {
 	user: Maybe<UserProps>
-	signIn: (user: UserProps, token: string) => void
+	signIn: (user: UserProps) => void
 	signOut: (options?: { redirectTo?: string; soft?: boolean }) => void
 }
 
@@ -18,12 +18,12 @@ const initialState: UserStore = {
 
 const useUserStore = createPersistMiddleware<UserStore>("spaceet-user", (set) => ({
 	...initialState,
-	signIn: (user, token) => {
+	signIn: (user) => {
 		set({ user })
-		Cookies.set("SPACEET_TOKEN", token, {
+		Cookies.set("SPACEET_TOKEN", user.access_token, {
 			sameSite: "None",
 			secure: true,
-			expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30) /* 30 days */,
+			expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30), // 30 days,
 		})
 	},
 	signOut: async (options) => {

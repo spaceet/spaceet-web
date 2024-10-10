@@ -21,19 +21,21 @@ export const PaymentItem = ({ payment }: Props) => {
 				/>
 				<div className="flex flex-col">
 					<p className="font-medium text-neutral-900">{payment.apartment.name}</p>
-					<p className="text-sm">{payment.apartment.location}</p>
+					<p className="text-sm">
+						{payment.apartment.city}, {payment.apartment.state}
+					</p>
 				</div>
 			</div>
 			<div className="col-span-2 flex w-full items-center gap-2 py-1 text-sm">
 				<Image
-					src={payment.guest.imageUrl}
-					alt={payment.guest.firstName}
+					src={payment.guest.profile_image}
+					alt={payment.guest.first_name}
 					width={24}
 					height={24}
 					className="rounded-full border"
 				/>
 				<p>
-					{payment.guest.firstName} {payment.guest.lastName}
+					{payment.guest.first_name} {payment.guest.last_name}
 				</p>
 			</div>
 			<div className="col-span-2 w-full py-1 text-sm">DATE RECEIVED</div>

@@ -6,48 +6,40 @@ import Link from "next/link"
 import React from "react"
 
 import { SignInDto, SignInMutation } from "@/queries"
+import { Seo, Spinner } from "@/components/shared"
 import { AuthLayout } from "@/components/layouts"
 import { Button } from "@/components/ui/button"
 import { useUserStore } from "@/store/z-store"
 import { Input } from "@/components/ui/input"
-import { Seo } from "@/components/shared"
 import { GoogleSvg } from "@/assets/svg"
+import { SignInSchema } from "@/schema"
 import { HttpError } from "@/types"
 
-import { mock_user } from "@/mock/user" // TODO: Remove this
-
-const initialValues: SignInDto = { email: "", password: "" }
+const initialValues: SignInDto = { email_or_phone_number: "", password: "" }
 
 const Page = () => {
 	const { signIn } = useUserStore()
 	const router = useRouter()
 
-	const { isPending } = useMutation({
+	const { isPending, mutateAsync } = useMutation({
 		mutationFn: (payload: SignInDto) => SignInMutation(payload),
 		mutationKey: ["signin"],
-		onSuccess: (data) => {
-			console.log(data)
-			const {
-				data: { token, user },
-				message,
-			} = data
-			signIn(user, token)
-			router.push("/")
+		onSuccess: ({ data, message }) => {
+			signIn(data)
 			toast.success(message)
+			router.push("/")
 		},
 		onError: ({ response }: HttpError) => {
 			const { message } = response.data
-			console.error(message)
 			toast.error(message)
 		},
 	})
 
-	const { handleChange, handleSubmit } = useFormik({
+	const { errors, handleChange, handleSubmit } = useFormik({
 		initialValues,
+		validationSchema: SignInSchema,
 		onSubmit: (values) => {
-			const user = { ...mock_user, email: values.email }
-			signIn(user, "ZK3bfr1X/iqLSGZ9O+6JCI1QJGtmeiNz2NBUtQpt")
-			router.push("/")
+			mutateAsync(values)
 		},
 	})
 
@@ -63,9 +55,23 @@ const Page = () => {
 						<p className="text-neutral-600">Login to your Spaceet account</p>
 					</div>
 					<form onSubmit={handleSubmit} className="flex flex-col gap-4">
-						<Input type="email" name="email" label="Email Address" onChange={handleChange} required />
+						<Input
+							type="email"
+							name="email_or_phone_number"
+							label="Email Address"
+							onChange={handleChange}
+							required
+							error={errors.email_or_phone_number}
+						/>
 						<div className="flex flex-col gap-3">
-							<Input type="password" name="password" label="Password" onChange={handleChange} required />
+							<Input
+								type="password"
+								name="password"
+								label="Password"
+								onChange={handleChange}
+								required
+								error={errors.password}
+							/>
 							<Link href="/forgot-password" className="self-end text-sm text-neutral-600 underline">
 								Forgot Password?
 							</Link>
@@ -80,7 +86,7 @@ const Page = () => {
 							Continue with Google
 						</Button>
 						<Button type="submit" disabled={isPending}>
-							Log In
+							{isPending ? <Spinner /> : "Log In"}
 						</Button>
 						<p className="flex w-full items-center justify-center gap-1 text-center text-sm">
 							New to Spaceet?{" "}
