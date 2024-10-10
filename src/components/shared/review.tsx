@@ -29,9 +29,11 @@ export const Review = ({ review }: Props) => {
 			</div>
 			<div className="flex h-full w-full flex-col items-start gap-2 lg:max-h-[122px]">
 				<p className="text-sm text-neutral-500 lg:text-base">
-					{review.review.length > 100 ? `${review.review.slice(0, 100)}...` : review.review}
+					{review.review_review.length > 100
+						? `${review.review_review.slice(0, 100)}...`
+						: review.review_review}
 				</p>
-				{review.review.length > 100 && (
+				{review.review_review.length > 100 && (
 					<Dialog open={open} onOpenChange={setOpen}>
 						<DialogTrigger className="text-xs font-semibold underline">Show more</DialogTrigger>
 						<DialogContent>
@@ -40,9 +42,13 @@ export const Review = ({ review }: Props) => {
 							<div className="flex w-full flex-col gap-5">
 								<div className="flex items-center gap-2">
 									<Avatar className="size-10">
-										<AvatarImage src="" alt="" className="object-cover" />
+										<AvatarImage
+											src={review.user_profile_image}
+											alt={review.user_first_name}
+											className="object-cover"
+										/>
 										<AvatarFallback className="bg-black text-sm font-medium text-white lg:text-base">
-											{getInitials("Samson Okunola")}
+											{getInitials(`${review.user_first_name} ${review.user_last_name}`)}
 										</AvatarFallback>
 									</Avatar>
 									<div className="flex flex-col">
@@ -51,15 +57,17 @@ export const Review = ({ review }: Props) => {
 									</div>
 								</div>
 								<div className="flex h-full w-full flex-col items-start gap-2 lg:max-h-[122px]">
-									<p className="text-sm text-neutral-500 lg:text-base">{review.review}</p>
+									<p className="text-sm text-neutral-500 lg:text-base">{review.review_review}</p>
 								</div>
 								<div className="flex items-center gap-2">
 									<div className="flex items-center gap-[6px]">
-										<p className="text-sm lg:text-base">{review.rating}</p>
+										<p className="text-sm lg:text-base">{review.review_rating}</p>
 										<RiStarSFill className="size-[18px] text-primary-100" />
 									</div>
 									<span className="size-[6px] rounded-full bg-neutral-400"></span>
-									<p className="text-sm text-neutral-400 lg:text-base">{getTimeFromNow(review.createdOn)}</p>
+									<p className="text-sm text-neutral-400 lg:text-base">
+										{getTimeFromNow(review.review_createdOn)}
+									</p>
 								</div>
 							</div>
 						</DialogContent>
@@ -68,11 +76,13 @@ export const Review = ({ review }: Props) => {
 			</div>
 			<div className="flex items-center gap-2">
 				<div className="flex items-center gap-[6px]">
-					<p className="text-sm lg:text-base">{review.rating}</p>
+					<p className="text-sm lg:text-base">{review.review_rating}</p>
 					<RiStarSFill className="size-[18px] text-primary-100" />
 				</div>
 				<span className="size-[6px] rounded-full bg-neutral-400"></span>
-				<p className="text-sm text-neutral-400 lg:text-base">{getTimeFromNow(review.createdOn)}</p>
+				<p className="text-sm text-neutral-400 lg:text-base">
+					{getTimeFromNow(review.review_createdOn)}
+				</p>
 			</div>
 		</div>
 	)

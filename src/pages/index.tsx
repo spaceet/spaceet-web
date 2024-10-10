@@ -9,7 +9,6 @@ import { GetAllPropertiesQuery, GetAllReviewsQuery } from "@/queries"
 import { Filter as FilterIcon } from "@/assets/svg"
 import { booking_steps, places } from "@/config"
 import { Button } from "@/components/ui/button"
-import { properties } from "@/mock/properties"
 import { Input } from "@/components/ui/input"
 import { mock_reviews } from "@/mock/reviews"
 import {
@@ -90,7 +89,7 @@ const Page = () => {
 					<div className="flex w-full items-center justify-between">
 						<h4 className="text-xl font-medium lg:text-[32px]">Explore Top Destinations</h4>
 					</div>
-					<ScrollContainer properties={properties.slice(0, 6)} />
+					<ScrollContainer properties={apartments.data.data.slice(0, 6)} />
 				</section>
 				<section className="w-full px-5 py-8 lg:px-0 lg:py-10">
 					<div className="container mx-auto py-2 lg:py-6">

@@ -67,7 +67,7 @@ export type Node = {
 	createdOn: Date | string
 	deletedBy?: Maybe<string>
 	deletedOn?: Maybe<Date | string>
-	isDeleted: boolean
+	isDeleted?: boolean
 	updatedBy?: Maybe<string>
 	updatedOn?: Maybe<Date | string>
 }
@@ -196,11 +196,17 @@ export type PaymentProps = Node & {
 	guest: UserProps
 }
 
-export type ReviewProps = Node & {
-	apartment_id: string
-	rating: number
-	review: string
-	user: UserProps
+export type ReviewProps = {
+	__typename?: "Review"
+	review_apartment_id: string
+	review_createdOn: Date | string
+	review_rating: number
+	review_review: string
+	review_user_id: string
+	user_email: string
+	user_first_name: string
+	user_last_name: string
+	user_profile_image: string
 }
 
 export type MessageProps = Node & {

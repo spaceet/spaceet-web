@@ -3,10 +3,10 @@ import Image from "next/image"
 import Link from "next/link"
 import React from "react"
 
-import { LocationSearchProps, ApartmentProps } from "@/types"
+import { LocationSearchProps, ApartmentsProps } from "@/types"
 
 interface Props {
-	properties: ApartmentProps[]
+	properties: ApartmentsProps[]
 }
 
 export const ScrollContainer = ({ properties }: Props) => {
@@ -16,15 +16,15 @@ export const ScrollContainer = ({ properties }: Props) => {
 		right: false,
 	})
 
-	const aggregateByLocation = (apartments: ApartmentProps[]) => {
+	const aggregateByLocation = (apartments: ApartmentsProps[]) => {
 		return apartments.reduce(
 			(acc, apartment, index) => {
-				const location = apartment.city
+				const location = apartment.Apartment_city
 				if (!acc[location]) {
 					acc[location] = {
 						count: 0,
 						id: `location-${index}`,
-						image: apartment.images[0],
+						image: apartment.Apartment_images[0],
 						location: location,
 					}
 				}
@@ -80,7 +80,7 @@ export const ScrollContainer = ({ properties }: Props) => {
 						key={apartment.id}
 						className="relative h-[225px] w-[235px] flex-shrink-0 rounded-lg lg:h-[310px] lg:w-[314px]">
 						<div className="absolute left-0 top-0 !z-[1] flex size-full flex-col justify-end rounded-lg p-4 text-white">
-							<p className="text-sm font-medium lg:text-xl">{apartment.location}</p>
+							<p className="text-sm font-medium capitalize lg:text-xl">{apartment.location}</p>
 							<p className="text-xs lg:text-sm">{apartment.count} Apartments</p>
 						</div>
 						<Image

@@ -475,13 +475,15 @@ const Page = () => {
 							</div>
 						</div>
 					</div>
-					<div
-						ref={ref}
-						className="flex min-h-[269px] w-auto flex-col items-center gap-x-0 gap-y-5 overflow-x-scroll scroll-smooth lg:flex-row lg:gap-x-5 lg:gap-y-0">
-						{apartment.data.reviews.map((review) => (
-							<Review key={review.id} review={review} />
-						))}
-					</div>
+					{apartment.data.reviews && (
+						<div
+							ref={ref}
+							className="flex min-h-[269px] w-auto flex-col items-center gap-x-0 gap-y-5 overflow-x-scroll scroll-smooth lg:flex-row lg:gap-x-5 lg:gap-y-0">
+							{apartment.data.reviews.map((review, index) => (
+								<Review key={index} review={review} />
+							))}
+						</div>
+					)}
 				</div>
 				<div id="host" className="flex w-full flex-col gap-6 rounded-3xl border p-6">
 					<p className="font-semibold lg:text-xl">Meet your host</p>
