@@ -86,7 +86,7 @@ const Page = () => {
 						<div className="flex w-full items-center gap-4 rounded-2xl border p-6">
 							<div className="relative h-[173px] w-[334px]">
 								<Image
-									src={apartment.data.images[0]}
+									src={apartment.data.cover_photo ?? apartment.data.images[0]}
 									alt={apartment.data.name}
 									fill
 									sizes="(max-width: 1024px)100%"
