@@ -51,7 +51,7 @@ const Card = ({ apartment }: Props) => {
 		<Link
 			href={`/apartments/${apartment.Apartment_id}`}
 			className="flex h-auto w-[214px] flex-shrink-0 flex-col lg:w-full">
-			<AnimatePresence>
+			<AnimatePresence key="card" mode="sync">
 				<div className="flex aspect-[95/100] w-full items-center justify-center overflow-hidden rounded-md border bg-neutral-300">
 					{apartment.Apartment_images.map((image, idx) => (
 						<motion.div
