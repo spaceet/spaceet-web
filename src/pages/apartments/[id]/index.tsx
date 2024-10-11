@@ -57,7 +57,6 @@ const Page = () => {
 	const { handleChange, handleSubmit, values } = useFormik({
 		initialValues,
 		onSubmit: (values) => {
-			console.log(values)
 			if (!values.check_in) {
 				toast.error("Please select a check-in date")
 				return
@@ -148,7 +147,7 @@ const Page = () => {
 				<div className="hidden w-full grid-cols-2 gap-5 lg:grid">
 					<div className="relative aspect-square w-full">
 						<Image
-							src={apartment.data.cover_photo}
+							src={apartment.data.cover_photo ?? apartment.data.images[0]}
 							alt={apartment.data.name}
 							fill
 							sizes="(max-width: 1024px)100%"

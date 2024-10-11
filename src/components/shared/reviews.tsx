@@ -49,7 +49,11 @@ export const Reviews = ({ reviews }: Props) => {
 					<div
 						key={index}
 						className="flex h-[300px] w-[391px] flex-shrink-0 flex-col gap-6 rounded-2xl bg-white p-6">
-						<p className="h-[178px] w-full text-neutral-700">{review.review_review}</p>
+						<p className="h-[178px] w-full text-neutral-700">
+							{review.review_review.length > 300
+								? `${review.review_review.substring(0, 300)}...`
+								: review.review_review}
+						</p>
 						<div className="flex items-center gap-3">
 							<Avatar className="size-12 border bg-primary-50">
 								<AvatarImage src={review.user_profile_image} alt={review.user_first_name} />
