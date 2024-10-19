@@ -48,16 +48,17 @@ const Card = ({ apartment }: Props) => {
 	}
 
 	return (
-		<Link
-			href={`/apartments/${apartment.Apartment_id}`}
-			className="flex h-auto w-[214px] flex-shrink-0 flex-col lg:w-full">
-			<AnimatePresence key="card" mode="sync">
+		<AnimatePresence key={`card-${apartment.Apartment_id}`} mode="sync">
+			<Link
+				href={`/apartments/${apartment.Apartment_id}`}
+				style={{ viewTransitionName: `card-${apartment.Apartment_id}` }}
+				className="card flex h-auto w-[214px] flex-shrink-0 flex-col lg:w-full lg:max-w-[285px]">
 				<div className="flex aspect-[95/100] w-full items-center justify-center overflow-hidden rounded-md border bg-neutral-300">
-					{apartment.Apartment_images.map((image, idx) => (
+					{apartment.Apartment_images.map((image, index) => (
 						<motion.div
 							{...slide("left")}
-							key={idx}
-							className={`group relative aspect-[95/100] w-full rounded-md ${idx === current ? "block" : "hidden"}`}>
+							key={index}
+							className={`group relative aspect-[95/100] w-full rounded-md ${index === current ? "block" : "hidden"}`}>
 							<div
 								{...handlers}
 								onClick={(e) => e.stopPropagation()}
@@ -89,7 +90,7 @@ const Card = ({ apartment }: Props) => {
 								{formatCurrency(apartment.price_cost_per_night, "NGN")}/night
 							</motion.div>
 							<Image
-								key={idx}
+								key={index}
 								src={image}
 								alt={apartment.Apartment_name}
 								fill
@@ -100,17 +101,17 @@ const Card = ({ apartment }: Props) => {
 						</motion.div>
 					))}
 				</div>
-			</AnimatePresence>
-			<div className="flex w-full flex-col py-2">
-				<p className="text-sm font-semibold capitalize lg:text-lg">{apartment.Apartment_name}</p>
-				<p className="text-meutral-400 text-xs font-light capitalize lg:text-sm">
-					{apartment.Apartment_city}, {apartment.Apartment_state}
-				</p>
-				<div className="text-meutral-900 flex items-center gap-2 font-semibold lg:text-sm">
-					{formatCurrency(apartment.price_cost_per_night, "NGN")}/night
+				<div className="flex w-full flex-col py-2">
+					<p className="text-sm font-semibold capitalize lg:text-lg">{apartment.Apartment_name}</p>
+					<p className="text-meutral-400 text-xs font-light capitalize lg:text-sm">
+						{apartment.Apartment_city}, {apartment.Apartment_state}
+					</p>
+					<div className="text-meutral-900 flex items-center gap-2 font-semibold lg:text-sm">
+						{formatCurrency(apartment.price_cost_per_night, "NGN")}/night
+					</div>
 				</div>
-			</div>
-		</Link>
+			</Link>
+		</AnimatePresence>
 	)
 }
 

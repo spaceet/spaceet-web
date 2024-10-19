@@ -1,27 +1,28 @@
+import { useMapsLibrary } from "@vis.gl/react-google-maps"
 import React from "react"
 
 export const useGeocoding = (address: string) => {
-	const [coordinates, setCoordinates] = React.useState({ lat: 0, lng: 0 })
+	const [result, setResult] = React.useState<google.maps.GeocoderResult>()
+	const [error, setError] = React.useState<string | null>(null)
+	const [loading, setLoading] = React.useState(false)
+	const geocodingLib = useMapsLibrary("geocoding")
 
 	React.useEffect(() => {
-		const fetchCoordinates = async () => {
-			try {
-				const response = await fetch(
-					`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY}`
-				)
-				const data = await response.json()
-				if (data.status === "OK") {
-					const { lat, lng } = data.results[0].geometry.location
-					setCoordinates({ lat, lng })
-				} else {
-					console.error("Geocoding failed:", data.status)
-				}
-			} catch (error) {
-				console.error("Error fetching coordinates:", error)
-			}
-		}
-		fetchCoordinates()
-	}, [address])
+		if (!geocodingLib || !address) return
 
-	return coordinates
+		const geocoder = new window.google.maps.Geocoder()
+		setLoading(true)
+		setError(null)
+
+		geocoder.geocode({ address }, (results, status) => {
+			setLoading(false)
+			if (status === "OK" && results && results.length > 0) {
+				setResult(results[0])
+			} else {
+				setError(`Geocoding failed with status: ${status}`)
+			}
+		})
+	}, [address, geocodingLib])
+
+	return { error, loading, result }
 }

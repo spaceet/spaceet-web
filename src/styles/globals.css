@@ -93,9 +93,15 @@ h6 {
 
 a,
 p,
-span,
-button {
+button,
+label,
+span {
 	font-family: var(--body);
+}
+
+button,
+input {
+	outline: none;
 }
 
 /* Override WebKit autofill styles */
@@ -156,6 +162,15 @@ input[type="search"]::-webkit-search-results-decoration {
 		right: auto;
 		width: 100%;
 	}
+}
+
+.card {
+	view-transition-class: card;
+}
+
+::view-transition-group(*.card) {
+	animation-duration: 420ms;
+	animation-timing-function: cubic-bezier(1, -0.62, 0.61, 1.37);
 }
 
 /* lexical */

@@ -1,7 +1,7 @@
-import { addDays, differenceInCalendarDays, formatDate } from "date-fns"
+import { useMutation, useQueries } from "@tanstack/react-query"
 import { RiErrorWarningLine } from "@remixicon/react"
 import { ChevronLeftCircle } from "lucide-react"
-import { useQuery } from "@tanstack/react-query"
+import { addDays, formatDate } from "date-fns"
 import { useRouter } from "next/router"
 import { useFormik } from "formik"
 import { toast } from "sonner"
@@ -14,7 +14,6 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar"
 import { Checkbox } from "@/components/ui/checkbox"
 import { NotFound } from "@/components/layouts"
 import { Button } from "@/components/ui/button"
-import { GetPropertyQuery } from "@/queries"
 import { formatCurrency } from "@/lib"
 import {
 	Dialog,
@@ -23,22 +22,54 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog"
+import {
+	GenerateLinkDto,
+	GeneratePaymentLink,
+	GetPropertyQuery,
+	GetPricingQuery,
+	ReservationDto,
+} from "@/queries"
 
 const payment_methods = ["debit card", "bank transfer"] as const
 type PaymentMethod = (typeof payment_methods)[number] | (string & {})
 
 const Page = () => {
 	const [paymentMethod, setPaymentMethod] = React.useState<PaymentMethod | null>(null)
-	const [dateDifference, setDateDifference] = React.useState(0)
 	const [agreed, setAgreed] = React.useState(false)
 	const [open, setOpen] = React.useState(false)
 
 	const router = useRouter()
 	const { check_in, check_out, guests, id } = router.query
-	const { data: apartment } = useQuery({
-		queryFn: () => GetPropertyQuery(String(id)),
-		queryKey: ["get-apartment", id],
-		enabled: false,
+
+	const {} = useMutation({
+		mutationFn: (payload: GenerateLinkDto) => GeneratePaymentLink(payload),
+		mutationKey: ["generate-payment-link"],
+		onSuccess: (data) => {
+			console.log(data)
+		},
+		onError: (error) => {
+			console.error(error)
+		},
+	})
+
+	const [{ data: apartment }, { data: pricing }] = useQueries({
+		queries: [
+			{
+				queryFn: () => GetPropertyQuery(String(id)),
+				queryKey: ["get-apartment", id],
+				enabled: !!id,
+			},
+			{
+				queryFn: () =>
+					GetPricingQuery({
+						apartment_id: String(id),
+						checkin_date: formatDate(String(check_in), "MM/dd/yyyy"),
+						checkout_date: formatDate(String(check_out), "MM/dd/yyyy"),
+					}),
+				queryKey: ["get-pricing", id, check_in, check_out],
+				enabled: !!id && !!check_in && !!check_out,
+			},
+		],
 	})
 
 	const handleReservation = () => {
@@ -50,7 +81,15 @@ const Page = () => {
 			toast.error("Please agree to the terms and conditions")
 			return
 		}
-		console.log("Reserving a space")
+		const payload: ReservationDto = {
+			apartment_id: String(id),
+			checkin_date: formatDate(String(check_in), "MM/dd/yyyy"),
+			checkout_date: formatDate(String(check_out), "MM/dd/yyyy"),
+			payment_method: paymentMethod === "debit card" ? "CARD" : "TRANSFER",
+			t_and_c_agreed: agreed ? "YES" : "NO",
+			description: "",
+		}
+		console.log(payload)
 	}
 
 	const { values } = useFormik({
@@ -64,15 +103,11 @@ const Page = () => {
 		},
 	})
 
-	React.useEffect(() => {
-		setDateDifference(differenceInCalendarDays(new Date(values.check_out), new Date(values.check_in)))
-	}, [values.check_out, values.check_in])
-
 	if (!apartment) return <NotFound />
 
 	return (
 		<>
-			<Seo title="Dashboard" />
+			<Seo title="Make Reservation" />
 			<Appbar />
 			<main className="container mx-auto my-12 flex flex-col gap-8 px-5 lg:px-0">
 				<div className="flex items-center gap-2">
@@ -265,38 +300,29 @@ const Page = () => {
 							<p className="font-semibold lg:text-sm">Cost Breakdown</p>
 							<div className="flex w-full items-center justify-between">
 								<p className="font-light text-neutral-400">
-									{formatCurrency(apartment.data.price.cost_per_night, "NGN")} x {dateDifference} nights
+									{formatCurrency(pricing?.data.price_per_night ?? 0, "NGN")} x{" "}
+									{pricing?.data.number_of_nights} nights
 								</p>
 								<p className="font-medium text-neutral-900">
-									{formatCurrency(
-										apartment.data.price.cost_per_night * dateDifference ||
-											apartment.data.price.cost_per_night,
-										"NGN"
-									)}
+									{formatCurrency(pricing?.data.total_price_of_nights ?? 0, "NGN")}
 								</p>
 							</div>
 							<div className="flex w-full items-center justify-between">
 								<p className="font-light text-neutral-400">Cleaning Fee</p>
 								<p className="font-medium text-neutral-900">
-									{formatCurrency(apartment.data.price.cleaning_fee, "NGN")}
+									{formatCurrency(pricing?.data.cleaning_fee ?? 0, "NGN")}
 								</p>
 							</div>
 							<div className="flex w-full items-center justify-between">
 								<p className="font-light text-neutral-400">Service Charge</p>
 								<p className="font-medium text-neutral-900">
-									{formatCurrency(apartment.data.price.service_charge, "NGN")}
+									{formatCurrency(pricing?.data.service_charge ?? 0, "NGN")}
 								</p>
 							</div>
 							<div className="mt-2 flex w-full items-center justify-between">
 								<p className="font-light text-neutral-400">Total</p>
 								<p className="font-medium text-neutral-900">
-									{formatCurrency(
-										apartment.data.price.cleaning_fee +
-											apartment.data.price.service_charge +
-											(apartment.data.price.cost_per_night * dateDifference ||
-												apartment.data.price.cost_per_night),
-										"NGN"
-									)}
+									{formatCurrency(pricing?.data.final_price ?? 0, "NGN")}
 								</p>
 							</div>
 						</div>

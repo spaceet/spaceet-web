@@ -9,7 +9,7 @@ import Image from "next/image"
 import Link from "next/link"
 import React from "react"
 
-import { Appbar, Icon, Loading, Rating, RatingForm, Review, Seo } from "@/components/shared"
+import { Appbar, Icon, Loading, Maps, Rating, RatingForm, Review, Seo } from "@/components/shared"
 import { Bath, Bed, CheckIn, Danger, Dumbells2, UserCheck, Users } from "@/assets/svg"
 import { calculateRating, capitalize, formatCurrency, getInitials } from "@/lib"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -39,7 +39,6 @@ const initialValues = {
 const Page = () => {
 	const [current, setcurrent] = React.useState<TabList>("overview")
 	const [dateDifference, setDateDifference] = React.useState(0)
-	// const [coords, setCoords] = React.useState({lat:0,lng:0})
 	const [currentImage, setCurrentImage] = React.useState(0)
 	const ref = React.useRef<HTMLDivElement>(null)!
 	const [open, setOpen] = React.useState(false)
@@ -563,7 +562,9 @@ const Page = () => {
 				</div>
 				<div id="location" className="flex w-full flex-col gap-6 rounded-3xl border p-6">
 					<p className="font-semibold lg:text-xl">Location</p>
-					<div className="h-[249px] w-full overflow-hidden rounded-xl border lg:h-[400px]"></div>
+					<div className="h-[249px] w-full overflow-hidden rounded-xl border lg:h-[400px]">
+						<Maps center={[6.558573, 3.342273]} zoom={10} />
+					</div>
 				</div>
 			</main>
 		</>
