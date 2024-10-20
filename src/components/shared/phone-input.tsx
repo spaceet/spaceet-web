@@ -17,7 +17,8 @@ const PhoneInput = React.forwardRef<HTMLInputElement, InputProps>(
 		{ className, error, label, onPhoneNumberChange, required, type, wrapperClassName, ...props },
 		ref
 	) => {
-		const [selectedCountry, setSelectedCountry] = React.useState(countries[0])
+		const nigeria = countries.find((country) => country.code === "NG")
+		const [selectedCountry, setSelectedCountry] = React.useState(nigeria || countries[0])
 		const containerRef = React.useRef<HTMLDivElement>(null)!
 		const [inputValue, setInputValue] = React.useState("")
 		const [isOpen, setIsOpen] = React.useState(false)
