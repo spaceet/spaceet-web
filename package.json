@@ -19,6 +19,7 @@
 		"@lexical/react": "^0.17.1",
 		"@lexical/rich-text": "^0.17.1",
 		"@lexical/selection": "^0.17.1",
+		"@mapbox/mapbox-gl-directions": "^4.3.1",
 		"@radix-ui/react-avatar": "^1.1.0",
 		"@radix-ui/react-checkbox": "^1.1.1",
 		"@radix-ui/react-dialog": "^1.1.1",
