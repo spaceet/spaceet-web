@@ -52,11 +52,17 @@ const endpoints = (id?: Maybe<string>) => {
 	}
 
 	const payments = {
-		get_all: `/payments`,
-		get_one: `/payments/${id}`,
-		create: `/payments`,
-		update: `/payments/${id}`,
-		delete: `/payments/${id}`,
+		generate_link: `/payment/generate-link`,
+	}
+
+	const reservations = {
+		get_all: `/reservation/get-my-reservations`,
+		get_one: `/reservation/${id}`,
+		create: `/reservation/create`,
+		update: `/reservation/${id}`,
+		delete: `/reservation/${id}`,
+		get_pricing: `/reservation/get-price-details`,
+		get_calendar: `/reservation/calendar-reservations`,
 	}
 
 	const reviews = {
@@ -81,6 +87,7 @@ const endpoints = (id?: Maybe<string>) => {
 		bookings,
 		messages,
 		payments,
+		reservations,
 		reviews,
 		users,
 	}

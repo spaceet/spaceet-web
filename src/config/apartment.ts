@@ -1,15 +1,11 @@
 export const apartment_types = [
-	"apartment",
 	"bungalow",
-	"condominium",
 	"condo",
 	"detached",
-	"semi-detached",
 	"duplex",
-	"triplex",
-	"quadruplex",
-	"fivePlus",
-	"other",
+	"semi-detached",
+	"hotel",
+	"villa",
 ] as const
 
 export const proofOfOwnership = [

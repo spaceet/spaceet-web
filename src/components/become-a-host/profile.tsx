@@ -7,7 +7,7 @@ import React from "react"
 
 import { capitalizeWords, getFileExtension, getFileSizeInMb, getImageDimensions } from "@/lib"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
-import { FadeTransition, PhoneInput, Seo } from "../shared"
+import { AddressPicker, FadeTransition, PhoneInput, Seo } from "../shared"
 import { ProfileFormProps } from "./form-components"
 import { defaultAvatar } from "@/assets/images"
 import { ComponentUpdateProps } from "@/types"
@@ -240,12 +240,9 @@ const Page = ({
 										</Select>
 									</div>
 								</div>
-								<Input
-									name="address"
-									onChange={handleChange}
-									label="Home Address"
-									placeholder="Enter your home address"
-									required
+								<AddressPicker
+									address={values.address}
+									onValueChange={(value) => setFieldValue("address", value)}
 								/>
 								<Textarea
 									name="bio"

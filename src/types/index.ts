@@ -162,7 +162,7 @@ export type BookingProps = Node & {
 }
 
 export type LocationProps = {
-	coordinates: [{ 0: number }, { 1: number }]
+	coordinates: [number, number]
 	type: "Point"
 }
 
@@ -208,6 +208,48 @@ export type ReviewProps = {
 	user_first_name: string
 	user_last_name: string
 	user_profile_image: string
+}
+
+export type ReservationProps = Node & {
+	checkin_date: Date | string
+	checkout_date: Date | string
+	number_of_days: number
+	description: string
+	apartment_id: string
+	user_id: string
+	t_and_c_agreed: boolean
+	price_details: PriceDetailsProps
+	payment_channel: "CARD" | "TRANSFER"
+	is_paid: boolean
+	status: "PENDING" | "CONFIRMED" | "CANCELLED" | "COMPLETED"
+}
+
+export type ReservationsProps = {
+	apartment_address: string
+	apartment_city: string
+	apartment_name: string
+	apartment_state: string
+	reservation_apartment_id: string
+	reservation_checkin_date: Date | string
+	reservation_checkout_date: Date | string
+	reservation_description: string
+	reservation_id: string
+	reservation_is_paid: boolean
+	reservation_status: "PENDING" | "CONFIRMED" | "CANCELLED" | "COMPLETED"
+	reservation_t_and_c_agreed: boolean
+	reservation_payment_channel: "CARD" | "TRANSFER"
+	reservation_price_details: PriceDetailsProps
+	reservation_user_id: string
+}
+
+export type PriceDetailsProps = {
+	cleaning_fee: number
+	discount_applied: number
+	final_price: number
+	number_of_nights: number
+	price_per_night: number
+	service_charge: number
+	total_price_of_nights: number
 }
 
 export type MessageProps = Node & {
@@ -264,4 +306,94 @@ export type CountryProps = {
 	region: string
 	code: string
 	flag: string
+}
+
+export type CalendarTimeProps =
+	| "YESTERDAY"
+	| "TODAY"
+	| "THIS_WEEK"
+	| "LAST_7_DAYS"
+	| "LAST_WEEK"
+	| "THIS_MONTH"
+	| "LAST_6_MONTHS"
+	| "LAST_12_MONTHS"
+
+export type TransactionProps = {
+	__typename?: "Transaction"
+	link: string
+	txRef: string
+}
+
+export type MapboxFeature = {
+	__typename?: "Feature"
+	geometry: LocationProps
+	id: string
+	properties: {
+		context: {
+			country: {
+				country_code: string
+				country_code_alpha_3: string
+				mapbox_id: string
+				name: string
+				wikidata_id: string
+			}
+			district: {
+				mapbox_id: string
+				name: string
+				wikidata_id: string
+			}
+			locality: {
+				mapbox_id: string
+				name: string
+			}
+			place: {
+				mapbox_id: string
+				name: string
+			}
+			postcode: {
+				mapbox_id: string
+				name: string
+			}
+			region: {
+				mapbox_id: string
+				name: string
+				region_code: string
+				region_code_full: string
+				wikidata_id: string
+			}
+			street: {
+				mapbox_id: string
+				name: string
+			}
+		}
+		coordinates: {
+			latitude: number
+			longitude: number
+		}
+		feature_type: string
+		full_address: string
+		mapbox_id: string
+		name: string
+		name_preferred: string
+		place_formatted: string
+	}
+	type: string
+}
+
+export type MapboxSuggestion = {
+	__typename?: "Suggestion"
+	name: string
+	namePreferred: string
+	placeFormatted: string
+	coordinates: {
+		latitude: number
+		longitude: number
+	}
+	country?: string
+	district?: string
+	locality?: string
+	place?: string
+	postcode?: string
+	region?: string
+	street?: string
 }
