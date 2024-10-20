@@ -29,14 +29,3 @@ export const getCoordinatesFromAddress = async (
 		return { lat: 0, lng: 0 }
 	}
 }
-
-export const dummyGeocodeAddress = (_address: string): Promise<{ lat: number; lng: number }> => {
-	return new Promise((resolve) => {
-		setTimeout(() => {
-			const lat = Math.random() * 180 - 90
-			const lng = Math.random() * 360 - 180
-
-			resolve({ lat, lng })
-		}, 5000)
-	})
-}

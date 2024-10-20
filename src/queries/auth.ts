@@ -57,9 +57,9 @@ const VerifyAccountQuery = async (email: string, confirm: string) => {
 		})
 }
 
-const ForgotPasswordMutation = async (email: string) => {
+const ForgotPasswordMutation = async (email_or_phone_number: string) => {
 	return axios
-		.post<HttpResponse<string>>(endpoints().auth.forgot_password, { email })
+		.post<HttpResponse<string>>(endpoints().auth.forgot_password, { email_or_phone_number })
 		.then((res) => res.data)
 		.catch((error) => {
 			throw new Error(error)

@@ -18,11 +18,12 @@ interface ComboxProps {
 		value: string
 	}[]
 	onValueChange: (value: string) => void
-	value: string
+	className?: string
 	placeholder?: string
+	value?: string
 }
 
-export function ComboBox({ data, onValueChange, value, placeholder }: ComboxProps) {
+export function ComboBox({ data, onValueChange, className, placeholder, value }: ComboxProps) {
 	const [open, setOpen] = React.useState(false)
 
 	return (
@@ -32,8 +33,13 @@ export function ComboBox({ data, onValueChange, value, placeholder }: ComboxProp
 					role="combobox"
 					aria-controls="frameworks"
 					aria-expanded={open}
-					className={`flex h-[45px] w-full items-center justify-between rounded-md border border-neutral-400 px-3 ${value ? "text-neutral-900" : "text-neutral-400"}`}>
-					{value ? data.find((item) => item.value === value)?.label : placeholder}
+					className={cn(
+						`flex h-[45px] w-full items-center justify-between rounded-md border border-neutral-400 px-3 ${value ? "text-neutral-900" : "text-neutral-400"}`,
+						className
+					)}>
+					<span className="flex flex-1 items-start">
+						{value ? data.find((item) => item.value === value)?.label : placeholder}
+					</span>
 					<ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 				</button>
 			</PopoverTrigger>
@@ -43,9 +49,9 @@ export function ComboBox({ data, onValueChange, value, placeholder }: ComboxProp
 					<CommandList>
 						<CommandEmpty>No item matching the query</CommandEmpty>
 						<CommandGroup>
-							{data.map((item) => (
+							{data.map((item, index) => (
 								<CommandItem
-									key={item.value}
+									key={`${item.value}-${index}`}
 									value={item.value}
 									className="cursor-pointer"
 									onSelect={(currentValue) => {

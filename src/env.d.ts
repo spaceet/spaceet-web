@@ -8,6 +8,7 @@ const envs = [
 	"NEXT_PUBLIC_GOOGLE_CLIENT_ID",
 	"NEXT_PUBLIC_GOOGLE_MAPS_KEY",
 	"NEXT_PUBLIC_GOOGLE_SECRET",
+	"NEXT_PUBLIC_MAPBOX_API_KEY",
 	"NEXT_PUBLIC_POSTHOG_HOST",
 	"NEXT_PUBLIC_POSTHOG_KEY",
 	"NODE_ENV",
@@ -27,6 +28,7 @@ declare global {
 			readonly NEXT_PUBLIC_GOOGLE_CLIENT_ID: string
 			readonly NEXT_PUBLIC_GOOGLE_MAPS_KEY: string
 			readonly NEXT_PUBLIC_GOOGLE_SECRET: string
+			readonly NEXT_PUBLIC_MAPBOX_API_KEY: string
 			readonly NEXT_PUBLIC_POSTHOG_HOST: string
 			readonly NEXT_PUBLIC_POSTHOG_KEY: string
 			readonly NODE_ENV: "test" | "development" | "production"
