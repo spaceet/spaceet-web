@@ -162,7 +162,7 @@ export type BookingProps = Node & {
 }
 
 export type LocationProps = {
-	coordinates: [{ 0: number }, { 1: number }]
+	coordinates: [number, number]
 	type: "Point"
 }
 
@@ -326,10 +326,7 @@ export type TransactionProps = {
 
 export type MapboxFeature = {
 	__typename?: "Feature"
-	geometry: {
-		coordinates: [number, number]
-		type: "Point"
-	}
+	geometry: LocationProps
 	id: string
 	properties: {
 		context: {

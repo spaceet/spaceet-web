@@ -563,7 +563,13 @@ const Page = () => {
 				<div id="location" className="flex w-full flex-col gap-6 rounded-3xl border p-6">
 					<p className="font-semibold lg:text-xl">Location</p>
 					<div className="h-[249px] w-full overflow-hidden rounded-xl border lg:h-[400px]">
-						<Maps center={[6.558573, 3.342273]} zoom={10} />
+						<Maps
+							center={[
+								apartment.data.current_location.coordinates[0],
+								apartment.data.current_location.coordinates[1],
+							]}
+							zoom={10}
+						/>
 					</div>
 				</div>
 			</main>
