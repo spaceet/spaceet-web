@@ -20,13 +20,14 @@ export function middleware(req: NextRequest) {
 	requestHeaders.set("x-next-pathname", req.nextUrl.pathname) // Set the new header for pathname
 
 	const hasToken = req.cookies.has("SPACEET_TOKEN")
+	const isHost = req.cookies.get("IS_SPACEET_HOST")?.value === "true"
 	const url = req.nextUrl.clone() // Clone the URL to modify it
 
 	// access the pathname of protected routes
 	const isOnNotifications = url.pathname.startsWith("/notifications")
 	const isOnBecomeAHost = url.pathname.startsWith("/become-a-host")
 	const isOnDashboard = url.pathname.startsWith("/dashboard")
-	const isonFavorites = url.pathname.startsWith("/favorites")
+	const isOnFavorites = url.pathname.startsWith("/favorites")
 	const isOnMessages = url.pathname.startsWith("/messages")
 	const isOnBooking = url.pathname.startsWith("/bookings")
 	const isOnAccount = url.pathname.startsWith("/account")
@@ -38,50 +39,29 @@ export function middleware(req: NextRequest) {
 		return response
 	}
 
-	// Redirect users without a token trying to access any dashboard/* path
-	if (!hasToken && isOnAccount) {
+	// Redirect unauthenticated users to signin
+	if (
+		!hasToken &&
+		(isOnAccount ||
+			isOnBooking ||
+			isOnFavorites ||
+			isOnMessages ||
+			isOnNotifications ||
+			isOnBecomeAHost ||
+			isOnDashboard)
+	) {
 		url.pathname = "/signin"
 		return redirectResponse(url)
 	}
 
-	// Redirect users without a token trying to access any booking/* path
-	if (!hasToken && isOnBooking) {
-		url.pathname = "/signin"
-		return redirectResponse(url)
-	}
-
-	// Redirect users without a token trying to access any favorites/* path
-	if (!hasToken && isonFavorites) {
-		url.pathname = "/signin"
-		return redirectResponse(url)
-	}
-
-	// Redirect users without a token trying to access any messages/* path
-	if (!hasToken && isOnMessages) {
-		url.pathname = "/signin"
-		return redirectResponse(url)
-	}
-
-	// Redirect users without a token trying to access any notifications/* path
-	if (!hasToken && isOnNotifications) {
-		url.pathname = "/signin"
-		return redirectResponse(url)
-	}
-
-	// Redirect users without a token trying to access any become-a-host/* path
-	if (!hasToken && isOnBecomeAHost) {
-		url.pathname = "/signin"
-		return redirectResponse(url)
-	}
-
-	// Redirect users without a token trying to access any dashboard/* path
-	if (!hasToken && isOnDashboard) {
-		url.pathname = "/signin"
-		return redirectResponse(url)
-	}
-
-	// Redirect users with a token trying to access any dashboard/* path
+	// Redirect authenticated users away from signin
 	if (hasToken && isOnSignin) {
+		url.pathname = "/"
+		return redirectResponse(url)
+	}
+
+	// Redirect non-hosts away from dashboard
+	if (hasToken && !isHost && isOnDashboard) {
 		url.pathname = "/"
 		return redirectResponse(url)
 	}
