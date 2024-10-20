@@ -568,6 +568,7 @@ const Page = () => {
 								apartment.data.current_location.coordinates[0],
 								apartment.data.current_location.coordinates[1],
 							]}
+							draggable={false}
 							zoom={10}
 						/>
 					</div>

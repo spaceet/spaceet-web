@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query"
+import { useQueries } from "@tanstack/react-query"
 import { RiMapPinLine } from "@remixicon/react"
 import React from "react"
 import axios from "axios"
@@ -21,23 +21,38 @@ type MapboxGeoJsonResponse = {
 export const AddressPicker = ({ address, onValueChange }: Props) => {
 	const [suggestions, setSuggestions] = React.useState<MapboxSuggestion[]>([])
 	const [coordinates, setCoordinates] = React.useState<[number, number]>([0, 0])
+	const [isUserInput, setIsUserInput] = React.useState(false)
 	const [query, setQuery] = React.useState(address)
 	const ref = React.useRef<HTMLDivElement>(null)!
-	const _query = useDebounce(query, 500)
+	const debouncedQuery = useDebounce(query, 500)
 
-	const { data: geojson } = useQuery({
-		queryFn: () =>
-			axios
-				.get<MapboxGeoJsonResponse>(
-					`https://api.mapbox.com/search/geocode/v6/forward?q=${_query}&access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_KEY}&autocmplete=true`
-				)
-				.then((res) => res.data),
-		queryKey: ["gecoding", _query],
-		enabled: !!_query,
+	const [{ data: geojson }, {}] = useQueries({
+		queries: [
+			{
+				queryFn: () =>
+					axios
+						.get<MapboxGeoJsonResponse>(
+							`https://api.mapbox.com/search/geocode/v6/forward?q=${debouncedQuery}&access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_KEY}&autocomplete=true`
+						)
+						.then((res) => res.data),
+				queryKey: ["geocoding", debouncedQuery],
+				enabled: !!debouncedQuery && isUserInput,
+			},
+			{
+				queryFn: () =>
+					axios
+						.get<MapboxGeoJsonResponse>(
+							`https://api.mapbox.com/search/geocode/v6/reverse?longitude=${coordinates[0]}&latitude=${coordinates[1]}&access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_KEY}`
+						)
+						.then((res) => res.data),
+				queryKey: ["geocoding"],
+				enabled: false,
+			},
+		],
 	})
 
 	React.useEffect(() => {
-		if (geojson) {
+		if (geojson && isUserInput) {
 			const suggestions: MapboxSuggestion[] = geojson.features.map((feature) => {
 				const { properties, geometry } = feature
 				const { context } = properties
@@ -69,13 +84,20 @@ export const AddressPicker = ({ address, onValueChange }: Props) => {
 			})
 			setSuggestions(suggestions)
 		}
-	}, [geojson])
+	}, [geojson, isUserInput])
 
 	const handleSelect = (suggestion: MapboxSuggestion) => {
-		const { coordinates } = suggestion
+		const { coordinates, namePreferred, placeFormatted } = suggestion
 		setCoordinates([coordinates.longitude, coordinates.latitude])
-		onValueChange(suggestion.placeFormatted || suggestion.namePreferred)
+		setQuery(placeFormatted || namePreferred)
+		onValueChange(placeFormatted || namePreferred)
 		setSuggestions([])
+		setIsUserInput(false)
+	}
+
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setQuery(e.target.value)
+		setIsUserInput(true)
 	}
 
 	const handleClickOutside = (e: MouseEvent) => {
@@ -96,7 +118,7 @@ export const AddressPicker = ({ address, onValueChange }: Props) => {
 					<input
 						type="text"
 						value={query}
-						onChange={(e) => setQuery(e.target.value)}
+						onChange={handleInputChange}
 						placeholder="Enter your address"
 						className="flex h-full w-full flex-1 border-0 bg-transparent text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-neutral-400 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
 					/>
@@ -129,7 +151,6 @@ export const AddressPicker = ({ address, onValueChange }: Props) => {
 				<Maps
 					center={coordinates}
 					handleCoordinateChange={(coordinates) => setCoordinates(coordinates)}
-					draggable={false}
 					zoom={15}
 				/>
 			</div>
