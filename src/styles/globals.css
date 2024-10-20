@@ -250,3 +250,48 @@ input[type="search"]::-webkit-search-results-decoration {
 .markdown li {
 	display: list-item;
 }
+
+/* mapbox directions styles */
+.mapboxgl-ctrl-directions {
+	width: 33%;
+	max-width: 300px;
+	min-width: 200px;
+	font-family: var(--body);
+}
+
+.mapbox-directions-component {
+	background-color: #fff;
+	border-radius: 4px;
+}
+
+.mapbox-directions-component-keyline {
+	border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.mapbox-directions-inputs {
+	padding: 10px;
+}
+
+.mapbox-directions-inputs input {
+	font-size: 14px;
+	padding: 5px;
+	width: 100%;
+}
+
+.mapbox-directions-instructions {
+	overflow-y: auto;
+	max-height: 50vh;
+}
+
+.mapbox-directions-instructions-wrapper {
+	padding: 10px;
+}
+
+.mapbox-directions-step {
+	padding: 5px 0;
+}
+
+.mapbox-directions-step-distance {
+	color: #999;
+	font-size: 12px;
+}

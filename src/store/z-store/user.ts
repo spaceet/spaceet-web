@@ -25,6 +25,11 @@ const useUserStore = createPersistMiddleware<UserStore>("spaceet-user", (set) =>
 			secure: true,
 			expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30), // 30 days,
 		})
+		Cookies.set("IS_SPACEET_HOST", user.user_type === "HOST" ? "true" : "false", {
+			sameSite: "None",
+			secure: true,
+			expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30), // 30 days,
+		})
 	},
 	signOut: async (options) => {
 		try {
