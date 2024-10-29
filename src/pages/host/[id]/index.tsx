@@ -5,8 +5,8 @@ import { useRouter } from "next/router"
 import Link from "next/link"
 import React from "react"
 
-import { Appbar, Footer, Loading, Rating, Review, Seo } from "@/components/shared"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Appbar, Loading, Rating, Review, Seo } from "@/components/shared"
 import { capitalizeWords, getInitials } from "@/lib"
 import { Button } from "@/components/ui/button"
 // import { NotFound } from "@/components/layouts"
@@ -173,7 +173,6 @@ const Page = () => {
 					</div>
 				</div>
 			</main>
-			<Footer />
 		</>
 	)
 }

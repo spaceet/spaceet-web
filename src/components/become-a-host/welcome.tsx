@@ -1,10 +1,12 @@
 import { RiArrowRightDoubleLine, RiCheckboxCircleFill } from "@remixicon/react"
+import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 import React from "react"
 
 import { FadeTransition, Seo } from "../shared"
 import { ComponentUpdateProps } from "@/types"
+import { header, stagger } from "@/config"
 import { getting_started } from "./data"
 import { Button } from "../ui/button"
 
@@ -22,7 +24,7 @@ const Page = ({
 				<div className="grid w-full grid-cols-2">
 					<div className="w-full">
 						<div className="flex w-[329px] flex-col gap-6">
-							<div className="relative aspect-square w-[120px]">
+							<motion.div className="relative aspect-square w-[120px]">
 								<Image
 									src="/assets/images/house-3d.png"
 									alt="3d house"
@@ -30,14 +32,16 @@ const Page = ({
 									sizes="(max-width: 1024px)100%"
 									className="rounded-md object-cover"
 								/>
-							</div>
-							<p className="text-4xl font-semibold">Welcome to Spaceet for Host</p>
-							<p className="text-sm text-neutral-500">
+							</motion.div>
+							<motion.p {...header} className="text-4xl font-semibold">
+								Welcome to Spaceet for Host
+							</motion.p>
+							<motion.p className="text-sm text-neutral-500">
 								Things to get started. Read our{" "}
 								<Link href="/help-center" className="underline">
 									policy
 								</Link>
-							</p>
+							</motion.p>
 						</div>
 					</div>
 					<div className="flex w-full flex-col gap-4">
@@ -50,8 +54,9 @@ const Page = ({
 						</div>
 						<div className="flex w-full flex-col rounded-xl border p-5">
 							{getting_started.map(({ content, icon: Icon, label }, index) => (
-								<div
+								<motion.div
 									key={index}
+									{...stagger("up", (index + 1) * 0.5)}
 									className="flex w-full items-center gap-4 border-b px-5 py-4 last:border-b-0">
 									<div className="size-12">
 										<Icon />
@@ -61,7 +66,7 @@ const Page = ({
 										<p className="text-sm text-neutral-400">{content}</p>
 									</div>
 									<RiCheckboxCircleFill size={24} className="text-neutral-300" />
-								</div>
+								</motion.div>
 							))}
 						</div>
 					</div>

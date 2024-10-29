@@ -27,14 +27,35 @@ const loaderVariants = cva("animate-spin", {
 	},
 })
 
-export const Loader = () => {
+const useRouteChangeLoader = () => {
 	const [loading, setLoading] = React.useState(false)
 	const router = useRouter()
+	const prevPathRef = React.useRef(router.asPath)
+
+	const shouldShowLoader = React.useCallback((url: string) => {
+		const currentPath = prevPathRef.current.split("?")[0]
+		const nextPath = url.split("?")[0]
+		return currentPath !== nextPath
+	}, [])
+
+	const handleStart = React.useCallback(
+		(url: string) => {
+			if (shouldShowLoader(url)) {
+				setLoading(true)
+			}
+		},
+		[shouldShowLoader]
+	)
+
+	const handleComplete = React.useCallback(() => {
+		prevPathRef.current = router.asPath
+		setLoading(false)
+	}, [router.asPath])
 
 	React.useEffect(() => {
-		const handleStart = () => setLoading(true)
-		const handleComplete = () => setLoading(false)
-
+		if (process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test") {
+			return
+		}
 		router.events.on("routeChangeStart", handleStart)
 		router.events.on("routeChangeComplete", handleComplete)
 		router.events.on("routeChangeError", handleComplete)
@@ -44,12 +65,17 @@ export const Loader = () => {
 			router.events.off("routeChangeComplete", handleComplete)
 			router.events.off("routeChangeError", handleComplete)
 		}
-	}, [router])
+	}, [router, handleStart, handleComplete])
 
+	return loading
+}
+
+export const Loader = () => {
+	const loading = useRouteChangeLoader()
 	return loading ? <Loading /> : null
 }
 
-export const Loading = ({ className, size, variant }: Props) => {
+export const Loading = React.memo(({ className, size, variant }: Props) => {
 	return (
 		<div
 			aria-label="loading"
@@ -63,4 +89,6 @@ export const Loading = ({ className, size, variant }: Props) => {
 			</svg>
 		</div>
 	)
-}
+})
+
+Loading.displayName = "Loading"

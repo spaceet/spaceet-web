@@ -1,4 +1,6 @@
 import { RiArrowRightDoubleLine, RiArrowLeftSLine } from "@remixicon/react"
+import { animated, useSpring } from "@react-spring/web" //@lolubabafemi here is the spring library import
+import { motion } from "framer-motion" //@lolubabafemi here is the framer motion library import
 import { useFormik } from "formik"
 import Image from "next/image"
 import { toast } from "sonner"
@@ -8,11 +10,11 @@ import React from "react"
 import { capitalizeWords, getFileExtension, getFileSizeInMb, getImageDimensions } from "@/lib"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
 import { AddressPicker, FadeTransition, PhoneInput, Seo } from "../shared"
+import { springs, stagger, statesAndLgas } from "@/config" //@lolubabafemi here is the preset import
 import { ProfileFormProps } from "./form-components"
 import { defaultAvatar } from "@/assets/images"
 import { ComponentUpdateProps } from "@/types"
 import { Textarea } from "../ui/textarea"
-import { statesAndLgas } from "@/config"
 import { Button } from "../ui/button"
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"
@@ -44,6 +46,10 @@ const Page = ({
 }: ComponentUpdateProps) => {
 	const [previewUrl, setPreviewUrl] = React.useState<string | null>(null)
 	const input = React.useRef<HTMLInputElement>(null)
+
+	// @lolubabafemi here is the spring animation
+	const springHeader = useSpring(springs.slide("right"))
+	const springChild = useSpring(springs.slide("up"))
 
 	const handleClick = () => {
 		if (input.current) {
@@ -118,8 +124,8 @@ const Page = ({
 	return (
 		<>
 			<Seo title={capitalizeWords(label)} description="Become a Host" />
-			<form onSubmit={handleSubmit} className="h-full w-full">
-				<FadeTransition className="my-[72px] grid w-full place-items-center">
+			<form onSubmit={handleSubmit} className="mb-36 mt-[72px] h-full w-full">
+				<FadeTransition className="grid w-full place-items-center">
 					<div className="grid w-full grid-cols-3">
 						<div className="w-full">
 							<div className="flex w-[329px] flex-col gap-4">
@@ -127,23 +133,28 @@ const Page = ({
 									<RiArrowLeftSLine size={20} />
 									Back
 								</button>
-								<p className="text-4xl font-semibold">{label}</p>
-								<p className="text-sm text-neutral-500">
+								{/* @lolubabafemi here is the spring animation usage */}
+								<animated.p style={{ ...springHeader }} className="text-4xl font-semibold">
+									{label}
+								</animated.p>
+								<animated.p style={{ ...springChild }} className="text-sm text-neutral-500">
 									Things to get started. Read our{" "}
 									<Link href="/help-center" className="underline">
 										policy
 									</Link>
-								</p>
+								</animated.p>
 								<div className="flex w-full flex-col gap-3 rounded-xl border p-6">
 									<p className="text-xs text-neutral-400">{subtitle}</p>
 									<div className="flex w-full flex-col gap-3">
 										{components.map(({ icon: Icon, name }, index) => (
-											<button
-												onClick={() => handleGoTo(index)}
+											// @lolubabafemi here is the stagger animation usage
+											<motion.button
+												{...stagger("left", (index + 1) * 0.25)}
 												key={index}
+												onClick={() => handleGoTo(index)}
 												className={`flex w-full items-center gap-1 rounded-md p-2 font-medium ${active === name ? "bg-neutral-200" : ""}`}>
 												<Icon size={20} /> {name}
-											</button>
+											</motion.button>
 										))}
 									</div>
 								</div>

@@ -1,4 +1,5 @@
 import { differenceInDays } from "date-fns"
+import { motion } from "framer-motion"
 import { useFormik } from "formik"
 import { toast } from "sonner"
 import Link from "next/link"
@@ -15,6 +16,7 @@ import { capitalizeWords, getFileExtension, getFileSizeInMb } from "@/lib"
 import { DatePicker, FadeTransition, Seo } from "../shared"
 import { identityTypes, idTypesWithExpiry } from "./data"
 import { IdentityFormProps } from "./form-components"
+import { header, stagger } from "@/config"
 import { ComponentUpdateProps } from "@/types"
 import { useDragAndDrop } from "@/hooks"
 import { Button } from "../ui/button"
@@ -130,7 +132,9 @@ const Page = ({
 									<RiArrowLeftSLine size={20} />
 									Back
 								</button>
-								<p className="text-4xl font-semibold">{label}</p>
+								<motion.p {...header} className="text-4xl font-semibold">
+									{label}
+								</motion.p>
 								<p className="text-sm text-neutral-500">
 									Things to get started. Read our{" "}
 									<Link href="/help-center" className="underline">
@@ -141,12 +145,13 @@ const Page = ({
 									<p className="text-xs text-neutral-400">{subtitle}</p>
 									<div className="flex w-full flex-col gap-3">
 										{components.map(({ icon: Icon, name }, index) => (
-											<button
+											<motion.button
+												{...stagger("left", (index + 1) * 0.25)}
 												onClick={() => handleGoTo(index)}
 												key={index}
 												className={`flex w-full items-center gap-1 rounded-md p-2 font-medium ${active === name ? "bg-neutral-200" : ""}`}>
 												<Icon size={20} /> {name}
-											</button>
+											</motion.button>
 										))}
 									</div>
 								</div>

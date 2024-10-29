@@ -75,7 +75,7 @@ export const help_center = [
 	{
 		label: "Find a Space",
 		icon: RiHotelBedLine,
-		url: "/book-a-space",
+		url: "/search",
 		content: "Find a space to rent or list your space to earn extra income.",
 		text: "View Listings",
 	},

@@ -5,12 +5,15 @@ import Map, { GeolocateControl, Marker, NavigationControl } from "react-map-gl"
 import type { MapRef } from "react-map-gl"
 import React from "react"
 
-import { mapStyles } from "@/config"
+// import { mapStyles } from "@/config"
 
 interface Props {
 	center: [number, number]
 	draggable?: boolean
+	enableDirections?: boolean
 	enableGeolocate?: boolean
+	enablePan?: boolean
+	enableScrollZoom?: boolean
 	handleCoordinateChange?: (coordinates: [number, number]) => void
 	zoom?: number
 }
@@ -32,7 +35,10 @@ const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_API_KEY
 export const Maps = ({
 	center,
 	draggable = true,
+	enableDirections = true,
 	enableGeolocate = true,
+	enablePan = true,
+	enableScrollZoom = true,
 	handleCoordinateChange,
 	zoom = 11,
 }: Props) => {
@@ -47,25 +53,28 @@ export const Maps = ({
 				duration: 2000,
 			})
 
-			if (!directions.current) {
-				directions.current = new MapboxDirections({
-					accessToken: MAPBOX_TOKEN!,
-					unit: "metric",
-					profile: "mapbox/driving",
-					placeholderOrigin: "Choose a starting place",
-					placeholderDestination: "Choose destination",
-					styles: mapStyles,
-				})
-				map.current.addControl(directions.current, "top-left")
-			}
+			if (enableDirections) {
+				if (!directions.current) {
+					directions.current = new MapboxDirections({
+						accessToken: MAPBOX_TOKEN!,
+						unit: "metric",
+						profile: "mapbox/driving",
+						placeholderOrigin: "Choose a starting place",
+						placeholderDestination: "Choose destination",
+						// styles: mapStyles,
+					})
+					map.current.addControl(directions.current, "top-left")
+				}
 
-			// Set the destination to the predefined location
-			directions.current.setDestination(center)
+				// Set the destination to the predefined location
+				directions.current.setDestination(center)
+			}
 		}
-	}, [center, map, zoom])
+	}, [center, enableDirections, map, zoom])
 
 	const handleGeolocate = (center: [number, number]) => {
 		handleCoordinateChange?.([center[0], center[1]])
+		map.current?.setZoom(zoom)
 
 		// Set the origin to the user's current location
 		if (directions.current) {
@@ -80,6 +89,8 @@ export const Maps = ({
 				latitude: center[1],
 				zoom,
 			}}
+			dragPan={enablePan}
+			scrollZoom={enableScrollZoom}
 			ref={map}
 			mapboxAccessToken={MAPBOX_TOKEN}
 			onDblClick={(e) => handleCoordinateChange?.([e.lngLat.lng, e.lngLat.lat])}
