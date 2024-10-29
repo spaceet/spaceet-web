@@ -150,6 +150,10 @@ export const AddressPicker = ({ address, onValueChange }: Props) => {
 			<div className="grid h-[200px] w-full place-items-center rounded-xl border">
 				<Maps
 					center={coordinates}
+					draggable={false}
+					enableDirections={false}
+					enablePan={false}
+					enableScrollZoom={false}
 					handleCoordinateChange={(coordinates) => setCoordinates(coordinates)}
 					zoom={15}
 				/>

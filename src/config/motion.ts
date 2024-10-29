@@ -57,7 +57,7 @@ export const stagger = (direction: StaggerDirectionProps, index: number) => {
 			opacity: 0,
 			transition: { ...transition, delay: 0.75 },
 		},
-		whileInView: {
+		animate: {
 			x: 0,
 			y: 0,
 			opacity: 1,
@@ -69,14 +69,50 @@ export const stagger = (direction: StaggerDirectionProps, index: number) => {
 export const zoom = (direction: AnimationZoomProps) => {
 	return {
 		initial: {
-			scale: direction === "in" ? 0 : 1,
+			scale: direction === "in" ? 0 : 1.5,
 			opacity: 0,
 			transition: { ...transition, delay: 0.75 },
 		},
-		whileInView: {
+		animate: {
 			scale: 1,
 			opacity: 1,
 			transition: { ...transition, delay: 0 },
 		},
 	}
+}
+
+export const header = {
+	initial: {
+		opacity: 0,
+		x: 100,
+		transition: { ...transition, delay: 0.75 },
+	},
+	animate: {
+		opacity: 1,
+		x: 0,
+		transition: { ...transition, delay: 0 },
+	},
+	exit: {
+		opacity: 0,
+		x: 100,
+		transition: { ...transition, delay: 0 },
+	},
+}
+
+export const paragraph = {
+	initial: {
+		opacity: 0,
+		y: 100,
+		transition: { ...transition, delay: 0.75 },
+	},
+	animate: {
+		opacity: 1,
+		y: 0,
+		transition: { ...transition, delay: 0 },
+	},
+	exit: {
+		opacity: 0,
+		y: 100,
+		transition: { ...transition, delay: 0 },
+	},
 }
