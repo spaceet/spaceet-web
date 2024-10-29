@@ -252,7 +252,7 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 /* mapbox directions styles */
-.mapboxgl-ctrl-directions {
+/* .mapboxgl-ctrl-directions {
 	width: 33%;
 	max-width: 300px;
 	min-width: 200px;
@@ -294,4 +294,4 @@ input[type="search"]::-webkit-search-results-decoration {
 .mapbox-directions-step-distance {
 	color: #999;
 	font-size: 12px;
-}
+} */

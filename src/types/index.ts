@@ -75,7 +75,9 @@ export type Node = {
 export type UserProps = Node & {
 	__typename?: "User"
 	access_token: string
+	address?: string
 	bio: Maybe<string>
+	city?: string
 	email: string
 	first_name: string
 	full_name: string
@@ -87,6 +89,7 @@ export type UserProps = Node & {
 	rating: number
 	reviews: ReviewProps[]
 	signup_verified: boolean
+	state?: string
 	user_type: "USER" | "HOST"
 }
 

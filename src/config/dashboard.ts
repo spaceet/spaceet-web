@@ -43,7 +43,7 @@ export const dashboard_links = [
 ]
 
 export const user_tabs = [
-	{ label: "peronal information", icon: RiUserLine, component: Profile },
+	{ label: "personal information", icon: RiUserLine, component: Profile },
 	{ label: "security", icon: RiLockPasswordLine, component: Security },
 ]
 
