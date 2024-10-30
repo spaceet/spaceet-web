@@ -13,7 +13,6 @@ import { ComponentUpdateProps } from "@/types"
 import { capitalizeWords } from "@/lib"
 import { Button } from "../ui/button"
 
-
 const Page = ({
 	active,
 	activeIndex,
@@ -37,7 +36,6 @@ const Page = ({
 	const springHeader = useSpring(springs.slide("right"))
 	const springChild = useSpring(springs.slide("up"))
 
-
 	return (
 		<>
 			<Seo title={capitalizeWords(label)} description="Become a Host" />
@@ -50,11 +48,10 @@ const Page = ({
 									<RiArrowLeftSLine size={20} />
 									Back
 								</button>
-								<animated.p style={{...springHeader}}
-								 className="text-4xl font-semibold">{label}
-								 </animated.p>
-								 <animated.p style={{...springChild}}
-								 className="text-sm text-neutral-500">
+								<animated.p style={{ ...springHeader }} className="text-4xl font-semibold">
+									{label}
+								</animated.p>
+								<animated.p style={{ ...springChild }} className="text-sm text-neutral-500">
 									Things to get started. Read our{" "}
 									<Link href="/help-center" className="underline">
 										policy
@@ -65,7 +62,7 @@ const Page = ({
 									<div className="flex w-full flex-col gap-3">
 										{components.map(({ icon: Icon, name }, index) => (
 											<motion.button
-											{...stagger("left", (index + 1) * 0.25)}
+												{...stagger("left", (index + 1) * 0.25)}
 												onClick={() => handleGoTo(index)}
 												key={index}
 												className={`flex w-full items-center gap-1 rounded-md p-2 font-medium ${active === name ? "bg-neutral-200" : ""}`}>

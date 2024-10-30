@@ -33,7 +33,6 @@ const initialValues: IdentityFormProps = {
 	idNumber: "",
 }
 
-
 const Page = ({
 	active,
 	activeIndex,

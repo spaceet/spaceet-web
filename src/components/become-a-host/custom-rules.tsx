@@ -1,7 +1,6 @@
 import { RiCloseLine } from "@remixicon/react"
 import React from "react"
 
-
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
@@ -12,7 +11,6 @@ interface Props {
 	removeCustomRule: (value: string) => void
 	setFieldValue: (field: string, value: any) => void
 }
-
 
 export const CustomRules = ({ customRules, onClose, removeCustomRule, setFieldValue }: Props) => {
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
