@@ -1,4 +1,6 @@
 import { RiArrowLeftSLine, RiArrowRightDoubleLine } from "@remixicon/react"
+import { animated, useSpring } from "@react-spring/web"
+import { motion } from "framer-motion"
 import { useFormik } from "formik"
 import Link from "next/link"
 import React from "react"
@@ -8,6 +10,7 @@ import { AddressPicker, FadeTransition, Seo } from "../shared"
 import { PropertyFormProps } from "./form-components"
 import { ComponentUpdateProps } from "@/types"
 import { apartment_types, statesAndLgas } from "@/config"
+import { springs, stagger } from "@/config"
 import { Textarea } from "../ui/textarea"
 import { capitalizeWords } from "@/lib"
 import { Button } from "../ui/button"
@@ -48,6 +51,9 @@ const Page = ({
 		},
 	})
 
+	const springHeader = useSpring(springs.slide("right"))
+	const springChild = useSpring(springs.slide("up"))
+
 	const lgas = React.useMemo(() => {
 		return (
 			statesAndLgas.find((state) => state.name.toLowerCase() === values.state.toLowerCase())?.lgas ||
@@ -66,23 +72,26 @@ const Page = ({
 								<RiArrowLeftSLine size={20} />
 								Back
 							</button>
-							<p className="text-4xl font-semibold">{label}</p>
-							<p className="text-sm text-neutral-500">
+							<animated.p style={{ ...springHeader }} className="text-4xl font-semibold">
+								{label}
+							</animated.p>
+							<animated.p style={{ ...springChild }} className="text-sm text-neutral-500">
 								Things to get started. Read our{" "}
 								<Link href="/help-center" className="underline">
 									policy
 								</Link>
-							</p>
+							</animated.p>
 							<div className="flex w-full flex-col gap-3 rounded-xl border p-6">
 								<p className="text-xs text-neutral-400">{subtitle}</p>
 								<div className="flex w-full flex-col gap-3">
 									{components.map(({ icon: Icon, name }, index) => (
-										<button
+										<motion.button
+											{...stagger("left", (index + 1) * 0.25)}
 											onClick={() => handleGoTo(index)}
 											key={index}
 											className={`flex w-full items-center gap-1 rounded-md p-2 font-medium ${active === name ? "bg-neutral-200" : ""}`}>
 											<Icon size={20} /> {name}
-										</button>
+										</motion.button>
 									))}
 								</div>
 							</div>
