@@ -71,7 +71,7 @@ const Page = () => {
 			<Seo title="Vacation rentals, cabins, beach houses, and more" />
 			<Appbar />
 			<main className="w-full">
-				<div className="place-tems-center grid h-auto w-full bg-black/50 bg-hero-2 bg-cover bg-center bg-no-repeat bg-blend-overlay lg:h-[calc(100vh-100px)]">
+				<div className="place-items-center grid h-auto w-full bg-black/50 bg-hero-2 bg-cover bg-center bg-no-repeat bg-blend-overlay lg:h-[calc(100vh-100px)]">
 					<div className="container mx-auto flex flex-col items-center gap-9 px-5 py-12 lg:flex-row lg:justify-between lg:px-0 lg:py-0">
 						<div className="flex w-full flex-col gap-5 text-white lg:w-[511px]">
 							<h1 className="text-[32px] font-bold leading-[38.4px] lg:text-[64px] lg:leading-[70px]">
@@ -80,7 +80,9 @@ const Page = () => {
 							<p className="text-xl">
 								With so many choices, you might just become a fan of any city - even your rivals.
 							</p>
-							<Button className="h-[52px] w-[210px]">Find Apartment</Button>
+							<Link href="/search">
+								<Button className="h-[52px] w-[210px]">Find Apartment</Button>
+							</Link>
 						</div>
 						<SearchWidget />
 					</div>
