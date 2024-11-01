@@ -1,6 +1,7 @@
 import { useRouter } from "next/router"
 import React from "react"
 
+// import { useCreateHostStore } from "@/components/become-a-host/store"
 import { Appbar, Seo } from "@/components/shared"
 import { become_a_host } from "@/config"
 
@@ -9,6 +10,16 @@ const Page = () => {
 	const [current, setCurrent] = React.useState(0)
 	const [width, setWidth] = React.useState(0)
 	const router = useRouter()
+
+	// const {
+	// 	identityVerification,
+	// 	personalInformation,
+	// 	propertyDetails,
+	// 	rules,
+	// 	uploadPhotos,
+	// 	utilities,
+	// 	verifyProperty,
+	// } = useCreateHostStore()
 
 	const isFirstStep = activeIndex === 0 && current === 0
 	const isLastStep =
