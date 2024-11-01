@@ -17,6 +17,7 @@ const endpoints = (id?: Maybe<string>) => {
 		get_all: `/apartment/fetch`,
 		get_by_location: `/apartment/location}`,
 		get_one: `/apartment/view/${id}`,
+		get_user_apartments: `/apartment/get-my-apartments`,
 		search: `/apartment/search`,
 		create: `/apartment`,
 		update: `/apartment/${id}`,

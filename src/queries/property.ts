@@ -1,6 +1,7 @@
 import { endpoints } from "@/config"
 import { axios } from "@/lib"
 import {
+	HostApartmentProps,
 	HttpResponse,
 	LocationSearchProps,
 	Pagination,
@@ -37,6 +38,14 @@ const GetAllPropertiesQuery = async ({
 		.then((res) => res.data)
 }
 
+const GetAllHostPropertiesQuery = async ({ limit, page }: PaginationDto) => {
+	return axios
+		.get<
+			HttpResponse<Pagination<HostApartmentProps>>
+		>(endpoints().apartment.get_user_apartments, { params: { limit, page } })
+		.then((res) => res.data)
+}
+
 const GetPropertiesByLocationQuery = async () => {
 	return axios
 		.get<HttpResponse<LocationSearchProps[]>>(endpoints().apartment.get_by_location)
@@ -70,6 +79,7 @@ const DeletePropertyMutation = async (id: string) => {
 export {
 	AddPropertyMutation,
 	DeletePropertyMutation,
+	GetAllHostPropertiesQuery,
 	GetAllPropertiesQuery,
 	GetPropertiesByLocationQuery,
 	GetPropertyQuery,

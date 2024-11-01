@@ -145,6 +145,25 @@ export type ApartmentsProps = Node & {
 	hostId: string
 }
 
+export type HostApartmentProps = Node & {
+	__typename?: "HostApartment"
+	address: string
+	amenities: AmenityProps[]
+	description: string
+	city: string
+	country: string
+	current_location: string
+	hostId: string
+	id: string
+	images: string[]
+	maximum_number_of_guests: number
+	name: string
+	number_of_bathrooms: number
+	state: string
+	status: "DRAFT" | "RESERVED" | "VACANT"
+	type: string
+}
+
 export type AmenityProps = Node & {
 	__typename?: "Amenity"
 	amenity_id: string
