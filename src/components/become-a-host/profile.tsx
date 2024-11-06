@@ -1,6 +1,6 @@
 import { RiArrowRightDoubleLine, RiArrowLeftSLine } from "@remixicon/react"
-import { animated, useSpring } from "@react-spring/web" //@lolubabafemi here is the spring library import
-import { motion } from "framer-motion" //@lolubabafemi here is the framer motion library import
+import { animated, useSpring } from "@react-spring/web"
+import { motion } from "framer-motion"
 import { useFormik } from "formik"
 import Image from "next/image"
 import { toast } from "sonner"
@@ -10,10 +10,11 @@ import React from "react"
 import { capitalizeWords, getFileExtension, getFileSizeInMb, getImageDimensions } from "@/lib"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
 import { AddressPicker, FadeTransition, PhoneInput, Seo } from "../shared"
-import { springs, stagger, statesAndLgas } from "@/config" //@lolubabafemi here is the preset import
+import { springs, stagger, statesAndLgas } from "@/config"
 import { ProfileFormProps } from "./form-components"
 import { defaultAvatar } from "@/assets/images"
 import { ComponentUpdateProps } from "@/types"
+import { useCreateHostStore } from "./store"
 import { Textarea } from "../ui/textarea"
 import { Button } from "../ui/button"
 import { Label } from "../ui/label"
@@ -26,9 +27,9 @@ const initialValues: ProfileFormProps = {
 	bio: "",
 	city: "",
 	first_name: "",
-	image: null,
 	last_name: "",
-	phoneNumber: "",
+	phone_number: "",
+	profile_image: null,
 	state: "",
 }
 
@@ -47,7 +48,8 @@ const Page = ({
 	const [previewUrl, setPreviewUrl] = React.useState<string | null>(null)
 	const input = React.useRef<HTMLInputElement>(null)
 
-	// @lolubabafemi here is the spring animation
+	const { setPersonalInformation } = useCreateHostStore()
+
 	const springHeader = useSpring(springs.slide("right"))
 	const springChild = useSpring(springs.slide("up"))
 
@@ -60,23 +62,23 @@ const Page = ({
 	const { handleChange, handleSubmit, setFieldValue, values } = useFormik({
 		initialValues,
 		onSubmit: (values) => {
-			// if (!values.first_name || !values.last_name) {
-			// 	toast.error("Please enter your first and last name")
-			// 	return
-			// }
-			// if (!values.address || !values.city || !values.state) {
-			// 	toast.error("Please enter your full address, including city and state")
-			// 	return
-			// }
-			// if (!values.phoneNumber) {
-			// 	toast.error("Please enter your phone number")
-			// 	return
-			// }
-			// if (!values.image) {
-			// 	toast.error("Please select a profile image")
-			// 	return
-			// }
-			console.log(values)
+			if (!values.first_name || !values.last_name) {
+				toast.error("Please enter your first and last name")
+				return
+			}
+			if (!values.address || !values.city || !values.state) {
+				toast.error("Please enter your full address, including city and state")
+				return
+			}
+			if (!values.phone_number) {
+				toast.error("Please enter your phone number")
+				return
+			}
+			if (!values.profile_image) {
+				toast.error("Please select a profile image")
+				return
+			}
+			setPersonalInformation(values)
 			handleNext()
 		},
 	})
@@ -108,33 +110,32 @@ const Page = ({
 			)
 			return
 		}
-		setFieldValue("image", file)
+		setFieldValue("profile_image", file)
 	}
 
 	React.useEffect(() => {
-		if (values.image) {
+		if (values.profile_image) {
 			const reader = new FileReader()
 			reader.onload = () => {
 				setPreviewUrl(reader.result as string)
 			}
-			reader.readAsDataURL(values.image)
+			reader.readAsDataURL(values.profile_image)
 		}
-	}, [values.image])
+	}, [values.profile_image])
 
 	return (
 		<>
 			<Seo title={capitalizeWords(label)} description="Become a Host" />
-			<form onSubmit={handleSubmit} className="mb-36 mt-[72px] h-full w-full">
-				<FadeTransition className="grid w-full place-items-center">
-					<div className="grid w-full grid-cols-3">
+			<form onSubmit={handleSubmit} className="mb-44 mt-[72px] w-full">
+				<FadeTransition className="grid w-full place-items-center px-4 lg:px-0">
+					<div className="grid w-full grid-cols-1 gap-y-6 lg:grid-cols-3 lg:gap-0">
 						<div className="w-full">
-							<div className="flex w-[329px] flex-col gap-4">
+							<div className="flex w-full flex-col gap-4 lg:w-[329px]">
 								<button onClick={handlePrev} className="flex items-center font-semibold">
 									<RiArrowLeftSLine size={20} />
 									Back
 								</button>
-								{/* @lolubabafemi here is the spring animation usage */}
-								<animated.p style={{ ...springHeader }} className="text-4xl font-semibold">
+								<animated.p style={{ ...springHeader }} className="text-2xl font-semibold lg:text-4xl">
 									{label}
 								</animated.p>
 								<animated.p style={{ ...springChild }} className="text-sm text-neutral-500">
@@ -147,7 +148,6 @@ const Page = ({
 									<p className="text-xs text-neutral-400">{subtitle}</p>
 									<div className="flex w-full flex-col gap-3">
 										{components.map(({ icon: Icon, name }, index) => (
-											// @lolubabafemi here is the stagger animation usage
 											<motion.button
 												{...stagger("left", (index + 1) * 0.25)}
 												key={index}
@@ -161,8 +161,8 @@ const Page = ({
 							</div>
 						</div>
 						<div className="col-span-2 flex w-full flex-col gap-4">
-							<div className="flex w-full items-center justify-between rounded-xl border p-6">
-								<div className="flex items-center gap-3">
+							<div className="flex w-full flex-col items-center justify-between space-y-4 rounded-xl border p-6 lg:flex-row">
+								<div className="flex w-full items-center gap-3">
 									<div className="relative size-16 rounded-full border">
 										<Image
 											src={previewUrl || defaultAvatar}
@@ -177,7 +177,7 @@ const Page = ({
 										<p className="text-sm text-neutral-400">Min. 400x400px, PNG or JPEG</p>
 									</div>
 								</div>
-								<label htmlFor="image-upload" className="w-fit">
+								<label htmlFor="image-upload" className="w-full lg:w-fit">
 									<input
 										ref={input}
 										type="file"
@@ -187,7 +187,7 @@ const Page = ({
 										className="hidden"
 										onChange={handleImage}
 									/>
-									<Button type="button" onClick={handleClick} variant="outline">
+									<Button type="button" onClick={handleClick} variant="outline" className="w-full">
 										Upload Image
 									</Button>
 								</label>
@@ -210,9 +210,9 @@ const Page = ({
 									/>
 								</div>
 								<PhoneInput
-									name="phoneNumber"
+									name="phone_number"
 									label="Phone Number"
-									onPhoneNumberChange={(value) => setFieldValue("phoneNumber", value)}
+									onPhoneNumberChange={(value) => setFieldValue("phone_number", value)}
 									placeholder="(+1) 123-456-7890"
 									required
 								/>

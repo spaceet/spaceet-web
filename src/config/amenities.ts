@@ -23,7 +23,7 @@ import {
 } from "@remixicon/react"
 
 import { AirConditioner, Bath, Dumbells, Gamepad, Swimming } from "@/assets/svg"
-import { AmenitiesIconName, UsableAmenitiesProps } from "@/types"
+import { AmenitiesIconName } from "@/types"
 
 export const icons: Record<
 	AmenitiesIconName,
@@ -45,7 +45,7 @@ export const icons: Record<
 	"parking-space": RiCarLine,
 	patio: RiHomeWifiLine,
 	piano: RiKeyboardLine,
-	ps5: Gamepad,
+	"ps5-console": Gamepad,
 	refrigerator: RiFridgeLine,
 	"security-system": RiVidiconLine,
 	"smoke-alarm": RiZcoolLine,
@@ -77,7 +77,7 @@ export const amenities_list = [
 	"parking-space",
 	"patio",
 	"piano",
-	"ps5",
+	"ps5-console",
 	"refrigerator",
 	"security-system",
 	"smoke-alarm",
@@ -91,48 +91,6 @@ export const amenities_list = [
 	"wifi",
 	"workspace",
 ] as const
-
-export const usable_amenities_list: UsableAmenitiesProps[] = [
-	{
-		class: "Basic Utilities",
-		amenities_list: [
-			{ name: "Dedicated Kitchen", icon: "dedicated-kitchen" },
-			{ name: "Televison", icon: "television" },
-			{ name: "Air Conditioner", icon: "air-conditioner" },
-			{ name: "Water Heater", icon: "water-heater" },
-			{ name: "Washing Machine", icon: "washing-machine" },
-			{ name: "Parking Space", icon: "parking-space" },
-			{ name: "Fire Alarm", icon: "fire-alarm" },
-			{ name: "First Aid Kit", icon: "first-aid-kit" },
-			{ name: "Gas Cooker", icon: "gas-cooker" },
-			{ name: "Smoke Alarm", icon: "smoke-alarm" },
-			{ name: "Wifi", icon: "wifi" },
-			{ name: "Fire Extinguisher", icon: "fire-extinguisher" },
-			{ name: "refrigerator", icon: "refrigerator" },
-		],
-	},
-	{
-		class: "Special Utilities",
-		amenities_list: [
-			{ name: "Swimming Pool", icon: "swimming-pool" },
-			{ name: "BBQ Grill", icon: "bbq-grill" },
-			{ name: "Workspace", icon: "workspace" },
-			{ name: "Snooker Table", icon: "snooker-table" },
-			{ name: "Piano", icon: "piano" },
-			{ name: "Hot Tub", icon: "hot-tub" },
-			{ name: "Beach Access", icon: "beach-access" },
-			{ name: "Lake Access", icon: "lake-access" },
-			{ name: "Fire Pit", icon: "fire-pit" },
-			{ name: "Patio", icon: "patio" },
-			{ name: "Gym", icon: "gym" },
-			{ name: "Handicap Accessible", icon: "handicap-accessible" },
-			{ name: "Security System", icon: "security-system" },
-			{ name: "PS5", icon: "ps5" },
-			{ name: "Sound System", icon: "sound-system" },
-			{ name: "Streaming Services", icon: "streaming-services" },
-		],
-	},
-]
 
 export const yup_amenities_list = [
 	"air-conditioner",
@@ -151,7 +109,7 @@ export const yup_amenities_list = [
 	"parking-space",
 	"patio",
 	"piano",
-	"ps5",
+	"ps5-console",
 	"refrigerator",
 	"security-system",
 	"smoke-alarm",

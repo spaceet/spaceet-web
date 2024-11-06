@@ -34,6 +34,14 @@ const MakeReservationMutation = async (payload: ReservationDto) => {
 		.then((res) => res.data)
 }
 
+const GetHostReservationsQuery = async (params: PaginationDto) => {
+	return axios
+		.get<HttpResponse<Pagination<ReservationsProps>>>(endpoints().reservations.get_hosts, {
+			params,
+		})
+		.then((res) => res.data)
+}
+
 const GetReservationsQuery = async (params: PaginationDto) => {
 	return axios
 		.get<HttpResponse<Pagination<ReservationsProps>>>(endpoints().reservations.get_all, {
@@ -50,4 +58,10 @@ const GetCalendarQuery = async (timeline: CalendarTimeProps) => {
 		.then((res) => res.data)
 }
 
-export { GetCalendarQuery, GetPricingQuery, GetReservationsQuery, MakeReservationMutation }
+export {
+	GetCalendarQuery,
+	GetPricingQuery,
+	GetHostReservationsQuery,
+	GetReservationsQuery,
+	MakeReservationMutation,
+}

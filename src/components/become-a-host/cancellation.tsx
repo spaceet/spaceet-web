@@ -1,15 +1,17 @@
 import { RiArrowLeftSLine, RiArrowRightDoubleLine } from "@remixicon/react"
 import { animated, useSpring } from "@react-spring/web"
-import { useFormik } from "formik"
 import { motion } from "framer-motion"
+import { useFormik } from "formik"
+import { toast } from "sonner"
 import Link from "next/link"
 import React from "react"
 
-import { springs, stagger } from "@/config"
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group"
+import { FadeTransition, Seo, Spinner } from "../shared"
 import { cancellation_policies } from "@/config"
-import { FadeTransition, Seo } from "../shared"
 import { ComponentUpdateProps } from "@/types"
+import { useCreateHostStore } from "./store"
+import { springs, stagger } from "@/config"
 import { capitalizeWords } from "@/lib"
 import { Button } from "../ui/button"
 
@@ -20,15 +22,22 @@ const Page = ({
 	handleGoTo,
 	handleNext,
 	handlePrev,
+	isLoading,
 	label,
 	subtitle,
 	totalItems,
 	width,
 }: ComponentUpdateProps) => {
-	const { handleSubmit, setFieldValue } = useFormik({
-		initialValues: { cancellation_policy: "" },
+	const { cancellation, setCancellation } = useCreateHostStore()
+
+	const { handleSubmit, setFieldValue, values } = useFormik({
+		initialValues: cancellation,
 		onSubmit: (values) => {
-			console.log(values)
+			if (!values.cancellation_and_repayment_conditions) {
+				toast.error("Please select a cancellation policy")
+				return
+			}
+			setCancellation(values)
 			handleNext()
 		},
 	})
@@ -43,12 +52,12 @@ const Page = ({
 				<FadeTransition className="my-[72px] grid w-full place-items-center">
 					<div className="grid h-[calc(100vh-209px)] w-full grid-cols-3">
 						<div className="w-full">
-							<div className="flex w-[329px] flex-col gap-4">
+							<div className="flex w-full flex-col gap-4 lg:w-[329px]">
 								<button onClick={handlePrev} className="flex items-center font-semibold">
 									<RiArrowLeftSLine size={20} />
 									Back
 								</button>
-								<animated.p style={{ ...springHeader }} className="text-4xl font-semibold">
+								<animated.p style={{ ...springHeader }} className="text-2xl font-semibold lg:text-4xl">
 									{label}
 								</animated.p>
 								<animated.p style={{ ...springChild }} className="text-sm text-neutral-500">
@@ -84,7 +93,8 @@ const Page = ({
 								</p>
 							</div>
 							<RadioGroup
-								onValueChange={(value) => setFieldValue("cancellation_policy", value)}
+								value={values.cancellation_and_repayment_conditions}
+								onValueChange={(value) => setFieldValue("cancellation_and_repayment_conditions", value)}
 								className="flex w-full flex-col gap-4">
 								{cancellation_policies.map(({ description, label }, index) => (
 									<div
@@ -94,7 +104,7 @@ const Page = ({
 											<p className="text-sm font-medium capitalize text-neutral-900">{label}</p>
 											<p className="text-sm text-neutral-600">{description}</p>
 										</div>
-										<RadioGroupItem value={label} />
+										<RadioGroupItem value={description} />
 									</div>
 								))}
 							</RadioGroup>
@@ -120,7 +130,7 @@ const Page = ({
 										Go to Dashboard <RiArrowRightDoubleLine size={20} />
 									</span>
 								) : (
-									"Next"
+									<>{isLoading ? <Spinner /> : "Next"}</>
 								)}
 							</Button>
 						</div>

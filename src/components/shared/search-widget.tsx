@@ -1,11 +1,12 @@
+import { useQuery } from "@tanstack/react-query"
 import { useRouter } from "next/router"
 import { useFormik } from "formik"
 import React from "react"
 
-import { apartment_types, encodeQueryParams, places } from "@/config"
+import { GetPropertyTypesQuery, SearchPropertyDto } from "@/queries"
+import { encodeQueryParams, places } from "@/config"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { SearchPropertyDto } from "@/queries"
 import { ComboBox } from "./combo-box"
 import {
 	Select,
@@ -16,14 +17,24 @@ import {
 } from "@/components/ui/select"
 
 const initialValues: SearchPropertyDto = {
-	bedrooms: 0,
+	bedrooms: "",
 	location: "",
-	price: 0,
+	price: "",
 	type: "",
 }
 
 export const SearchWidget = () => {
 	const router = useRouter()
+
+	const { data } = useQuery({
+		queryFn: () => GetPropertyTypesQuery(),
+		queryKey: ["get-apartment-types"],
+	})
+
+	const apartmentTypes = React.useMemo(() => {
+		if (!data) return []
+		return data.data
+	}, [data])
 
 	const { handleChange, handleSubmit, setFieldValue, values } = useFormik({
 		initialValues,
@@ -54,9 +65,9 @@ export const SearchWidget = () => {
 							<SelectValue placeholder="Apartment Type" />
 						</SelectTrigger>
 						<SelectContent className="bg-white capitalize">
-							{apartment_types.map((type) => (
-								<SelectItem key={type} value={type}>
-									{type}
+							{apartmentTypes.map((type, index) => (
+								<SelectItem key={index} value={type.name}>
+									{type.name}
 								</SelectItem>
 							))}
 						</SelectContent>

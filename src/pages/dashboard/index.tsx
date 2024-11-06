@@ -1,7 +1,15 @@
-import { RiCalendarCheckLine, RiHome8Line, RiHotelBedLine } from "@remixicon/react"
+import {
+	RiCalendarCheckLine,
+	RiHome8Line,
+	RiHotelBedLine,
+	RiRadioButtonLine,
+} from "@remixicon/react"
+import { useQueries } from "@tanstack/react-query"
+import Image from "next/image"
 import Link from "next/link"
 import React from "react"
 
+import { GetAllHostPropertiesQuery, GetHostReservationsQuery } from "@/queries"
 import DashboardLayout from "@/components/layouts/dashboard-layout"
 import { Separator } from "@/components/ui/separator"
 import { filters, quick_actions } from "@/config"
@@ -19,6 +27,24 @@ type Filter = (typeof filters)[number] | (string & {})
 
 const Page = () => {
 	const [filter, setFilter] = React.useState<Filter>("all")
+
+	const [{ data }] = useQueries({
+		queries: [
+			{
+				queryFn: () => GetAllHostPropertiesQuery({}),
+				queryKey: ["host-properties"],
+			},
+			{
+				queryFn: () => GetHostReservationsQuery({}),
+				queryKey: ["host-reservations"],
+			},
+		],
+	})
+
+	const apartments = React.useMemo(() => {
+		if (!data) return []
+		return data.data.data
+	}, [data])
 
 	return (
 		<>
@@ -48,7 +74,7 @@ const Page = () => {
 									icon={RiHome8Line}
 									label="Total Listing"
 									percentage={5.6}
-									value={15}
+									value={apartments.length}
 									className="w-[170px] flex-shrink-0 rounded border p-4"
 								/>
 								<DataCard
@@ -88,7 +114,7 @@ const Page = () => {
 								icon={RiHome8Line}
 								label="Total Listing"
 								percentage={5.6}
-								value={15}
+								value={apartments.length}
 							/>
 							<Separator orientation="vertical" className="h-[72px] bg-neutral-300" />
 							<DataCard
@@ -144,14 +170,31 @@ const Page = () => {
 							<p className="flex items-center gap-2">
 								Listings{" "}
 								<span className="grid h-5 w-5 place-items-center rounded-full bg-black text-xs text-white">
-									0
+									{apartments.length}
 								</span>
 							</p>
 						</div>
-						<div className="flex w-auto items-center gap-5 overflow-x-scroll">
-							{[...Array(3)].map((_, index) => (
+						<div className="grid w-full grid-cols-3 gap-5">
+							{apartments.map((apartment, index) => (
 								<div key={index} className="h-[257px] w-[250px] flex-shrink-0 lg:w-[362px]">
-									<div className="h-[200px] w-full bg-red-300"></div>
+									<div className="relative h-[200px] w-full">
+										<div
+											className={`absolute right-5 top-2 !z-10 flex items-center gap-1 rounded bg-white p-1 text-[10px] capitalize ${apartment.status === "VACANT" ? "text-red-500" : "text-green-500"}`}>
+											<RiRadioButtonLine size={10} />
+											{apartment.status.toLowerCase()}
+										</div>
+										<Image
+											src={apartment.images[0]}
+											alt={apartment.name}
+											fill
+											sizes="(max-width:1024px)100%"
+											className="object-cover"
+										/>
+									</div>
+									<p className="text-2xl font-medium capitalize">{apartment.name}</p>
+									<p className="text-sm capitalize">
+										{apartment.city}, {apartment.state}
+									</p>
 								</div>
 							))}
 						</div>

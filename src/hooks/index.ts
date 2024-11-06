@@ -1,5 +1,6 @@
 export * from "./debounce"
 export * from "./drag-and-drop"
+export * from "./file-handler"
 export * from "./geocode"
 export * from "./interval"
 export * from "./window-size"

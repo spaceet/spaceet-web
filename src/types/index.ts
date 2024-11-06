@@ -81,6 +81,7 @@ export type UserProps = Node & {
 	email: string
 	first_name: string
 	full_name: string
+	images: string[]
 	isVerified: boolean
 	last_name: string
 	location: Maybe<string>
@@ -164,12 +165,24 @@ export type HostApartmentProps = Node & {
 	type: string
 }
 
+export type ApartmentTypeProps = {
+	name: string
+	description: string
+}
+
 export type AmenityProps = Node & {
 	__typename?: "Amenity"
 	amenity_id: string
 	description: string
+	icon: string
+	image: string
 	name: AmenitiesIconName
 	type: "BASIC" | "SPECIAL" | "OTHER"
+}
+
+export type AmenityClassProps = {
+	amenities: AmenityProps[]
+	amenityClass: "BASIC" | "SPECIAL" | (string & {})
 }
 
 export type BookingProps = Node & {
@@ -307,6 +320,7 @@ export interface ComponentUpdateProps {
 	handleGoTo: (index: number) => void
 	handleNext: () => void
 	handlePrev: () => void
+	isLoading?: boolean
 	isNotFirstOrLast: boolean
 	label: string
 	subtitle: string
