@@ -22,11 +22,13 @@ export const ImagePicker = ({ images, onValueChange, removeImage }: Props) => {
 		useDragAndDrop()
 	const ref = React.useRef<HTMLInputElement>(null)!
 
-	const handleClick = () => {
+	const displayedImages = React.useMemo(() => images.slice(0, 5), [images])
+
+	const handleClick = React.useCallback(() => {
 		if (ref.current) {
 			ref.current.click()
 		}
-	}
+	}, [ref])
 
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (!e.target.files) return
@@ -53,7 +55,7 @@ export const ImagePicker = ({ images, onValueChange, removeImage }: Props) => {
 				multiple
 				className="sr-only hidden"
 			/>
-			{!images.length ? (
+			{!displayedImages.length ? (
 				<>
 					{isDragging ? (
 						<div className="grid h-[420px] w-full place-items-center rounded-lg border border-dashed [border-dash-array:_20px_20px]">
@@ -98,7 +100,7 @@ export const ImagePicker = ({ images, onValueChange, removeImage }: Props) => {
 				</>
 			) : (
 				<div className="grid w-full grid-cols-2 gap-3">
-					{images.slice(0, 5).map((file, index) => (
+					{displayedImages.slice(0, 5).map((file, index) => (
 						<div
 							key={index}
 							className={`group relative h-[206px] w-full rounded-lg border ${index === 0 ? "col-span-2" : ""}`}>
@@ -119,6 +121,7 @@ export const ImagePicker = ({ images, onValueChange, removeImage }: Props) => {
 								fill
 								sizes="(max-width:1024px)1000%"
 								className="rounded-lg object-cover"
+								loading="lazy"
 							/>
 						</div>
 					))}

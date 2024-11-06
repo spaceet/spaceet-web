@@ -6,29 +6,46 @@ import React from "react"
 
 import { Appbar, Card, ComboBox, Counter, Footer, Loading, Rating, Seo } from "@/components/shared"
 import { GetAllPropertiesQuery, SearchPropertyDto } from "@/queries"
-import { capitalize, sanitizeQueryParams } from "@/lib"
+import { capitalize, makeNullish, sanitizeQueryParams } from "@/lib"
 import { Filter as FilterIcon } from "@/assets/svg"
 import { apartment_types, places } from "@/config"
 import { Button } from "@/components/ui/button"
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select"
 
 const Page = () => {
 	const [open, setOpen] = React.useState(false)
 	const router = useRouter()
 	const { bedrooms, limit, location, page, price, type } = router.query
 
+	const [searchParams, setSearchParams] = React.useState<SearchPropertyDto>({
+		bedrooms: makeNullish(bedrooms as string) ?? "",
+		limit: Number(limit) ?? 20,
+		location: makeNullish(location as string) ?? "",
+		page: Number(page) ?? 1,
+		price: makeNullish(price as string) ?? "",
+		type: makeNullish(type as string) ?? "",
+	})
+
 	const initialValues: SearchPropertyDto = {
-		bedrooms: Number(bedrooms) || 0,
-		limit: Number(limit) || 20,
-		location: String(location) || "",
-		page: Number(page) || 1,
-		price: Number(price) || 0,
-		type: String(type) || "",
+		bedrooms: searchParams.bedrooms,
+		limit: searchParams.limit,
+		location: searchParams.location,
+		page: searchParams.page,
+		price: searchParams.price,
+		type: searchParams.type,
 	}
 
 	const { handleSubmit, setFieldValue, values } = useFormik({
 		initialValues,
+		enableReinitialize: true,
 		onSubmit: (values) => {
-			console.log(values)
+			setSearchParams(values)
 		},
 	})
 
@@ -38,27 +55,32 @@ const Page = () => {
 	}
 
 	const { data } = useQuery({
-		queryFn: () => GetAllPropertiesQuery(sanitizeQueryParams<SearchPropertyDto>({ ...values })),
+		queryFn: () => GetAllPropertiesQuery(sanitizeQueryParams<SearchPropertyDto>({ ...searchParams })),
 		queryKey: [
 			"search-properties",
-			// values.bedrooms,
-			// values.limit,
-			// values.location,
-			// values.page,
-			// values.price,
-			// values.type,
+			searchParams?.bedrooms,
+			searchParams?.limit,
+			searchParams?.location,
+			searchParams?.page,
+			searchParams?.price,
+			searchParams?.type,
 		],
 	})
+
+	const handleApplyFilters = () => {
+		setSearchParams(values)
+	}
+
+	const handleLocationFilter = (location: string) => {
+		setFieldValue("location", location)
+		setSearchParams({ ...values, location })
+	}
+
 	const locations = React.useMemo(() => {
-		let locations: string[] = ["All"]
-		if (data) {
-			data.data.data.forEach((apartment) => {
-				if (!locations.includes(apartment.Apartment_city)) {
-					locations.push(apartment.Apartment_city)
-				}
-			})
-		}
-		return locations
+		if (!data) return ["All"]
+		const uniqueLocations = new Set(["All"])
+		data.data.data.forEach((apartment) => uniqueLocations.add(apartment.Apartment_city))
+		return Array.from(uniqueLocations)
 	}, [data])
 
 	if (!data) return <Loading />
@@ -70,55 +92,65 @@ const Page = () => {
 			<main className="container mx-auto">
 				<div className="flex w-full flex-col items-center gap-8 py-6">
 					<h1 className="font-medium lg:text-[32px]">Search Apartments</h1>
-					<form onSubmit={handleSubmit} className="flex items-center gap-2">
+					<form
+						onSubmit={handleSubmit}
+						className="flex w-full flex-col items-center gap-2 px-4 lg:w-fit lg:flex-row lg:px-0">
 						<ComboBox
 							data={places}
 							value={values.location}
 							onValueChange={(value) => setFieldValue("location", value)}
 							placeholder="Location"
-							className="h-[45px] w-[180px]"
+							className="h-[45px] w-full lg:w-[180px]"
 						/>
-						<ComboBox
-							data={apartment_types.map((type) => ({
-								label: capitalize(type),
-								value: type,
-							}))}
+						<Select
 							value={values.type}
-							onValueChange={(value) => setFieldValue("type", value)}
-							placeholder="Apartment Type"
-							className="h-[45px] w-[180px]"
-						/>
-						<ComboBox
-							data={[...Array(10)].map((_, index) => ({
-								label: String(index + 1),
-								value: String(index + 1),
-							}))}
-							value={String(values.bedrooms)}
-							onValueChange={(value) => setFieldValue("bedrooms", value)}
-							placeholder="Bedrooms"
-							className="h-[45px] w-[180px]"
-						/>
-						<ComboBox
-							data={[...Array(10)].map((_, index) => ({
-								label: String((index + 1) * 25000),
-								value: String((index + 1) * 25000),
-							}))}
-							value={String(values.price)}
-							onValueChange={(value) => setFieldValue("price", value)}
-							placeholder="Price Range"
-							className="h-[45px] w-[180px]"
-						/>
-						<Button type="submit" className="w-[129px]">
+							onValueChange={(value) => setFieldValue("type", value === "all" ? "" : value)}>
+							<SelectTrigger className="h-[45px] w-full lg:w-[180px]">
+								<SelectValue placeholder="Apartment Type" />
+							</SelectTrigger>
+							<SelectContent>
+								{apartment_types.map((type) => (
+									<SelectItem key={type} value={type}>
+										{capitalize(type)}
+									</SelectItem>
+								))}
+							</SelectContent>
+						</Select>
+						<Select value={values.bedrooms} onValueChange={(value) => setFieldValue("bedrooms", value)}>
+							<SelectTrigger className="h-[45px] w-full lg:w-[180px]">
+								<SelectValue placeholder="Bedrooms" />
+							</SelectTrigger>
+							<SelectContent>
+								{[...Array(10)].map((_, index) => (
+									<SelectItem key={index} value={String(index + 1)}>
+										{String(index + 1)}
+									</SelectItem>
+								))}
+							</SelectContent>
+						</Select>
+						<Select value={values.price} onValueChange={(value) => setFieldValue("price", value)}>
+							<SelectTrigger className="h-[45px] w-full lg:w-[180px]">
+								<SelectValue placeholder="Price Range" />
+							</SelectTrigger>
+							<SelectContent>
+								{[...Array(10)].map((_, index) => (
+									<SelectItem key={index} value={String((index + 1) * 25000)}>
+										{String((index + 1) * 25000)}
+									</SelectItem>
+								))}
+							</SelectContent>
+						</Select>
+						<Button type="submit" className="w-full lg:w-[129px]">
 							Search <RiSearchLine size={18} />
 						</Button>
 					</form>
 				</div>
-				<div className="flex h-[100px] w-full items-center justify-center gap-6 border-t">
+				<div className="flex h-[100px] w-full items-center justify-center gap-6 border-t px-4 lg:px-0">
 					<div className="flex w-full flex-1 items-center gap-8 overflow-x-auto">
 						{locations.map((location) => (
 							<button
 								key={location}
-								onClick={() => setFieldValue("location", location)}
+								onClick={() => handleLocationFilter(location)}
 								className={`w-fit flex-shrink-0 capitalize ${location === values.location ? "font-medium text-neutral-900" : "text-neutral-400"}`}>
 								{location}
 							</button>
@@ -130,10 +162,13 @@ const Page = () => {
 					</Button>
 				</div>
 				<section className="mb-8 mt-2 flex w-full items-start gap-5">
-					<div className={`w-[285px] flex-col gap-1 rounded-lg border ${open ? "flex" : "hidden"}`}>
+					<div
+						className={`w-[285px] flex-col gap-1 rounded-lg border ${open ? "hidden lg:flex" : "hidden"}`}>
 						<div className="flex w-full items-center justify-between p-4">
 							<p className="font-medium lg:text-xl">Filter by</p>
-							<button className="text-sm font-medium text-primary-100">APPLY</button>
+							<button onClick={handleApplyFilters} className="text-sm font-medium text-primary-100">
+								APPLY
+							</button>
 						</div>
 						<div className="flex w-full flex-col gap-2 border-t p-4">
 							<div className="flex w-full items-center justify-between">
@@ -219,7 +254,7 @@ const Page = () => {
 							</div>
 						</div>
 					</div>
-					<div className="flex flex-1 flex-wrap">
+					<div className="flex flex-1 flex-wrap px-4 lg:px-0">
 						{data.data.data.length === 0 ? (
 							<div className="grid min-h-40 w-full place-items-center text-center">
 								<h1 className="text-center text-base font-medium lg:text-2xl">

@@ -1,6 +1,7 @@
 import { createPersistMiddleware } from "@/store/middleware"
 
 import {
+	CancellationFormProps,
 	DocumentFormProps,
 	IdentityFormProps,
 	ProfileFormProps,
@@ -25,6 +26,9 @@ interface CreateHostStore {
 	setUtilities: (utilities: UtilitiesFormProps) => void
 	rules: RulesFormProps
 	setRules: (rules: RulesFormProps) => void
+	cancellation: CancellationFormProps
+	setCancellation: (cancellation: CancellationFormProps) => void
+	resetStore: () => void
 }
 
 const initialState: CreateHostStore = {
@@ -33,25 +37,28 @@ const initialState: CreateHostStore = {
 		bio: "",
 		city: "",
 		first_name: "",
-		image: null,
 		last_name: "",
-		phoneNumber: "",
+		phone_number: "",
+		profile_image: null,
 		state: "",
 	},
 	setPersonalInformation: () => {},
 	identityVerification: {
-		idExpiry: "",
-		idImages: [],
-		idNumber: "",
-		idType: "bankVerificationNumber",
+		identification_expiry_date: "",
+		identification_number: "",
+		identification_type: "INTERNATIONAL_PASSPORT",
+		images: [],
 	},
 	setIdentityVerification: () => {},
 	propertyDetails: {
 		address: "",
 		bedrooms: 0,
 		bathrooms: 0,
+		cleaningFee: 0,
 		city: "",
 		description: "",
+		latitude: 0,
+		longitude: 0,
 		name: "",
 		price: 0,
 		propertyType: "",
@@ -85,6 +92,11 @@ const initialState: CreateHostStore = {
 		smoking: false,
 	},
 	setRules: () => {},
+	cancellation: {
+		cancellation_and_repayment_conditions: "",
+	},
+	setCancellation: () => {},
+	resetStore: () => {},
 }
 
 const useCreateHostStore = createPersistMiddleware<CreateHostStore>("become-a-host", (set) => ({
@@ -96,6 +108,8 @@ const useCreateHostStore = createPersistMiddleware<CreateHostStore>("become-a-ho
 	setVerifyProperty: (verifyProperty) => set({ verifyProperty }),
 	setUtilities: (utilities) => set({ utilities }),
 	setRules: (rules) => set({ rules }),
+	setCancellation: (cancellation) => set({ cancellation }),
+	resetStore: () => set(initialState),
 }))
 
 export { useCreateHostStore }

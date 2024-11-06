@@ -11,6 +11,7 @@ import { fade, slide } from "@/config"
 
 interface Props {
 	apartment: ApartmentsProps
+	styles?: React.CSSProperties
 }
 
 const Card = ({ apartment }: Props) => {
@@ -52,7 +53,7 @@ const Card = ({ apartment }: Props) => {
 			<Link
 				href={`/apartments/${apartment.Apartment_id}`}
 				style={{ viewTransitionName: `card-${apartment.Apartment_id}` }}
-				className="card flex h-auto w-[214px] flex-shrink-0 flex-col lg:w-full lg:max-w-[285px]">
+				className="card flex h-auto w-full flex-shrink-0 flex-col lg:w-full lg:max-w-[285px]">
 				<div className="flex aspect-[95/100] w-full items-center justify-center overflow-hidden rounded-md border bg-neutral-300">
 					{apartment.Apartment_images.map((image, index) => (
 						<motion.div

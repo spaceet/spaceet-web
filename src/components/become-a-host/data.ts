@@ -22,33 +22,33 @@ export const getting_started = [
 ]
 
 export const identityTypes = [
-	{ label: "Bank Verification Number(BVN)", value: "bankVerificationNumber" },
-	{ label: "Driver's License", value: "driversLicense" },
-	{ label: "International Passport", value: "internationlPassport" },
-	{ label: "National Identification Number(NIN)", value: "nationalIdentificationNumber" },
-	{ label: "Permanent Voter's Card(PVC)", value: "permanentVotersCard" },
+	{ label: "Bank Verification Number(BVN)", value: "BVN" },
+	{ label: "Driver's License", value: "DRIVERS_LICENSE" },
+	{ label: "International Passport", value: "INTERNATIONAL_PASSPORT" },
+	{ label: "National Identification Number(NIN)", value: "NIN" },
+	{ label: "Permanent Voter's Card(PVC)", value: "VOTERS_CARD" },
 ]
 
-export const idTypesWithExpiry = ["driversLicense", "internationlPassport"]
+export const idTypesWithExpiry = ["DRIVERS_LICENSE", "INTERNATIONAL_PASSPORT"]
 
 export const idNumberValidator = {
-	bankVerificationNumber: {
+	BVN: {
 		pattern: /^[0-9]{11}$/,
 		message: "Please enter a valid BVN",
 	},
-	driversLicense: {
+	DRIVERS_LICENSE: {
 		pattern: /^[0-9]{11}$/,
 		message: "Please enter a valid driver's license number",
 	},
-	internationlPassport: {
+	INTERNATIONAL_PASSPORT: {
 		pattern: /^[A-Z0-9]{10}$/,
 		message: "Please enter a valid international passport number",
 	},
-	nationalIdentificationNumber: {
+	NIN: {
 		pattern: /^[0-9]{11}$/,
 		message: "Please enter a valid NIN",
 	},
-	permanentVotersCard: {
+	VOTERS_CARD: {
 		pattern: /^[0-9]{11}$/,
 		message: "Please enter a valid PVC number",
 	},

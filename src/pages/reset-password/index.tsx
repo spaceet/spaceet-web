@@ -1,3 +1,4 @@
+import { RiMailDownloadLine } from "@remixicon/react"
 import { useMutation } from "@tanstack/react-query"
 import { ChevronLeft } from "lucide-react"
 import { useRouter } from "next/router"
@@ -6,8 +7,9 @@ import { toast } from "sonner"
 import Link from "next/link"
 import React from "react"
 
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog"
 import { ResetPasswordDto, ResetPasswordMutation } from "@/queries"
-import { PasswordMeter, Seo, Spinner } from "@/components/shared"
+import { Modal, PasswordMeter, Seo, Spinner } from "@/components/shared"
 import { AuthLayout } from "@/components/layouts"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -20,16 +22,17 @@ const initialValues: ResetPasswordDto = {
 }
 
 const Page = () => {
+	const [message, setMessage] = React.useState("")
 	const router = useRouter()
-	// const { token } = router.query
+	const { token } = router.query
 
-	const { isPending } = useMutation({
+	const { isPending, mutateAsync } = useMutation({
 		mutationFn: (payload: ResetPasswordDto) => ResetPasswordMutation(payload),
 		mutationKey: ["signin"],
 		onSuccess: (data) => {
 			console.log(data)
 			const { message } = data
-			toast.success(message)
+			setMessage(message)
 			router.push("/signin")
 		},
 		onError: ({ response }: HttpError) => {
@@ -54,12 +57,29 @@ const Page = () => {
 				toast.error("Password do not match!")
 				return
 			}
-			console.log(values)
+			const payload = { ...values, token: String(token) }
+			mutateAsync(payload)
 		},
 	})
 
 	return (
 		<>
+			<Dialog open={!!message} onOpenChange={() => {}}>
+				<DialogContent className="w-[400px] max-w-[90%] border-0 p-0">
+					<DialogTitle hidden></DialogTitle>
+					<DialogDescription hidden></DialogDescription>
+					<Modal
+						icon={RiMailDownloadLine}
+						href="/signin"
+						label="New Password Set!"
+						text="Proceed to Log In"
+						priority="default">
+						<div className="">
+							<p>You have successfully set a new password, you will have to login again.</p>
+						</div>
+					</Modal>
+				</DialogContent>
+			</Dialog>
 			<Seo title="Reset Password" />
 			<AuthLayout>
 				<div className="w-full max-w-[446px]">

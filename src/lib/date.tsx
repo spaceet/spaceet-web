@@ -27,3 +27,18 @@ export const getTimeFromNow = (date: Date | string) => {
 		return `${Math.floor(diffInMilliseconds / year)} years ago`
 	}
 }
+
+export const convertTime12to24 = (time12h: string): string => {
+	const [time, modifier] = time12h.split(" ")
+	let [hours, minutes] = time.split(":")
+
+	let hoursNum = parseInt(hours, 10)
+
+	if (modifier === "PM" && hoursNum !== 12) {
+		hoursNum += 12
+	} else if (modifier === "AM" && hoursNum === 12) {
+		hoursNum = 0
+	}
+
+	return `${hoursNum.toString().padStart(2, "0")}:${minutes}:00`
+}

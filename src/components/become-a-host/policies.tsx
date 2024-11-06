@@ -1,33 +1,23 @@
 import { RiArrowLeftSLine, RiArrowRightDoubleLine } from "@remixicon/react"
-import { useFormik } from "formik"
 import { animated, useSpring } from "@react-spring/web"
 import { motion } from "framer-motion"
+import { useFormik } from "formik"
+import { toast } from "sonner"
 import Link from "next/link"
 import React from "react"
 
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "../ui/dialog"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
 import { CustomCheckable, FadeTransition, Seo } from "../shared"
-import { springs, stagger } from "@/config"
 import { RulesFormProps } from "./form-components"
 import { ComponentUpdateProps } from "@/types"
 import { CustomRules } from "./custom-rules"
+import { useCreateHostStore } from "./store"
+import { springs, stagger } from "@/config"
 import { Separator } from "../ui/separator"
 import { TimeUpdate } from "./time-update"
 import { capitalizeWords } from "@/lib"
 import { Button } from "../ui/button"
-
-const initialValues: RulesFormProps = {
-	checkIn: ["flexible", "12:00 PM"],
-	checkOut: "12:00 PM",
-	customRules: [],
-	events: false,
-	filming: false,
-	maxGuests: 2,
-	pets: false,
-	quietHours: false,
-	smoking: false,
-}
 
 const Page = ({
 	active,
@@ -41,13 +31,47 @@ const Page = ({
 	totalItems,
 	width,
 }: ComponentUpdateProps) => {
+	const { rules, setRules } = useCreateHostStore()
+
+	const initialValues: RulesFormProps = {
+		checkIn: rules.checkIn,
+		checkOut: rules.checkOut,
+		customRules: rules.customRules,
+		events: rules.events,
+		filming: rules.filming,
+		maxGuests: rules.maxGuests,
+		pets: rules.pets,
+		quietHours: rules.quietHours,
+		smoking: rules.smoking,
+	}
+
 	const [isAddRules, setIsAddRules] = React.useState(false)
 	const [isAddTime, setIsAddTime] = React.useState(false)
 
 	const { handleSubmit, setFieldValue, values } = useFormik({
 		initialValues,
 		onSubmit: (values) => {
-			console.log(values)
+			if (!values.checkIn[0]) {
+				toast.error("Please set a start time for check in")
+				return
+			}
+			if (values.checkIn[0] !== "flexible" && values.checkIn[1] === "") {
+				toast.error("Please set an end time for check in")
+				return
+			}
+			if (!values.checkOut) {
+				toast.error("Please set a check out time!")
+				return
+			}
+			if (!values.maxGuests) {
+				toast.error("Please select the maximum number of guests allowed!")
+				return
+			}
+			const payload = {
+				...values,
+				checkIn: values.checkIn[0] === "flexible" ? ["flexible", "00:00:00"] : values.checkIn,
+			} as RulesFormProps
+			setRules(payload)
 			handleNext()
 		},
 	})
@@ -66,15 +90,15 @@ const Page = ({
 		<>
 			<Seo title={capitalizeWords(label)} description="Become a Host" />
 			<form onSubmit={handleSubmit} className="w-full">
-				<FadeTransition className="my-[72px] grid w-full place-items-center">
+				<FadeTransition className="mb-40 mt-[72px] grid w-full place-items-center">
 					<div className="flex w-full items-start gap-[54px]">
 						<div className="w-full max-w-[329px]">
-							<div className="flex w-[329px] flex-col gap-4">
+							<div className="flex w-full flex-col gap-4 lg:w-[329px]">
 								<button type="button" onClick={handlePrev} className="flex items-center font-semibold">
 									<RiArrowLeftSLine size={20} />
 									Back
 								</button>
-								<animated.p style={{ ...springHeader }} className="text-4xl font-semibold">
+								<animated.p style={{ ...springHeader }} className="text-2xl font-semibold lg:text-4xl">
 									{label}
 								</animated.p>
 								<animated.p style={{ ...springChild }} className="text-sm text-neutral-500">
