@@ -51,8 +51,7 @@ const Page = ({
 		},
 	})
 
-	const springHeader = useSpring(springs.slide("right"))
-	const springChild = useSpring(springs.slide("up"))
+
 
 	const lgas = React.useMemo(() => {
 		return (
@@ -60,6 +59,9 @@ const Page = ({
 			[]
 		)
 	}, [values.state])
+
+	const springHeader = useSpring(springs.slide("right"))
+	const springChild = useSpring(springs.slide("up"))
 
 	return (
 		<>
@@ -87,8 +89,8 @@ const Page = ({
 									{components.map(({ icon: Icon, name }, index) => (
 										<motion.button
 											{...stagger("left", (index + 1) * 0.25)}
-											onClick={() => handleGoTo(index)}
 											key={index}
+											onClick={() => handleGoTo(index)}
 											className={`flex w-full items-center gap-1 rounded-md p-2 font-medium ${active === name ? "bg-neutral-200" : ""}`}>
 											<Icon size={20} /> {name}
 										</motion.button>
