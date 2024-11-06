@@ -87,15 +87,15 @@ export const Appbar = () => {
 							<Link href="/search" className="link">
 								Book a Space
 							</Link>
-							{/* {user && user.role === "host" ? (
+							{user && user.user_type === "HOST" ? (
 								<Link href="/dashboard" className="link">
 									Dashboard
 								</Link>
 							) : (
-							)} */}
-							<Link href="/become-a-host" className="link">
-								Become a Host
-							</Link>
+								<Link href="/become-a-host" className="link">
+									Become a Host
+								</Link>
+							)}
 						</div>
 					)}
 				</div>

@@ -34,7 +34,7 @@ export function ComboBox({ data, onValueChange, className, placeholder, value }:
 					aria-controls="frameworks"
 					aria-expanded={open}
 					className={cn(
-						`flex h-[45px] w-full items-center justify-between rounded-md border border-neutral-400 px-3 ${value ? "text-neutral-900" : "text-neutral-400"}`,
+						`flex h-[45px] w-full items-center justify-between rounded-md border border-neutral-400 px-3 text-sm text-neutral-900`,
 						className
 					)}>
 					<span className="flex flex-1 items-start">

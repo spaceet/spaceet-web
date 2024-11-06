@@ -25,8 +25,6 @@ const Page = () => {
 		onSuccess: (data) => {
 			console.log(data)
 			setMessage(data.message)
-			// toast.success(message)
-			// router.push("/reset-password")
 		},
 		onError: (error) => {
 			console.error(error)
@@ -49,7 +47,7 @@ const Page = () => {
 					<DialogDescription hidden></DialogDescription>
 					<Modal
 						icon={RiMailDownloadLine}
-						href=""
+						href="mailto:"
 						label="Password Recovery Link"
 						text="Go to my mail"
 						priority="default">

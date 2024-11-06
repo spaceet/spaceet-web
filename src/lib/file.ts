@@ -72,3 +72,31 @@ export const saveToFile = (file: Blob | File, fileName: string) => {
 	a.click()
 	URL.revokeObjectURL(url)
 }
+
+export const fileToImage = async (file: File) => {
+	if (!file) {
+		throw new Error("No file provided")
+	}
+
+	if (!file.type.startsWith("image/")) {
+		throw new Error("File must be an image")
+	}
+
+	return new Promise((resolve, reject) => {
+		const reader = new FileReader()
+
+		reader.onload = () => {
+			if (typeof reader.result === "string") {
+				resolve(reader.result)
+			} else {
+				reject(new Error("Failed to convert file to base64"))
+			}
+		}
+
+		reader.onerror = () => {
+			reject(new Error("Error reading file"))
+		}
+
+		reader.readAsDataURL(file)
+	})
+}

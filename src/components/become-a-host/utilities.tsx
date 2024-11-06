@@ -1,25 +1,20 @@
 import { RiArrowLeftSLine, RiArrowRightDoubleLine, RiCloseLine } from "@remixicon/react"
 import { animated, useSpring } from "@react-spring/web"
-import { motion } from "framer-motion"
 import { useQuery } from "@tanstack/react-query"
+import { motion } from "framer-motion"
 import { useFormik } from "formik"
 import Link from "next/link"
 import React from "react"
 
+import { AmenitiesIconName, AmenityClassProps, AmenityProps, ComponentUpdateProps } from "@/types"
 import { capitalizeWords, fromKebabCase, toKebabCase } from "@/lib"
-import { springs, stagger } from "@/config"
-import { AmenitiesIconName, ComponentUpdateProps } from "@/types"
-import { UtilitiesFormProps } from "./form-components"
 import { FadeTransition, Icon, Seo } from "../shared"
-import { usable_amenities_list } from "@/config"
 import { GetAllAmenitiesQuery } from "@/queries"
+import { useCreateHostStore } from "./store"
+import { springs, stagger } from "@/config"
 import { Button } from "../ui/button"
 import { Label } from "../ui/label"
 import { toast } from "sonner"
-
-const initialValues: UtilitiesFormProps = {
-	utilities: [],
-}
 
 const Page = ({
 	active,
@@ -33,11 +28,18 @@ const Page = ({
 	totalItems,
 	width,
 }: ComponentUpdateProps) => {
-	const [utilities, setUtilities] = React.useState<AmenitiesIconName[]>([])
+	const { setUtilities: setStoreUtilities, utilities: storeUtilities } = useCreateHostStore()
+	const [utilities, setUtilities] = React.useState<string[]>([])
 	const { handleSubmit, setFieldValue, values } = useFormik({
-		initialValues,
+		initialValues: {
+			utilities: storeUtilities.utilities,
+		},
 		onSubmit: (values) => {
-			console.log(values)
+			if (!values.utilities.length) {
+				toast.error("Please select at least one utility!")
+				return
+			}
+			setStoreUtilities(values)
 			handleNext()
 		},
 	})
@@ -45,10 +47,28 @@ const Page = ({
 	const springHeader = useSpring(springs.slide("right"))
 	const springChild = useSpring(springs.slide("up"))
 
-	const {} = useQuery({
-		queryFn: () => GetAllAmenitiesQuery({}),
+	const { data } = useQuery({
+		queryFn: () => GetAllAmenitiesQuery({ limit: 100, page: 1 }),
 		queryKey: ["get-amenities"],
 	})
+
+	const amenities: AmenityClassProps[] = React.useMemo(() => {
+		if (!data) return []
+		const basic: AmenityProps[] = []
+		const special: AmenityProps[] = []
+		data.data.data.forEach((amenity) => {
+			if (amenity.type === "BASIC") {
+				basic.push(amenity)
+			} else if (amenity.type === "SPECIAL") {
+				special.push(amenity)
+			}
+		})
+		const agg = [
+			{ amenityClass: "BASIC", amenities: basic },
+			{ amenityClass: "SPECIAL", amenities: special },
+		]
+		return agg
+	}, [data])
 
 	const toggleUtility = (utility: AmenitiesIconName) => {
 		const utilities = values.utilities
@@ -98,12 +118,12 @@ const Page = ({
 				<FadeTransition className="mb-40 mt-[72px] grid w-full place-items-center">
 					<div className="grid h-[calc(100vh-209px)] w-full grid-cols-3">
 						<div className="w-full">
-							<div className="flex w-[329px] flex-col gap-4">
+							<div className="flex w-full flex-col gap-4 lg:w-[329px]">
 								<button onClick={handlePrev} className="flex items-center font-semibold">
 									<RiArrowLeftSLine size={20} />
 									Back
 								</button>
-								<animated.p style={{ ...springHeader }} className="text-4xl font-semibold">
+								<animated.p style={{ ...springHeader }} className="text-2xl font-semibold lg:text-4xl">
 									{label}
 								</animated.p>
 								<animated.p style={{ ...springChild }} className="text-sm text-neutral-500">
@@ -137,23 +157,26 @@ const Page = ({
 								</p>
 							</div>
 							<div className="flex w-full flex-col gap-4 rounded-xl border p-6">
-								{usable_amenities_list.map((amenities) => (
-									<div key={amenities.class} className="flex w-full flex-col gap-5">
-										<Label htmlFor="utilities">{amenities.class}</Label>
+								{amenities.map((amenity) => (
+									<div key={amenity.amenityClass} className="flex w-full flex-col gap-5">
+										<Label htmlFor="utilities" className="capitalize">
+											{amenity.amenityClass}
+										</Label>
 										<div className="flex w-full flex-wrap gap-2">
-											{amenities.amenities_list.map(({ name, icon }) => (
+											{amenity.amenities.map(({ name, id }) => (
 												<Button
 													type="button"
-													onClick={() => toggleUtility(icon)}
+													onClick={() => toggleUtility(id)}
 													key={name}
 													variant="outline"
-													className={`transition-all duration-500 ${isUtilitySelected(icon) ? "bg-warning-100 text-warning-300" : "text-neutral-400"}`}>
-													<Icon name={icon} size={20} /> {name}
+													className={`capitalize transition-all duration-500 ${isUtilitySelected(id) ? "bg-warning-100 text-warning-300" : "text-neutral-400"}`}>
+													<Icon name={toKebabCase(name)} size={20} /> {name}
 												</Button>
 											))}
 										</div>
 									</div>
 								))}
+
 								<div className="flex w-full flex-col gap-5">
 									<Label htmlFor="utilities">Other Utilities</Label>
 									<div className="relative flex h-[120px] w-full flex-wrap gap-2 overflow-y-auto rounded-lg border px-3 py-2">

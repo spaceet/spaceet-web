@@ -20,8 +20,8 @@ const Page = ({
 	return (
 		<>
 			<Seo title="Become a Host" />
-			<FadeTransition className="grid h-full w-full place-items-center">
-				<div className="grid w-full grid-cols-2">
+			<FadeTransition className="mb-28 mt-[72px] grid w-full place-items-center">
+				<div className="grid w-full grid-cols-1 px-4 lg:grid-cols-2 lg:px-0">
 					<div className="w-full">
 						<div className="flex w-[329px] flex-col gap-6">
 							<motion.div className="relative aspect-square w-[120px]">
@@ -36,7 +36,7 @@ const Page = ({
 							<motion.p {...header} className="text-4xl font-semibold">
 								Welcome to Spaceet for Host
 							</motion.p>
-							<motion.p className="text-sm text-neutral-500">
+							<motion.p key="paragraph" className="text-sm text-neutral-500">
 								Things to get started. Read our{" "}
 								<Link href="/help-center" className="underline">
 									policy

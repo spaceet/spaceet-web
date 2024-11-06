@@ -1,4 +1,5 @@
 export const apartment_types = [
+	"all",
 	"bungalow",
 	"condo",
 	"detached",
@@ -11,22 +12,32 @@ export const apartment_types = [
 export const proofOfOwnership = [
 	{
 		label: "Certificate of Occupancy (C of O)",
-		value: "certificateOfOccupancy",
+		value: "CERTIFICATE_OF_OCCUPANCY",
 	},
 	{
 		label: "Registered Deed of Assignment",
-		value: "registeredDeedOfAssignment",
+		value: "REGISTERED_DEED_OF_ASSIGNMENT",
 	},
 	{
 		label: "Government Allocation Letter",
-		value: "governmentAllocationLetter",
+		value: "GOVERNMENT_ALLOCATION_LETTER",
 	},
 	{
 		label: "Gift Deed",
-		value: "giftDeed",
+		value: "GIFT_DEED",
 	},
 	{
 		label: "Court Judgment",
-		value: "courtJudgment",
+		value: "COURT_JUDGEMENT",
+	},
+	{
+		label: "Electricity  Bill",
+		value: "ELECTRICITY_BILL",
+	},
+	{
+		label: "Waste Bill",
+		value: "WASTE_BILL",
 	},
 ]
+
+export type ProofOfOwnershipProps = (typeof proofOfOwnership)[number]["value"] | (string & {})

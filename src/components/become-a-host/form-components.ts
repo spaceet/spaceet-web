@@ -1,35 +1,42 @@
-import { AmenitiesIconName, ApartmentType } from "@/types"
+import { ProofOfOwnershipProps } from "@/config"
+import { ApartmentType } from "@/types"
+
+export const identification_types = [
+	"BVN",
+	"DRIVERS_LICENSE",
+	"INTERNATIONAL_PASSPORT",
+	"NIN",
+	"VOTERS_CARD",
+] as const
+export type IdentificationTypeProps = (typeof identification_types)[number]
 
 export type ProfileFormProps = {
 	address: string
 	bio: string
 	city: string
 	first_name: string
-	image: File | null
+	profile_image: File | null
 	last_name: string
-	phoneNumber: string
+	phone_number: string
 	state: string
 }
 
 export type IdentityFormProps = {
-	idExpiry: string
-	idImages: File[]
-	idNumber: string
-	idType:
-		| "bankVerificationNumber"
-		| "driversLicense"
-		| "internationlPassport"
-		| "nationalIdentificationNumber"
-		| "permanentVotersCard"
-		| (string & {})
+	identification_expiry_date: string
+	identification_number: string
+	identification_type: IdentificationTypeProps
+	images: File[]
 }
 
 export type PropertyFormProps = {
 	address: string
 	bedrooms: number
 	bathrooms: number
+	cleaningFee: number
 	city: string
 	description: string
+	latitude: number
+	longitude: number
 	name: string
 	price: number
 	propertyType: ApartmentType
@@ -44,11 +51,11 @@ export type UploadFormProps = {
 
 export type DocumentFormProps = {
 	documentImages: File[]
-	documentType: string
+	documentType: ProofOfOwnershipProps
 }
 
 export type UtilitiesFormProps = {
-	utilities: AmenitiesIconName[]
+	utilities: string[]
 }
 
 export type RulesFormProps = {
@@ -64,7 +71,5 @@ export type RulesFormProps = {
 }
 
 export type CancellationFormProps = {
-	refundable: boolean
-	refundableUntil: string
-	refundableUntilType: string
+	cancellation_and_repayment_conditions: string
 }

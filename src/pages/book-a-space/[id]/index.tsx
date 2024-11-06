@@ -9,11 +9,12 @@ import Image from "next/image"
 import Link from "next/link"
 import React from "react"
 
-import { Appbar, Footer, Rating, Seo } from "@/components/shared"
+import { Appbar, Footer, Rating, Seo, Spinner } from "@/components/shared"
 import { Avatar, AvatarImage } from "@/components/ui/avatar"
 import { Checkbox } from "@/components/ui/checkbox"
 import { NotFound } from "@/components/layouts"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import { formatCurrency } from "@/lib"
 import {
 	Dialog,
@@ -22,13 +23,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog"
-import {
-	GenerateLinkDto,
-	GeneratePaymentLink,
-	GetPropertyQuery,
-	GetPricingQuery,
-	ReservationDto,
-} from "@/queries"
+import { GenerateLinkDto, GeneratePaymentLink, GetPropertyQuery, GetPricingQuery } from "@/queries"
 
 const payment_methods = ["debit card", "bank transfer"] as const
 type PaymentMethod = (typeof payment_methods)[number] | (string & {})
@@ -40,8 +35,9 @@ const Page = () => {
 
 	const router = useRouter()
 	const { check_in, check_out, guests, id } = router.query
+	const minimumCheckInDate = addDays(new Date(), 7).toISOString().split("T")[0]
 
-	const {} = useMutation({
+	const { isPending, mutateAsync: generatePaymentLink } = useMutation({
 		mutationFn: (payload: GenerateLinkDto) => GeneratePaymentLink(payload),
 		mutationKey: ["generate-payment-link"],
 		onSuccess: (data) => {
@@ -52,7 +48,7 @@ const Page = () => {
 		},
 	})
 
-	const [{ data: apartment }, { data: pricing }] = useQueries({
+	const [{ data: apartment }, { data: pricing, refetch: refetchPricing }] = useQueries({
 		queries: [
 			{
 				queryFn: () => GetPropertyQuery(String(id)),
@@ -72,34 +68,57 @@ const Page = () => {
 		],
 	})
 
-	const handleReservation = () => {
-		if (paymentMethod === null) {
-			toast.error("Please select a payment method")
-			return
-		}
+	const handleGeneratePaymentLink = async () => {
 		if (!agreed) {
 			toast.error("Please agree to the terms and conditions")
 			return
 		}
-		const payload: ReservationDto = {
-			apartment_id: String(id),
-			checkin_date: formatDate(String(check_in), "MM/dd/yyyy"),
-			checkout_date: formatDate(String(check_out), "MM/dd/yyyy"),
-			payment_method: paymentMethod === "debit card" ? "CARD" : "TRANSFER",
-			t_and_c_agreed: agreed ? "YES" : "NO",
-			description: "",
+		if (paymentMethod === null) {
+			toast.error("Please select a payment method")
+			return
 		}
-		console.log(payload)
+		let payload: GenerateLinkDto
+		if (paymentMethod === "debit card") {
+			payload = {
+				amount: Number(pricing?.data.final_price) ?? 0,
+				card_id: "",
+				narration_id: "",
+				narration: "RESERVATION",
+				payment_type: "CARD",
+			}
+		} else {
+			payload = {
+				amount: Number(pricing?.data.final_price) ?? 0,
+				payment_type: "TRANSFER",
+				narration_id: "",
+				narration: "RESERVATION",
+			}
+		}
+		generatePaymentLink(payload)
 	}
 
-	const { values } = useFormik({
+	const { handleChange, handleSubmit, values } = useFormik({
 		initialValues: {
 			check_in: String(check_in),
 			check_out: String(check_out),
 			guests: Number(guests),
 		},
 		onSubmit: (values) => {
-			console.log(values)
+			router.push(
+				{
+					pathname: router.pathname,
+					query: {
+						...router.query,
+						check_in: values.check_in,
+						check_out: values.check_out,
+						guests: values.guests,
+					},
+				},
+				undefined,
+				{ shallow: true }
+			)
+			setOpen(false)
+			refetchPricing()
 		},
 	})
 
@@ -118,7 +137,7 @@ const Page = () => {
 				</div>
 				<div className="grid w-full grid-cols-1 gap-8 lg:grid-cols-3">
 					<div className="col-span-2 flex w-full flex-col gap-8">
-						<div className="flex w-full items-center gap-4 rounded-2xl border p-6">
+						<div className="flex w-full flex-col items-center gap-4 rounded-2xl border p-6 lg:flex-row">
 							<div className="relative h-[173px] w-[334px]">
 								<Image
 									src={apartment.data.cover_photo ?? apartment.data.images[0]}
@@ -128,8 +147,8 @@ const Page = () => {
 									className="rounded-md object-cover"
 								/>
 							</div>
-							<div className="flex flex-col gap-3">
-								<div className="flex items-center gap-4">
+							<div className="flex w-full flex-1 flex-col gap-3">
+								<div className="flex w-full items-center justify-between gap-4 lg:justify-start">
 									<p className="font-semibold capitalize lg:text-xl">
 										{apartment.data.city}, {apartment.data.state}
 									</p>
@@ -213,15 +232,13 @@ const Page = () => {
 							<div className="flex items-center gap-4">
 								<Avatar className="size-16">
 									<AvatarImage
-										src={apartment.data.host.profile_image}
-										alt={apartment.data.host.first_name}
+										src={apartment.data.host.profile_image ?? ""}
+										alt={apartment.data.host.full_name}
 										className="object-cover"
 									/>
 								</Avatar>
 								<div className="">
-									<p className="font-medium">
-										{apartment.data.host.first_name} {apartment.data.host.last_name}
-									</p>
+									<p className="font-medium">{apartment.data.host.full_name}</p>
 									<p className="text-neutral-400 lg:text-sm">
 										Host • Joined since {new Date(apartment.data.host.createdOn).getFullYear()}
 									</p>
@@ -274,7 +291,44 @@ const Page = () => {
 								<DialogContent className="w-full max-w-[400px]">
 									<DialogTitle>Edit reservation</DialogTitle>
 									<DialogDescription hidden></DialogDescription>
-									<div className="min-h-[200px] w-full"></div>
+									<form onSubmit={handleSubmit} className="flex min-h-[200px] w-full flex-col gap-4">
+										<div className="flex w-full flex-col gap-4">
+											<div className="grid w-full grid-cols-2 gap-5">
+												<Input
+													label="Check In"
+													name="check_in"
+													onChange={handleChange}
+													type="date"
+													min={minimumCheckInDate}
+													innerClassName="rounded-3xl"
+													labelClassName="text-neutral-500 font-normal"
+												/>
+												<Input
+													label="Check Out"
+													name="check_out"
+													onChange={handleChange}
+													type="date"
+													min={values.check_in}
+													innerClassName="rounded-3xl"
+													disabled={values.check_in === ""}
+													labelClassName="text-neutral-500 font-normal"
+												/>
+											</div>
+											<Input
+												label="Guests"
+												name="guests"
+												onChange={handleChange}
+												type="number"
+												max={apartment.data.maximum_number_of_guests}
+												placeholder="2"
+												innerClassName="rounded-3xl"
+												labelClassName="text-neutral-500 font-normal"
+											/>
+										</div>
+										<Button type="submit" className="w-full rounded-3xl">
+											Update
+										</Button>
+									</form>
 								</DialogContent>
 							</Dialog>
 						</div>
@@ -336,8 +390,8 @@ const Page = () => {
 								by reserving this space.
 							</p>
 						</div>
-						<Button type="button" onClick={handleReservation} className="rounded-3xl">
-							Reserve
+						<Button type="button" onClick={handleGeneratePaymentLink} className="rounded-3xl">
+							{isPending ? <Spinner /> : "Reserve"}
 						</Button>
 					</div>
 				</div>

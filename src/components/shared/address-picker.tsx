@@ -10,6 +10,7 @@ import { Maps } from "./map"
 interface Props {
 	address: string
 	onValueChange: (address: string) => void
+	onPositionChange?: (lat: number, lng: number) => void
 }
 
 type MapboxGeoJsonResponse = {
@@ -18,7 +19,7 @@ type MapboxGeoJsonResponse = {
 	type: string
 }
 
-export const AddressPicker = ({ address, onValueChange }: Props) => {
+export const AddressPicker = ({ address, onValueChange, onPositionChange }: Props) => {
 	const [suggestions, setSuggestions] = React.useState<MapboxSuggestion[]>([])
 	const [coordinates, setCoordinates] = React.useState<[number, number]>([0, 0])
 	const [isUserInput, setIsUserInput] = React.useState(false)
@@ -87,10 +88,11 @@ export const AddressPicker = ({ address, onValueChange }: Props) => {
 	}, [geojson, isUserInput])
 
 	const handleSelect = (suggestion: MapboxSuggestion) => {
-		const { coordinates, namePreferred, placeFormatted } = suggestion
+		const { coordinates, namePreferred } = suggestion
 		setCoordinates([coordinates.longitude, coordinates.latitude])
-		setQuery(placeFormatted || namePreferred)
-		onValueChange(placeFormatted || namePreferred)
+		setQuery(namePreferred)
+		onValueChange(namePreferred)
+		onPositionChange?.(coordinates.latitude, coordinates.longitude)
 		setSuggestions([])
 		setIsUserInput(false)
 	}

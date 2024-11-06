@@ -1,6 +1,9 @@
+import { IdentityFormProps, ProfileFormProps } from "@/components/become-a-host/form-components"
 import { HttpResponse, UserProps } from "@/types"
 import { endpoints } from "@/config"
 import { axios } from "@/lib"
+
+export type BecomeAHostDto = IdentityFormProps & ProfileFormProps
 
 export interface SignUpDto {
 	first_name: string
@@ -84,7 +87,34 @@ const GetUserByIdQuery = async (id: string) => {
 		})
 }
 
+const BecomeAHostMutation = async (payload: BecomeAHostDto) => {
+	console.log(payload.identification_expiry_date)
+	const formData = new FormData()
+	formData.append("address", payload.address)
+	formData.append("bio", payload.bio)
+	formData.append("city", payload.city)
+	formData.append("first_name", payload.first_name)
+	formData.append("identification_expiry_date", payload.identification_expiry_date)
+	formData.append("identification_number", payload.identification_number)
+	formData.append("identification_type", payload.identification_type)
+	for (let i = 0; i < payload.images.length; i++) {
+		if (payload.images[i]) {
+			formData.append("images", payload.images[i])
+		}
+	}
+	formData.append("last_name", payload.last_name)
+	formData.append("phone_number", payload.phone_number)
+	if (payload.profile_image) {
+		formData.append("profile_image", payload.profile_image)
+	}
+	formData.append("state", payload.state)
+	return axios
+		.post<HttpResponse<UserProps>>(endpoints().auth.become_a_host, formData)
+		.then((res) => res.data)
+}
+
 export {
+	BecomeAHostMutation,
 	ForgotPasswordMutation,
 	GetUserByIdQuery,
 	ResetPasswordMutation,
