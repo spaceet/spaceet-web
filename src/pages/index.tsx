@@ -80,7 +80,9 @@ const Page = () => {
 							<p className="text-xl">
 								With so many choices, you might just become a fan of any city - even your rivals.
 							</p>
-							<Button className="h-[52px] w-[210px]">Find Apartment</Button>
+							<Link href="/search">
+								<Button className="h-[52px] w-[210px]">Find Apartment</Button>
+							</Link>
 						</div>
 						<SearchWidget />
 					</div>

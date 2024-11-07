@@ -1,4 +1,4 @@
-import { differenceInDays } from "date-fns"
+import { differenceInDays, format } from "date-fns"
 import { motion } from "framer-motion"
 import { animated, useSpring } from "@react-spring/web"
 import { useFormik } from "formik"
@@ -13,13 +13,13 @@ import {
 } from "@remixicon/react"
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
+import { identityTypes, idNumberValidator, idTypesWithExpiry } from "./data"
 import { capitalizeWords, getFileExtension, getFileSizeInMb } from "@/lib"
-import { springs } from "@/config"
-import { DatePicker, FadeTransition, Seo } from "../shared"
-import { identityTypes, idTypesWithExpiry } from "./data"
+import { DatePicker, FadeTransition, Seo, Spinner } from "../shared"
 import { IdentityFormProps } from "./form-components"
-import { header, stagger } from "@/config"
+import { header, springs, stagger } from "@/config"
 import { ComponentUpdateProps } from "@/types"
+import { useCreateHostStore } from "./store"
 import { useDragAndDrop } from "@/hooks"
 import { Button } from "../ui/button"
 import { Label } from "../ui/label"
@@ -27,10 +27,10 @@ import { Input } from "../ui/input"
 
 const allowedExtensions = /jpeg|jpg|png|svg|webp/i
 const initialValues: IdentityFormProps = {
-	idExpiry: "",
-	idImages: [],
-	idType: "",
-	idNumber: "",
+	identification_expiry_date: "",
+	identification_number: "",
+	identification_type: "INTERNATIONAL_PASSPORT",
+	images: [],
 }
 
 const Page = ({
@@ -40,6 +40,7 @@ const Page = ({
 	handleGoTo,
 	handleNext,
 	handlePrev,
+	isLoading,
 	label,
 	subtitle,
 	totalItems,
@@ -49,42 +50,57 @@ const Page = ({
 	const { files, handleDragEnter, handleDragLeave, handleDragOver, handleDrop, isDragging } =
 		useDragAndDrop()
 
+	const { setIdentityVerification } = useCreateHostStore()
+
 	const handleClick = () => {
 		if (input.current) {
 			input.current.click()
 		}
 	}
 
-	// const springHeader = useSpring(springs.slide("right"))
 	const springChild = useSpring(springs.slide("up"))
 
 	const { handleChange, handleSubmit, setFieldValue, values } = useFormik({
 		initialValues,
 		onSubmit: (values) => {
 			handleNext()
-			if (!values.idType) {
+			if (!values.identification_type) {
 				toast.error("Please select an ID type")
 				return
 			}
-			if (!values.idNumber) {
+			if (!values.identification_number) {
 				toast.error("Please enter your ID number")
 				return
 			}
-			if (idTypesWithExpiry.includes(values.idType) && !values.idExpiry) {
+			if (
+				idTypesWithExpiry.includes(values.identification_type) &&
+				!values.identification_expiry_date
+			) {
 				toast.error("Please enter your ID expiry date")
 				return
 			}
-			if (values.idExpiry) {
-				if (differenceInDays(new Date(values.idExpiry), new Date()) < 90) {
+			const validator = idNumberValidator[values.identification_type]
+			if (!validator.pattern.test(values.identification_number)) {
+				toast.error(validator.message)
+				return
+			}
+			if (values.identification_expiry_date) {
+				if (differenceInDays(new Date(values.identification_expiry_date), new Date()) < 90) {
 					toast.error("Expiry date must be at least 90 days from today")
 					return
 				}
 			}
-			if (!values.idImages.length) {
+			if (!values.images.length) {
 				toast.error("Please upload your ID images")
 				return
 			}
-			console.log(values)
+			const payload = {
+				...values,
+				identification_expiry_date: values.identification_expiry_date
+					? format(new Date(values.identification_expiry_date), "MM/dd/yyyy")
+					: format(new Date(), "MM/dd/yyyy"),
+			}
+			setIdentityVerification(payload)
 			handleNext()
 		},
 	})
@@ -105,7 +121,7 @@ const Page = ({
 		})
 
 		if (validFiles.length > 0) {
-			setFieldValue("idImages", [...values.idImages, ...validFiles])
+			setFieldValue("images", [...values.images, ...validFiles])
 		}
 	}
 
@@ -116,8 +132,8 @@ const Page = ({
 	}
 
 	const removeImage = (file: File) => {
-		const updatedFiles = values.idImages.filter((image) => image !== file)
-		setFieldValue("idImages", updatedFiles)
+		const updatedFiles = values.images.filter((image) => image !== file)
+		setFieldValue("images", updatedFiles)
 	}
 
 	React.useEffect(() => {
@@ -128,11 +144,11 @@ const Page = ({
 	return (
 		<>
 			<Seo title={capitalizeWords(label)} description="Become a Host" />
-			<form onSubmit={handleSubmit} className="w-full">
-				<FadeTransition className="my-[72px] grid w-full place-items-center">
+			<form onSubmit={handleSubmit} className="mb-36 mt-[72px] w-full">
+				<FadeTransition className="grid w-full place-items-center">
 					<div className="mx-auto flex h-full items-start gap-[54px]">
-						<div className="w-[300px]">
-							<div className="flex w-[329px] flex-col gap-4">
+						<div className="w-full lg:w-[300px]">
+							<div className="flex w-full flex-col gap-4 lg:w-[329px]">
 								<button onClick={handlePrev} className="flex items-center font-semibold">
 									<RiArrowLeftSLine size={20} />
 									Back
@@ -164,8 +180,10 @@ const Page = ({
 						</div>
 						<div className="flex h-full w-[600px] flex-col gap-6 rounded-2xl border p-6">
 							<div className="flex w-full flex-col gap-1">
-								<Label htmlFor="idType">Verify your identity</Label>
-								<Select value={values.idType} onValueChange={(value) => setFieldValue("idType", value)}>
+								<Label htmlFor="identification_type">Verify your identity</Label>
+								<Select
+									value={values.identification_type}
+									onValueChange={(value) => setFieldValue("identification_type", value)}>
 									<SelectTrigger className="w-full">
 										<SelectValue placeholder="Select an option" />
 									</SelectTrigger>
@@ -180,31 +198,32 @@ const Page = ({
 							</div>
 							<Input
 								type="text"
-								name="idNumber"
+								name="identification_number"
 								label="Enter ID Number"
 								placeholder="ID Number"
 								inputMode="numeric"
 								onChange={handleChange}
 								required
 							/>
-							{(values.idType === "internationlPassport" || values.idType === "driversLicense") && (
+							{(values.identification_type === "INTERNATIONAL_PASSPORT" ||
+								values.identification_type === "DRIVERS_LICENSE") && (
 								<DatePicker
-									date={values.idExpiry}
-									setDate={(date) => setFieldValue("idExpiry", date)}
-									name="idExpiry"
+									date={values.identification_expiry_date}
+									setDate={(date) => setFieldValue("identification_expiry_date", date)}
+									name="identification_expiry_date"
 									label="Expiry Date"
 									required
 								/>
 							)}
 							<div className="flex w-full flex-col gap-1">
-								<Label htmlFor="idImages">Upload Document</Label>
+								<Label htmlFor="images">Upload Document</Label>
 								<div className="flex w-full flex-col gap-3">
 									<div className="flex w-full items-center gap-2 rounded-md bg-primary-50 px-4 py-3 text-primary-200">
 										<RiAlertFill size={20} />
 										<p>Please upload the front and back image of your passport</p>
 									</div>
 									<label
-										htmlFor="idImages"
+										htmlFor="images"
 										onDragEnter={handleDragEnter}
 										onDragOver={handleDragOver}
 										onDragLeave={handleDragLeave}
@@ -215,8 +234,8 @@ const Page = ({
 											ref={input}
 											onChange={handleImages}
 											type="file"
-											id="idImages"
-											name="idImages"
+											id="images"
+											name="images"
 											accept="image/*"
 											className="hidden"
 											multiple
@@ -238,7 +257,7 @@ const Page = ({
 										)}
 									</label>
 									<div className="flex w-full flex-col gap-3">
-										{values.idImages.map((file, index) => (
+										{values.images.map((file, index) => (
 											<div
 												key={index}
 												className="flex w-full items-center gap-3 rounded-md border px-3 py-[10px]">
@@ -277,7 +296,7 @@ const Page = ({
 										Go to Dashboard <RiArrowRightDoubleLine size={20} />
 									</span>
 								) : (
-									"Next"
+									<>{isLoading ? <Spinner /> : "Next"}</>
 								)}
 							</Button>
 						</div>

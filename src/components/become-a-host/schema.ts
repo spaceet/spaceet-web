@@ -8,6 +8,7 @@ import {
 	PropertyFormProps,
 	RulesFormProps,
 	UploadFormProps,
+	identification_types,
 } from "./form-components"
 
 export const DocumentValidationSchema: Yup.ObjectSchema<DocumentFormProps> = Yup.object({
@@ -20,13 +21,15 @@ export const DocumentValidationSchema: Yup.ObjectSchema<DocumentFormProps> = Yup
 })
 
 export const IdentityValidationSchema: Yup.ObjectSchema<IdentityFormProps> = Yup.object({
-	idExpiry: Yup.string().required("Please enter your ID expiry date!"),
-	idImages: Yup.array()
+	identification_expiry_date: Yup.string().required("Please enter your ID expiry date!"),
+	identification_number: Yup.string().required("Please enter your ID number!"),
+	identification_type: Yup.string()
+		.oneOf(identification_types, undefined)
+		.required("Please select your ID type!"),
+	images: Yup.array()
 		.of(Yup.mixed<File>().defined())
 		.required("Please upload at least 2 images!")
 		.min(2, "Please upload at least 2 images!"),
-	idNumber: Yup.string().required("Please enter your ID number!"),
-	idType: Yup.string().required("Please select your ID type!"),
 })
 
 export const ProfileValidationSchema: Yup.ObjectSchema<ProfileFormProps> = Yup.object({
@@ -34,14 +37,14 @@ export const ProfileValidationSchema: Yup.ObjectSchema<ProfileFormProps> = Yup.o
 	bio: Yup.string().required("Please enter your bio!"),
 	city: Yup.string().required("Please select your city of residency!"),
 	first_name: Yup.string().required("Please enter your first name!"),
-	image: Yup.mixed<File>().defined("Please select a profile photo!"),
 	last_name: Yup.string().required("Please enter your last name!"),
-	phoneNumber: Yup.string()
+	phone_number: Yup.string()
 		.required("Please enter your phone number!")
 		.matches(
 			/^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/,
 			"Please enter a valid phone number!"
 		),
+	profile_image: Yup.mixed<File>().defined("Please select a profile photo!"),
 	state: Yup.string().required("Please select your state of residency!"),
 })
 
@@ -53,8 +56,11 @@ export const PropertyValidationSchema: Yup.ObjectSchema<PropertyFormProps> = Yup
 	bedrooms: Yup.number()
 		.required("Please enter the number of bedrooms!")
 		.min(1, "Please enter a valid number!"),
+	cleaningFee: Yup.number().required("Please enter the cleaning fee!"),
 	city: Yup.string().required("Please select the city of the property!"),
 	description: Yup.string().required("Please enter the property description!"),
+	latitude: Yup.number().required(),
+	longitude: Yup.number().required(),
 	name: Yup.string().required("Please enter the property title!"),
 	price: Yup.number().required("Please enter the price per night!"),
 	propertyType: Yup.string()

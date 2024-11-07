@@ -6,18 +6,15 @@ import { toast } from "sonner"
 import Link from "next/link"
 import React from "react"
 
-import { springs, stagger } from "@/config"
 import { capitalizeWords, getFileExtension, getFileSize, getImageDimensions } from "@/lib"
 import { FadeTransition, ImagePicker, Seo } from "../shared"
-import { UploadFormProps } from "./form-components"
 import { ComponentUpdateProps } from "@/types"
+import { useCreateHostStore } from "./store"
+import { springs, stagger } from "@/config"
 import { Button } from "../ui/button"
 import { Label } from "../ui/label"
 
 const allowedExtensions = /jpeg|jpg|png|svg|webp/i
-const initialValues: UploadFormProps = {
-	images: [],
-}
 
 const Page = ({
 	active,
@@ -31,10 +28,16 @@ const Page = ({
 	totalItems,
 	width,
 }: ComponentUpdateProps) => {
+	const { setUploadPhotos, uploadPhotos } = useCreateHostStore()
+
 	const { handleSubmit, setFieldValue, values } = useFormik({
-		initialValues,
+		initialValues: { images: uploadPhotos.images },
 		onSubmit: async (values) => {
-			console.log(values)
+			if (!values.images.length) {
+				toast.error("Please select at least one image!")
+				return
+			}
+			setUploadPhotos(values)
 			handleNext()
 		},
 	})
@@ -87,12 +90,12 @@ const Page = ({
 				<FadeTransition className="mb-40 mt-[72px] grid w-full place-items-center">
 					<div className="grid w-full grid-cols-3">
 						<div className="w-full">
-							<div className="flex w-[329px] flex-col gap-4">
+							<div className="flex w-full flex-col gap-4 lg:w-[329px]">
 								<button onClick={handlePrev} className="flex items-center font-semibold">
 									<RiArrowLeftSLine size={20} />
 									Back
 								</button>
-								<animated.p style={{ ...springHeader }} className="text-4xl font-semibold">
+								<animated.p style={{ ...springHeader }} className="text-2xl font-semibold lg:text-4xl">
 									{label}
 								</animated.p>
 								<animated.p style={{ ...springChild }} className="text-sm text-neutral-500">

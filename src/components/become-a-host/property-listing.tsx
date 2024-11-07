@@ -1,35 +1,24 @@
 import { RiArrowLeftSLine, RiArrowRightDoubleLine } from "@remixicon/react"
 import { animated, useSpring } from "@react-spring/web"
+import { useQuery } from "@tanstack/react-query"
 import { motion } from "framer-motion"
 import { useFormik } from "formik"
+import { toast } from "sonner"
 import Link from "next/link"
 import React from "react"
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
 import { AddressPicker, FadeTransition, Seo } from "../shared"
+import { springs, stagger, statesAndLgas } from "@/config"
 import { PropertyFormProps } from "./form-components"
+import { GetPropertyTypesQuery } from "@/queries"
 import { ComponentUpdateProps } from "@/types"
-import { apartment_types, statesAndLgas } from "@/config"
-import { springs, stagger } from "@/config"
+import { useCreateHostStore } from "./store"
 import { Textarea } from "../ui/textarea"
 import { capitalizeWords } from "@/lib"
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
-
-const initialValues: PropertyFormProps = {
-	address: "",
-	bedrooms: 0,
-	bathrooms: 0,
-	city: "",
-	description: "",
-	name: "",
-	price: 0,
-	propertyType: "",
-	serviceCharge: 0,
-	state: "",
-	postalCode: "",
-}
 
 const Page = ({
 	active,
@@ -43,10 +32,71 @@ const Page = ({
 	totalItems,
 	width,
 }: ComponentUpdateProps) => {
+	const { propertyDetails, setPropertyDetails } = useCreateHostStore()
+
+	const { data } = useQuery({
+		queryFn: () => GetPropertyTypesQuery(),
+		queryKey: ["get-apartment-types"],
+	})
+
+	const apartmentTypes = React.useMemo(() => {
+		if (!data) return []
+		return data.data
+	}, [data])
+
+	const initialValues: PropertyFormProps = {
+		address: propertyDetails.address || "",
+		bathrooms: propertyDetails.bathrooms || 0,
+		bedrooms: propertyDetails.bedrooms || 0,
+		city: propertyDetails.city || "",
+		cleaningFee: propertyDetails.cleaningFee || 0,
+		description: propertyDetails.description || "",
+		latitude: propertyDetails.latitude || 0,
+		longitude: propertyDetails.longitude || 0,
+		name: propertyDetails.name || "",
+		price: propertyDetails.price || 0,
+		propertyType: propertyDetails.propertyType || "",
+		serviceCharge: propertyDetails.serviceCharge || 0,
+		state: propertyDetails.state || "",
+		postalCode: propertyDetails.postalCode || "",
+	}
+
 	const { handleChange, handleSubmit, setFieldValue, values } = useFormik({
 		initialValues,
 		onSubmit: (values) => {
-			console.log(values)
+			if (!values.name) {
+				toast.error("Please enter a property name")
+				return
+			}
+			if (!values.description) {
+				toast.error("Please enter the property description")
+				return
+			}
+			if (!values.address || !values.state || !values.city) {
+				toast.error("Please enter the full address of the property, including city and state")
+				return
+			}
+			if (!values.price) {
+				toast.error("Please enter the price per night")
+				return
+			}
+			if (!values.propertyType) {
+				toast.error("Please select the type of property")
+				return
+			}
+			if (!values.serviceCharge) {
+				toast.error("Please enter the service charge")
+				return
+			}
+			if (!values.bedrooms) {
+				toast.error("Please enter the number of bedrooms")
+				return
+			}
+			if (!values.bathrooms) {
+				toast.error("Please enter the number of bathrooms")
+				return
+			}
+			setPropertyDetails(values)
 			handleNext()
 		},
 	})
@@ -69,12 +119,12 @@ const Page = ({
 			<form onSubmit={handleSubmit} className="w-full">
 				<FadeTransition className="my-[72px] grid w-full place-items-center">
 					<div className="grid w-full grid-cols-3">
-						<div className="flex w-[329px] flex-col gap-4">
+						<div className="flex w-full flex-col gap-4 lg:w-[329px]">
 							<button onClick={handlePrev} className="flex items-center font-semibold">
 								<RiArrowLeftSLine size={20} />
 								Back
 							</button>
-							<animated.p style={{ ...springHeader }} className="text-4xl font-semibold">
+							<animated.p style={{ ...springHeader }} className="text-2xl font-semibold lg:text-4xl">
 								{label}
 							</animated.p>
 							<animated.p style={{ ...springChild }} className="text-sm text-neutral-500">
@@ -124,9 +174,9 @@ const Page = ({
 												<SelectValue placeholder="Duplex" />
 											</SelectTrigger>
 											<SelectContent className="capitalize">
-												{apartment_types.map((type) => (
-													<SelectItem key={type} value={type}>
-														{type}
+												{apartmentTypes.map((type, index) => (
+													<SelectItem key={index} value={type.name}>
+														{type.name}
 													</SelectItem>
 												))}
 											</SelectContent>
@@ -191,7 +241,6 @@ const Page = ({
 										onChange={handleChange}
 										label="Service Charge"
 										placeholder="1000"
-										readOnly
 										required
 									/>
 								</div>
@@ -200,6 +249,10 @@ const Page = ({
 									<AddressPicker
 										address={values.address}
 										onValueChange={(address) => setFieldValue("address", address)}
+										onPositionChange={(lat, lng) => {
+											setFieldValue("latitude", lat)
+											setFieldValue("longitude", lng)
+										}}
 									/>
 								</div>
 								<div className="grid w-full grid-cols-2 gap-4">

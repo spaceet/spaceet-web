@@ -17,10 +17,12 @@ const endpoints = (id?: Maybe<string>) => {
 		get_all: `/apartment/fetch`,
 		get_by_location: `/apartment/location}`,
 		get_one: `/apartment/view/${id}`,
+		get_user_apartments: `/apartment/get-my-apartments`,
 		search: `/apartment/search`,
-		create: `/apartment`,
+		create: `/apartment/create`,
 		update: `/apartment/${id}`,
 		delete: `/apartment/${id}`,
+		types: `/apartment/get-types`,
 	}
 
 	const auth = {
@@ -56,6 +58,7 @@ const endpoints = (id?: Maybe<string>) => {
 	}
 
 	const reservations = {
+		get_hosts: `/reservation/for-host`,
 		get_all: `/reservation/get-my-reservations`,
 		get_one: `/reservation/${id}`,
 		create: `/reservation/create`,

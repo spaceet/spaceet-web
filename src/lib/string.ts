@@ -63,3 +63,10 @@ export const createFlagEmoji = (code: string) => {
 		.map((char) => 127397 + char.charCodeAt(0))
 	return String.fromCodePoint(...codePoints)
 }
+
+export const makeNullish = <T extends string | number>(value: T) => {
+	if (value === "" || value === null || value === undefined || value === 0) {
+		return null
+	}
+	return value
+}

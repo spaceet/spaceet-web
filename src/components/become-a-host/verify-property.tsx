@@ -8,19 +8,13 @@ import React from "react"
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
 import { capitalizeWords, getFileExtension, getFileSizeInMb } from "@/lib"
-import { springs, stagger } from "@/config"
-import { DocumentFormProps } from "./form-components"
+import { proofOfOwnership, springs, stagger } from "@/config"
 import { FadeTransition, Seo } from "../shared"
 import { ComponentUpdateProps } from "@/types"
-import { proofOfOwnership } from "@/config"
+import { useCreateHostStore } from "./store"
 import { useDragAndDrop } from "@/hooks"
 import { Button } from "../ui/button"
 import { Label } from "../ui/label"
-
-const initialValues: DocumentFormProps = {
-	documentImages: [],
-	documentType: "",
-}
 
 const allowedExtensions = /jpeg|jpg|png|svg|webp/i
 
@@ -36,6 +30,7 @@ const Page = ({
 	totalItems,
 	width,
 }: ComponentUpdateProps) => {
+	const { setVerifyProperty, verifyProperty } = useCreateHostStore()
 	const input = React.useRef<HTMLInputElement>(null)!
 	const { files, handleDragEnter, handleDragLeave, handleDragOver, handleDrop, isDragging } =
 		useDragAndDrop()
@@ -50,9 +45,19 @@ const Page = ({
 	const springChild = useSpring(springs.slide("up"))
 
 	const { handleSubmit, setFieldValue, values } = useFormik({
-		initialValues,
+		initialValues: {
+			documentImages: verifyProperty.documentImages,
+			documentType: verifyProperty.documentType,
+		},
 		onSubmit: (values) => {
-			console.log(values)
+			if (!values.documentType) {
+				toast.error("Please select the type of property verification document!")
+			}
+			if (!values.documentImages.length) {
+				toast.error("Please upload an image of the property verification document!")
+				return
+			}
+			setVerifyProperty(values)
 			handleNext()
 		},
 	})
@@ -73,7 +78,7 @@ const Page = ({
 		})
 
 		if (validFiles.length > 0) {
-			setFieldValue(".documentImages", [...values.documentImages, ...validFiles])
+			setFieldValue("documentImages", [...values.documentImages, ...validFiles])
 		}
 	}
 
@@ -100,12 +105,12 @@ const Page = ({
 				<FadeTransition className="my-[72px] grid w-full place-items-center">
 					<div className="grid h-[calc(100vh-209px)] w-full grid-cols-3">
 						<div className="w-full">
-							<div className="flex w-[329px] flex-col gap-4">
+							<div className="flex w-full flex-col gap-4 lg:w-[329px]">
 								<button onClick={handlePrev} className="flex items-center font-semibold">
 									<RiArrowLeftSLine size={20} />
 									Back
 								</button>
-								<animated.p style={{ ...springHeader }} className="text-4xl font-semibold">
+								<animated.p style={{ ...springHeader }} className="text-2xl font-semibold lg:text-4xl">
 									{label}
 								</animated.p>
 								<animated.p style={{ ...springChild }} className="text-sm text-neutral-500">

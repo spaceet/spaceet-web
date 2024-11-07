@@ -81,6 +81,7 @@ export type UserProps = Node & {
 	email: string
 	first_name: string
 	full_name: string
+	images: string[]
 	isVerified: boolean
 	last_name: string
 	location: Maybe<string>
@@ -145,24 +146,46 @@ export type ApartmentsProps = Node & {
 	hostId: string
 }
 
+export type HostApartmentProps = Node & {
+	__typename?: "HostApartment"
+	address: string
+	amenities: AmenityProps[]
+	description: string
+	city: string
+	country: string
+	current_location: string
+	hostId: string
+	id: string
+	images: string[]
+	maximum_number_of_guests: number
+	name: string
+	number_of_bathrooms: number
+	state: string
+	status: "DRAFT" | "RESERVED" | "VACANT"
+	type: string
+}
+
+export type ApartmentTypeProps = {
+	name: string
+	description: string
+}
+
 export type AmenityProps = Node & {
 	__typename?: "Amenity"
 	amenity_id: string
 	description: string
+	icon: string
+	image: string
 	name: AmenitiesIconName
 	type: "BASIC" | "SPECIAL" | "OTHER"
 }
 
-export type BookingProps = Node & {
-	__typename?: "Booking"
-	apartment: ApartmentProps
-	endDate: Date | string
-	guest: UserProps
-	numberOfGuests: number
-	price: number
-	startDate: Date | string
-	status: "upcoming" | "cancelled" | "completed"
+export type AmenityClassProps = {
+	amenities: AmenityProps[]
+	amenityClass: "BASIC" | "SPECIAL" | (string & {})
 }
+
+
 
 export type LocationProps = {
 	coordinates: [number, number]
@@ -288,6 +311,7 @@ export interface ComponentUpdateProps {
 	handleGoTo: (index: number) => void
 	handleNext: () => void
 	handlePrev: () => void
+	isLoading?: boolean
 	isNotFirstOrLast: boolean
 	label: string
 	subtitle: string
