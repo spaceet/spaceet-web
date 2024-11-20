@@ -1,3 +1,4 @@
+import { useQueries } from "@tanstack/react-query"
 import React from "react"
 import {
 	RiCalendarCheckLine,
@@ -9,15 +10,15 @@ import {
 	RiSearch2Line,
 } from "@remixicon/react"
 
+import { GetPaymentHistoryQuery, GetPaymentOverviewQuery } from "@/queries"
 import { DataCard, PaymentItem, Withdrawal } from "@/components/dashboard"
 import DashboardLayout from "@/components/layouts/dashboard-layout"
 import { Separator } from "@/components/ui/separator"
+import { PaymentProps, TimelineProps } from "@/types"
 import { Button } from "@/components/ui/button"
 import { Seo } from "@/components/shared"
-import { PaymentProps } from "@/types"
 import { formatCurrency } from "@/lib"
 import { useDebounce } from "@/hooks"
-import { filters } from "@/config"
 import {
 	Dialog,
 	DialogContent,
@@ -40,16 +41,40 @@ import {
 	SelectValue,
 } from "@/components/ui/select"
 
-const filters2 = ["all", "succeeded", "failed", "pending"]
-type Filter2 = (typeof filters2)[number] | (string & {})
-type Filter = (typeof filters)[number] | (string & {})
+const statuses = ["all", "succeeded", "failed", "pending"]
+type Status = (typeof statuses)[number] | (string & {})
+const filters: { label: string; value: TimelineProps }[] = [
+	{ label: "All", value: "ALL" },
+	{ label: "Today", value: "TODAY" },
+	{ label: "Yesterday", value: "YESTERDAY" },
+	{ label: "Last 7 days", value: "LAST_7_DAYS" },
+	{ label: "This week", value: "THIS_WEEK" },
+	{ label: "Last week", value: "LAST_WEEK" },
+	{ label: "This month", value: "THIS_MONTH" },
+	{ label: "Last 6 months", value: "LAST_6_MONTHS" },
+	{ label: "Last 12 months", value: "LAST_12_MONTHS" },
+]
 
 const Page = () => {
-	const [filter2, setFilter2] = React.useState<Filter2>("all")
-	const [filter, setFilter] = React.useState<Filter>("all")
+	const [filter, setFilter] = React.useState<TimelineProps>("ALL")
+	const [status, setStatus] = React.useState<Status>("all")
 	const input = React.useRef<HTMLInputElement>(null)!
 	const [query, setQuery] = React.useState("")
 	useDebounce(query, 500)
+
+	const [{}, {}] = useQueries({
+		queries: [
+			{
+				queryFn: () => GetPaymentOverviewQuery({ timeLine: filter }),
+				queryKey: ["get-payment-overview", filter],
+			},
+			{
+				queryFn: () => GetPaymentHistoryQuery({}),
+				queryKey: ["get-payment-overview"],
+				enabled: false,
+			},
+		],
+	})
 
 	const [payments] = React.useState<PaymentProps[]>([])
 
@@ -83,13 +108,13 @@ const Page = () => {
 							<p>Overview</p>
 							<div className="flex items-center gap-5">
 								<Select value={filter} onValueChange={setFilter}>
-									<SelectTrigger className="h-10 w-[130px] capitalize">
+									<SelectTrigger className="h-10 w-[130px]">
 										<SelectValue />
 									</SelectTrigger>
-									<SelectContent className="capitalize">
-										{filters.map((filter) => (
-											<SelectItem key={filter} value={filter}>
-												{filter}
+									<SelectContent>
+										{filters.map(({ label, value }) => (
+											<SelectItem key={value} value={value}>
+												{label}
 											</SelectItem>
 										))}
 									</SelectContent>
@@ -197,11 +222,11 @@ const Page = () => {
 						<div className="flex w-full flex-col items-start gap-6 lg:w-fit lg:flex-row lg:items-center">
 							<p className="px-5 lg:px-0">Payment Hitory</p>
 							<div className="flex h-11 w-full items-center border-b p-1 lg:w-fit lg:rounded-lg lg:border">
-								{filters2.map((item) => (
+								{statuses.map((item) => (
 									<button
 										key={item}
-										onClick={() => setFilter2(item)}
-										className={`relative flex flex-1 items-center justify-center rounded-md px-4 py-2 text-sm capitalize before:absolute before:-bottom-[5px] before:left-0 before:h-0.5 before:bg-primary-100 lg:min-w-[107px] ${item === filter2 ? "text-primary-100 before:w-full lg:bg-primary-100 lg:text-white" : "bg-transparent before:w-0"}`}>
+										onClick={() => setStatus(item)}
+										className={`relative flex flex-1 items-center justify-center rounded-md px-4 py-2 text-sm capitalize before:absolute before:-bottom-[5px] before:left-0 before:h-0.5 before:bg-primary-100 lg:min-w-[107px] ${item === status ? "text-primary-100 before:w-full lg:bg-primary-100 lg:text-white lg:before:w-0" : "bg-transparent before:w-0"}`}>
 										{item}
 									</button>
 								))}

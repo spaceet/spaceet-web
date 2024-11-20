@@ -32,7 +32,7 @@ const DashboardLayout = ({ children }: Props) => {
 
 	return (
 		<div className="flex h-screen w-screen overflow-hidden">
-			<aside className="hidden h-full w-0 lg:block lg:w-64">
+			<aside className="hidden h-full w-0 lg:block lg:w-64 lg:min-w-64">
 				<div className="grid h-24 w-full place-items-center border-b">
 					<Link href="/">
 						<Image src="/spaceet.svg" alt="spaceet" width={140} height={30} priority />

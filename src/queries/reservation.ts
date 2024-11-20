@@ -2,7 +2,6 @@ import { PaginationDto } from "./property"
 import { endpoints } from "@/config"
 import { axios } from "@/lib"
 import {
-	CalendarTimeProps,
 	HttpResponse,
 	Pagination,
 	PriceDetailsProps,
@@ -50,18 +49,4 @@ const GetReservationsQuery = async (params: PaginationDto) => {
 		.then((res) => res.data)
 }
 
-const GetCalendarQuery = async (timeline: CalendarTimeProps) => {
-	return axios
-		.get<
-			HttpResponse<Pagination<ReservationsProps>>
-		>(endpoints().reservations.get_calendar, { params: { timeline } })
-		.then((res) => res.data)
-}
-
-export {
-	GetCalendarQuery,
-	GetPricingQuery,
-	GetHostReservationsQuery,
-	GetReservationsQuery,
-	MakeReservationMutation,
-}
+export { GetPricingQuery, GetHostReservationsQuery, GetReservationsQuery, MakeReservationMutation }

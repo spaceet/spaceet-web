@@ -13,7 +13,7 @@ import { become_a_host } from "@/config"
 const Page = () => {
 	const [hasCreatedApartment, setHasCreatedApartment] = React.useState(false)
 	const [hasCreatedHost, setHasCreatedHost] = React.useState(false)
-	const [activeIndex, setActiveIndex] = React.useState(0)
+	const [activeIndex, setActiveIndex] = React.useState(2)
 	const [current, setCurrent] = React.useState(0)
 	const [width, setWidth] = React.useState(0)
 	const router = useRouter()

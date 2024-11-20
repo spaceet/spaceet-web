@@ -44,6 +44,10 @@ const endpoints = (id?: Maybe<string>) => {
 		delete: `/bookings/${id}`,
 	}
 
+	const calendar = {
+		get_reservations: `/reservation/calendar-reservations`,
+	}
+
 	const messages = {
 		get_all: `/messages`,
 		get_one: `/messages/${id}`,
@@ -55,6 +59,8 @@ const endpoints = (id?: Maybe<string>) => {
 
 	const payments = {
 		generate_link: `/payment/generate-link`,
+		payment_overview: `/payment/overview`,
+		payment_history: `/payment/history`,
 	}
 
 	const reservations = {
@@ -88,6 +94,7 @@ const endpoints = (id?: Maybe<string>) => {
 		apartment,
 		auth,
 		bookings,
+		calendar,
 		messages,
 		payments,
 		reservations,
