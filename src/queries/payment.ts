@@ -1,6 +1,24 @@
-import { HttpResponse, TransactionProps } from "@/types"
 import { endpoints } from "@/config"
 import { axios } from "@/lib"
+import {
+	HttpResponse,
+	Pagination,
+	PaymentOverviewProps,
+	PaymentProps,
+	TimelineProps,
+	TransactionProps,
+} from "@/types"
+
+export type PaymentOverviewParams = {
+	end_date?: string
+	start_date?: string
+	timeLine?: TimelineProps
+}
+
+type PaginationProps = {
+	limit?: number
+	page?: number
+}
 
 export type GenerateLinkDto =
 	| {
@@ -23,4 +41,21 @@ const GeneratePaymentLink = async (payload: GenerateLinkDto) => {
 		.then((res) => res.data)
 }
 
-export { GeneratePaymentLink }
+const GetPaymentOverviewQuery = async (params: PaymentOverviewParams) => {
+	return axios
+		.get<HttpResponse<PaymentOverviewProps>>(endpoints().payments.payment_overview, {
+			params: {
+				...params,
+				timeLine: params.timeLine?.toLowerCase() === "all" ? "" : params.timeLine,
+			},
+		})
+		.then((res) => res.data)
+}
+
+const GetPaymentHistoryQuery = async (params: PaginationProps) => {
+	return axios
+		.get<HttpResponse<Pagination<PaymentProps>>>(endpoints().payments.payment_history, { params })
+		.then((res) => res.data)
+}
+
+export { GeneratePaymentLink, GetPaymentHistoryQuery, GetPaymentOverviewQuery }

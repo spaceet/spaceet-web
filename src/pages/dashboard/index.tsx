@@ -28,7 +28,7 @@ type Filter = (typeof filters)[number] | (string & {})
 const Page = () => {
 	const [filter, setFilter] = React.useState<Filter>("all")
 
-	const [{ data }] = useQueries({
+	const [{ data }, { data: reservations }] = useQueries({
 		queries: [
 			{
 				queryFn: () => GetAllHostPropertiesQuery({}),
@@ -82,13 +82,13 @@ const Page = () => {
 									icon={RiCalendarCheckLine}
 									label="Total Reservation"
 									percentage={5.6}
-									value={15}
+									value={Number(reservations?.data.meta.itemCount)}
 									className="w-[170px] flex-shrink-0 rounded border p-4"
 								/>
 								<DataCard
 									direction="down"
 									icon={RiHome8Line}
-									label="Total Listing"
+									label="Upcoming Reservations"
 									percentage={5.6}
 									value={15}
 									className="w-[170px] flex-shrink-0 rounded border p-4"
@@ -98,7 +98,7 @@ const Page = () => {
 									icon={RiHotelBedLine}
 									label="Total Listing"
 									percentage={5.6}
-									value={15}
+									value={apartments.length}
 									className="w-[170px] flex-shrink-0 rounded border p-4"
 								/>
 							</div>
@@ -122,13 +122,13 @@ const Page = () => {
 								icon={RiCalendarCheckLine}
 								label="Total Reservation"
 								percentage={5.6}
-								value={15}
+								value={Number(reservations?.data.meta.itemCount)}
 							/>
 							<Separator orientation="vertical" className="h-[72px] bg-neutral-300" />
 							<DataCard
 								direction="down"
 								icon={RiHome8Line}
-								label="Total Listing"
+								label="Upcoming Reservations"
 								percentage={5.6}
 								value={15}
 							/>
@@ -138,7 +138,7 @@ const Page = () => {
 								icon={RiHotelBedLine}
 								label="Total Listing"
 								percentage={5.6}
-								value={15}
+								value={apartments.length}
 							/>
 						</div>
 					</div>

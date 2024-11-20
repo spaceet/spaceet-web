@@ -88,7 +88,6 @@ const GetUserByIdQuery = async (id: string) => {
 }
 
 const BecomeAHostMutation = async (payload: BecomeAHostDto) => {
-	console.log(payload.identification_expiry_date)
 	const formData = new FormData()
 	formData.append("address", payload.address)
 	formData.append("bio", payload.bio)
