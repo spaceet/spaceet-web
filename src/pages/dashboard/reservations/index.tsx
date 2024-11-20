@@ -1,11 +1,12 @@
 import { RiCommandLine, RiDownload2Line, RiFilter3Line, RiSearch2Line } from "@remixicon/react"
+import { useQuery } from "@tanstack/react-query"
 import React from "react"
 
 import DashboardLayout from "@/components/layouts/dashboard-layout"
+import { Pagination, Seo } from "@/components/shared"
 import { BookingItem } from "@/components/dashboard"
+import { GetReservationsQuery } from "@/queries"
 import { Button } from "@/components/ui/button"
-import { Seo } from "@/components/shared"
-import { BookingProps } from "@/types"
 import { useDebounce } from "@/hooks"
 
 const filters = ["all", "upcoming", "completed", "cancelled"]
@@ -13,10 +14,16 @@ type Filter = (typeof filters)[number]
 
 const Page = () => {
 	const [filter, setFilter] = React.useState<Filter>("all")
-	const [bookings] = React.useState<BookingProps[]>([])
+	const [pageSize, setPageSize] = React.useState(10)
 	const ref = React.useRef<HTMLInputElement>(null)!
 	const [query, setQuery] = React.useState("")
+	const [page, setPage] = React.useState(1)
 	useDebounce(query, 500)
+
+	const { data: bookings } = useQuery({
+		queryFn: () => GetReservationsQuery({ limit: pageSize, page }),
+		queryKey: ["get-reservations"],
+	})
 
 	const handleCommand = (e: KeyboardEvent) => {
 		if (e.ctrlKey || e.metaKey) {
@@ -44,7 +51,7 @@ const Page = () => {
 							<button
 								key={item}
 								onClick={() => setFilter(item)}
-								className={`relative flex flex-1 items-center justify-center rounded-md px-4 py-2 text-sm capitalize before:absolute before:-bottom-[5px] before:left-0 before:h-0.5 before:bg-primary-100 lg:min-w-[107px] ${item === filter ? "text-primary-100 before:w-full lg:bg-primary-100 lg:text-white" : "bg-transparent before:w-0"}`}>
+								className={`relative flex flex-1 items-center justify-center rounded-md px-4 py-2 text-sm capitalize before:absolute before:-bottom-[5px] before:left-0 before:h-0.5 before:bg-primary-100 lg:min-w-[107px] lg:before:w-0 ${item === filter ? "text-primary-100 before:w-full lg:bg-primary-100 lg:text-white lg:before:w-0" : "bg-transparent before:w-0"}`}>
 								{item}
 							</button>
 						))}
@@ -86,12 +93,28 @@ const Page = () => {
 								<div className="w-full py-1">STATUS</div>
 							</div>
 							<div className="flex h-[calc(100%-30px)] w-full flex-col gap-4 overflow-y-scroll">
-								{bookings.map((booking) => (
-									<BookingItem key={booking.id} booking={booking} />
-								))}
+								{bookings && bookings?.data.meta.itemCount < 1 ? (
+									<div className="grid h-full w-full place-items-center">
+										<p className="">No results</p>
+									</div>
+								) : (
+									<>
+										{bookings?.data.data.map((booking) => (
+											<BookingItem key={booking.reservation_id} booking={booking} />
+										))}
+									</>
+								)}
 							</div>
 						</div>
-						<div className="h-[50px] w-full border"></div>
+						<div className="h-[50px] w-full border">
+							<Pagination
+								current={page}
+								onPageChange={setPage}
+								onRowChange={setPageSize}
+								pageSize={pageSize}
+								total={bookings?.data.meta.itemCount ?? 0}
+							/>
+						</div>
 					</div>
 				</div>
 			</DashboardLayout>
