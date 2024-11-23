@@ -13,7 +13,7 @@ import { become_a_host } from "@/config"
 const Page = () => {
 	const [hasCreatedApartment, setHasCreatedApartment] = React.useState(false)
 	const [hasCreatedHost, setHasCreatedHost] = React.useState(false)
-	const [activeIndex, setActiveIndex] = React.useState(2)
+	const [activeIndex, setActiveIndex] = React.useState(0)
 	const [current, setCurrent] = React.useState(0)
 	const [width, setWidth] = React.useState(0)
 	const router = useRouter()
@@ -62,8 +62,6 @@ const Page = () => {
 	const isLastStep =
 		activeIndex === become_a_host.length - 1 &&
 		current === become_a_host[activeIndex].components.length - 1
-
-	// resetStore()
 
 	const handleNext = async () => {
 		if (activeIndex === 1 && current === 1 && !hasCreatedHost) {
@@ -161,6 +159,12 @@ const Page = () => {
 	React.useEffect(() => {
 		setWidth(Math.ceil(((activeIndex + 1) / become_a_host.length) * 100))
 	}, [activeIndex])
+
+	React.useEffect(() => {
+		router.events.on("routeChangeStart", () => {
+			resetStore()
+		})
+	}, [resetStore, router])
 
 	return (
 		<>
