@@ -60,7 +60,14 @@ const endpoints = (id?: Maybe<string>) => {
 	const payments = {
 		generate_link: `/payment/generate-link`,
 		payment_overview: `/payment/overview`,
-		payment_history: `/payment/history`,
+		payment_history: `/payment/get-transaction-logs`,
+		create_pin: `/payment/setup-transaction-pin`,
+		update_pin: `/payment/update-transaction-pin`,
+		request_reset_pin: `/payment/request-transaction-pin-reset`,
+		reset_pin: `/payment/reset-transaction-pin`,
+		initiate_withdrawal: `/payment/initiate-wallet-withdrawal`,
+		complete_withdrawal: `/payment/complete-wallet-withdrawal`,
+		webhook: `/payment/paystack-callback`,
 	}
 
 	const reservations = {
@@ -68,8 +75,7 @@ const endpoints = (id?: Maybe<string>) => {
 		get_all: `/reservation/get-my-reservations`,
 		get_one: `/reservation/${id}`,
 		create: `/reservation/create`,
-		update: `/reservation/${id}`,
-		delete: `/reservation/${id}`,
+		cancel: `/reservation/cancel/${id}`,
 		get_pricing: `/reservation/get-price-details`,
 		get_calendar: `/reservation/calendar-reservations`,
 	}

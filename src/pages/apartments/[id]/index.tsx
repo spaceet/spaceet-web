@@ -1,4 +1,4 @@
-import { addDays, differenceInCalendarDays, differenceInYears, formatDate } from "date-fns"
+import { differenceInCalendarDays, differenceInYears, formatDate } from "date-fns"
 import { ChevronLeft, ChevronLeftCircle } from "lucide-react"
 import { useQuery } from "@tanstack/react-query"
 import { useRouter } from "next/router"
@@ -43,7 +43,7 @@ const Page = () => {
 	const ref = React.useRef<HTMLDivElement>(null)!
 	const [open, setOpen] = React.useState(false)
 
-	const minimumCheckInDate = addDays(new Date(), 7).toISOString().split("T")[0]
+	const minimumCheckInDate = new Date().toISOString().split("T")[0]
 	const router = useRouter()
 	const { id } = router.query
 
@@ -109,7 +109,11 @@ const Page = () => {
 			<main className="container relative mx-auto my-12 flex flex-col gap-8 px-4 lg:px-0">
 				<div className="fixed bottom-0 left-0 !z-10 flex h-[99px] w-full items-center justify-between border-t bg-white px-5 lg:hidden">
 					<p className="font-semibold lg:text-2xl">
-						{formatCurrency(apartment.data.price.cost_per_night, "NGN")}/night
+						{formatCurrency(
+							apartment.data.price.cost_per_night_with_platform_fee ?? apartment.data.price.cost_per_night,
+							"NGN"
+						)}
+						/night
 					</p>
 					<Button
 						onClick={() =>
@@ -307,7 +311,12 @@ const Page = () => {
 					</div>
 					<div className="hidden w-full rounded-3xl border p-6 lg:block">
 						<p className="font-semibold lg:text-2xl">
-							{formatCurrency(apartment.data.price.cost_per_night, "NGN")}/night
+							{formatCurrency(
+								apartment.data.price.cost_per_night_with_platform_fee ??
+									apartment.data.price.cost_per_night,
+								"NGN"
+							)}
+							/night
 						</p>
 						<hr className="my-6" />
 						<div className="flex w-full flex-col gap-4">
@@ -348,12 +357,19 @@ const Page = () => {
 							<form onSubmit={handleSubmit} className="flex w-full flex-col gap-3">
 								<div className="flex w-full items-center justify-between">
 									<p className="font-light text-neutral-400">
-										{formatCurrency(apartment.data.price.cost_per_night, "NGN")} x {dateDifference} nights
+										{formatCurrency(
+											apartment.data.price.cost_per_night_with_platform_fee ??
+												apartment.data.price.cost_per_night,
+											"NGN"
+										)}{" "}
+										x {dateDifference} nights
 									</p>
 									<p className="font-medium text-neutral-900">
 										{formatCurrency(
-											apartment.data.price.cost_per_night * dateDifference ||
-												apartment.data.price.cost_per_night,
+											(apartment.data.price.cost_per_night_with_platform_fee ??
+												apartment.data.price.cost_per_night * dateDifference) ||
+												(apartment.data.price.cost_per_night_with_platform_fee ??
+													apartment.data.price.cost_per_night),
 											"NGN"
 										)}
 									</p>
@@ -376,8 +392,10 @@ const Page = () => {
 										{formatCurrency(
 											apartment.data.price.cleaning_fee +
 												apartment.data.price.service_charge +
-												(apartment.data.price.cost_per_night * dateDifference ||
-													apartment.data.price.cost_per_night),
+												((apartment.data.price.cost_per_night_with_platform_fee ??
+													apartment.data.price.cost_per_night * dateDifference) ||
+													(apartment.data.price.cost_per_night_with_platform_fee ??
+														apartment.data.price.cost_per_night)),
 											"NGN"
 										)}
 									</p>

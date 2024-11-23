@@ -56,11 +56,10 @@ export const CalendarLarge = () => {
 		return data.data.data
 	}, [data])
 
-	const hasReservation = (day: Date) => {
-		return reservations?.find(
+	const hasReservation = (day: Date) =>
+		!!reservations?.find(
 			(reservation) => new Date(reservation.reservation_checkin_date) === new Date(day)
 		)
-	}
 
 	return (
 		<div className="hidden h-full w-full lg:block">
@@ -94,10 +93,8 @@ export const CalendarLarge = () => {
 					{calendarDays.slice(0, 42).map((day, index) => (
 						<div
 							key={index}
-							className={`h-[158px] w-full flex-shrink-0 border-b border-l py-3 first:border-l-0 ${index % 7 === 0 ? "px-[37px]" : ""}`}>
-							{day && hasReservation(day) ? (
-								<div className="bg-orange-300"></div>
-							) : (
+							className={`h-[158px] w-full flex-shrink-0 cursor-pointer border-b border-l py-3 first:border-l-0 hover:bg-neutral-200 ${format(day, "MM-dd") === format(new Date(), "MM-dd") ? "bg-primary-100/25" : ""} ${hasReservation(day) ? "bg-primary-100/50" : ""} ${index % 7 === 0 ? "px-[37px]" : ""}`}>
+							{day && (
 								<p
 									className={`px-[7px] text-sm ${
 										format(day, "MM-dd") === format(new Date(), "MM-dd")

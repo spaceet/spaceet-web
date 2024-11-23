@@ -55,7 +55,7 @@ const Page = () => {
 						</h2>
 						<p className="text-neutral-600">You can now login to your Spaceet account.</p>
 					</div>
-					<Link href="/sigin">
+					<Link href="/signin">
 						<Button>Continue</Button>
 					</Link>
 				</div>
