@@ -88,7 +88,11 @@ const Card = ({ apartment }: Props) => {
 							<motion.div
 								{...fade}
 								className="absolute right-3 top-3 !z-[5] hidden rounded-md bg-white px-3 py-2 font-medium text-neutral-900 transition-all duration-500 group-hover:block lg:text-xs">
-								{formatCurrency(apartment.price_cost_per_night, "NGN")}/night
+								{formatCurrency(
+									apartment.price_cost_per_night_with_platform_fee ?? apartment.price_cost_per_night,
+									"NGN"
+								)}
+								/night
 							</motion.div>
 							<Image
 								key={index}
@@ -108,7 +112,11 @@ const Card = ({ apartment }: Props) => {
 						{apartment.Apartment_city}, {apartment.Apartment_state}
 					</p>
 					<div className="text-meutral-900 flex items-center gap-2 font-semibold lg:text-sm">
-						{formatCurrency(apartment.price_cost_per_night, "NGN")}/night
+						{formatCurrency(
+							apartment.price_cost_per_night_with_platform_fee ?? apartment.price_cost_per_night,
+							"NGN"
+						)}
+						/night
 					</div>
 				</div>
 			</Link>

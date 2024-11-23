@@ -1,7 +1,6 @@
 import { useMutation, useQueries } from "@tanstack/react-query"
-import { RiErrorWarningLine } from "@remixicon/react"
+import { addDays, format, formatDate } from "date-fns"
 import { ChevronLeftCircle } from "lucide-react"
-import { addDays, formatDate } from "date-fns"
 import { useRouter } from "next/router"
 import { useFormik } from "formik"
 import { toast } from "sonner"
@@ -16,6 +15,7 @@ import { NotFound } from "@/components/layouts"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { formatCurrency } from "@/lib"
+import { HttpError } from "@/types"
 import {
 	Dialog,
 	DialogContent,
@@ -23,28 +23,60 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog"
-import { GenerateLinkDto, GeneratePaymentLink, GetPropertyQuery, GetPricingQuery } from "@/queries"
-
-const payment_methods = ["debit card", "bank transfer"] as const
-type PaymentMethod = (typeof payment_methods)[number] | (string & {})
+import {
+	GenerateLinkDto,
+	GeneratePaymentLink,
+	GetPropertyQuery,
+	GetPricingQuery,
+	MakeReservationMutation,
+	ReservationDto,
+} from "@/queries"
 
 const Page = () => {
-	const [paymentMethod, setPaymentMethod] = React.useState<PaymentMethod | null>(null)
 	const [agreed, setAgreed] = React.useState(false)
 	const [open, setOpen] = React.useState(false)
 
 	const router = useRouter()
 	const { check_in, check_out, guests, id } = router.query
-	const minimumCheckInDate = addDays(new Date(), 7).toISOString().split("T")[0]
+	const minimumCheckInDate = new Date().toISOString().split("T")[0]
 
-	const { isPending, mutateAsync: generatePaymentLink } = useMutation({
+	const { mutateAsync: generatePaymentLink } = useMutation({
 		mutationFn: (payload: GenerateLinkDto) => GeneratePaymentLink(payload),
 		mutationKey: ["generate-payment-link"],
 		onSuccess: (data) => {
-			console.log(data)
+			const {
+				data: {
+					data: {
+						data: { authorization_url },
+					},
+				},
+			} = data
+			window.location.replace(authorization_url)
 		},
 		onError: (error) => {
 			console.error(error)
+		},
+	})
+
+	const { isPending: isReserving, mutateAsync: makeReservation } = useMutation({
+		mutationFn: (payload: ReservationDto) => MakeReservationMutation(payload),
+		mutationKey: ["make-reservation"],
+		onSuccess: (data) => {
+			const {
+				data: { id, price_details },
+			} = data
+			toast.success("Reservation made successfully!")
+			const payload: GenerateLinkDto = {
+				amount: price_details.final_price,
+				narration: "RESERVATION",
+				narration_id: id,
+			}
+			generatePaymentLink(payload)
+		},
+		onError: ({ response }: HttpError) => {
+			console.error(response)
+			const { message } = response.data
+			toast.error(message)
 		},
 	})
 
@@ -68,33 +100,21 @@ const Page = () => {
 		],
 	})
 
-	const handleGeneratePaymentLink = async () => {
+	const handleMakeReservation = async () => {
 		if (!agreed) {
 			toast.error("Please agree to the terms and conditions")
 			return
 		}
-		if (paymentMethod === null) {
-			toast.error("Please select a payment method")
-			return
+		const payload: ReservationDto = {
+			apartment_id: String(id),
+			checkin_date: format(String(check_in), "MM/dd/yyyy"),
+			checkout_date: format(String(check_out), "MM/dd/yyyy"),
+			number_of_guests: Number(guests),
+			payment_channel: "CARD",
+			description: "",
+			t_and_c_agreed: agreed ? "YES" : "NO",
 		}
-		let payload: GenerateLinkDto
-		if (paymentMethod === "debit card") {
-			payload = {
-				amount: Number(pricing?.data.final_price) ?? 0,
-				card_id: "",
-				narration_id: "",
-				narration: "RESERVATION",
-				payment_type: "CARD",
-			}
-		} else {
-			payload = {
-				amount: Number(pricing?.data.final_price) ?? 0,
-				payment_type: "TRANSFER",
-				narration_id: "",
-				narration: "RESERVATION",
-			}
-		}
-		generatePaymentLink(payload)
+		makeReservation(payload)
 	}
 
 	const { handleChange, handleSubmit, values } = useFormik({
@@ -165,66 +185,6 @@ const Page = () => {
 							</div>
 						</div>
 						<div className="flex w-full flex-col gap-3 rounded-2xl border p-6">
-							<p className="font-semibold text-neutral-900 lg:text-xl">Choose how to pay</p>
-							<div className="flex w-full flex-col gap-6">
-								<div className="flex w-full flex-col gap-3">
-									<div className="flex w-full items-center gap-3 rounded-2xl border border-neutral-200 p-5">
-										<button
-											onClick={() => setPaymentMethod("debit card")}
-											className={`relative size-4 rounded-full border border-neutral-900 before:absolute before:left-1/2 before:top-1/2 before:size-2 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-primary-100 ${paymentMethod === "debit card" ? "before:block" : "before:hidden"}`}
-										/>
-										<span className="font-medium capitalize lg:text-sm">Debit Card</span>
-									</div>
-									{paymentMethod === "debit card" && (
-										<div className="w-full rounded-2xl border px-5 py-[18px]">
-											<div className="flex w-full flex-col gap-3">
-												<div className="h-[57px] w-full rounded-xl border"></div>
-												<div className="grid w-full grid-cols-2 gap-2">
-													<div className="h-[57px] w-full rounded-xl border"></div>
-													<div className="h-[57px] w-full rounded-xl border"></div>
-												</div>
-											</div>
-											<p className="mt-3 text-sm">
-												<b>Please note:</b> We will never ask you for your password, PIN, CVV or full card
-												details over the phone or via email
-											</p>
-										</div>
-									)}
-								</div>
-								<div className="flex w-full flex-col gap-3">
-									<div className="flex w-full items-center gap-3 rounded-2xl border border-neutral-200 p-5">
-										<button
-											onClick={() => setPaymentMethod("bank transfer")}
-											className={`relative size-4 rounded-full border border-neutral-900 before:absolute before:left-1/2 before:top-1/2 before:size-2 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-primary-100 ${paymentMethod === "bank transfer" ? "before:block" : "before:hidden"}`}
-										/>
-										<span className="font-medium capitalize lg:text-sm">Bank Transfer</span>
-									</div>
-									{paymentMethod === "bank transfer" && (
-										<div className="w-full rounded-2xl border px-5 py-[18px]">
-											<div className="flex w-full flex-col gap-3">
-												<div className="flex h-6 items-center gap-2">
-													<p className="w-32 text-neutral-600">Bank Name</p>
-												</div>
-												<div className="flex h-6 items-center gap-2">
-													<p className="w-32 text-neutral-600">Account Number</p>
-												</div>
-												<div className="flex h-6 items-center gap-2">
-													<p className="w-32 text-neutral-600">Account Name</p>
-												</div>
-											</div>
-											<div className="mt-4 flex w-full items-center gap-2 text-sm text-red-700">
-												<RiErrorWarningLine size={16} />
-												<p>
-													The account is one time use. You will be automatically redirected once payment is
-													confirmed
-												</p>
-											</div>
-										</div>
-									)}
-								</div>
-							</div>
-						</div>
-						<div className="flex w-full flex-col gap-3 rounded-2xl border p-6">
 							<p className="font-semibold text-neutral-900 lg:text-xl">Message the host</p>
 							<p className="text-neutral-400 lg:text-sm">
 								Share why you&apos;re traveling, who is coming with you, and what you love about the space
@@ -238,7 +198,7 @@ const Page = () => {
 									/>
 								</Avatar>
 								<div className="">
-									<p className="font-medium">{apartment.data.host.full_name}</p>
+									<p className="font-medium capitalize">{apartment.data.host.full_name}</p>
 									<p className="text-neutral-400 lg:text-sm">
 										Host • Joined since {new Date(apartment.data.host.createdOn).getFullYear()}
 									</p>
@@ -249,7 +209,7 @@ const Page = () => {
 						<div className="flex w-full flex-col gap-3 rounded-2xl border p-6">
 							<p className="font-semibold text-neutral-900 lg:text-xl">Cancellation policy</p>
 							<p className="text-neutral-900">
-								Free cancellation before {formatDate(addDays(new Date(values.check_in), -7), "MMM dd")}.
+								Free cancellation before {formatDate(addDays(new Date(values.check_in), -5), "MMM dd")}.
 								Cancel before check-in {formatDate(addDays(new Date(values.check_in), -2), "MMM dd")} for a
 								partial refund.
 							</p>
@@ -390,8 +350,12 @@ const Page = () => {
 								by reserving this space.
 							</p>
 						</div>
-						<Button type="button" onClick={handleGeneratePaymentLink} className="rounded-3xl">
-							{isPending ? <Spinner /> : "Reserve"}
+						<Button
+							type="button"
+							onClick={handleMakeReservation}
+							disabled={isReserving}
+							className="rounded-3xl">
+							{isReserving ? <Spinner /> : "Reserve"}
 						</Button>
 					</div>
 				</div>

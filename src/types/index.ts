@@ -98,20 +98,28 @@ export type ApartmentProps = Node & {
 	__typename?: "Property"
 	address: string
 	amenities: AmenityProps[]
+	booked_dates: (Date | string)[]
 	capacity: number
 	city: string
+	cancellation_and_repayment_conditions: string
 	cover_photo: string
 	current_location: LocationProps
+	custom_rules: string[]
 	description: string
 	host: UserProps
 	images: string[]
+	is_age_limit: boolean
 	is_approved: boolean
 	is_available: boolean
+	is_booked: boolean
 	is_complete: boolean
+	is_event_allowed: boolean
+	is_pet_allowed: boolean
 	maximum_number_of_guests: number
 	name: string
 	number_of_bathrooms: number
 	number_of_bedrooms: number
+	photography_allowed: boolean
 	policy: PolicyProps
 	postal_code: string
 	price: PricingProps
@@ -120,6 +128,7 @@ export type ApartmentProps = Node & {
 	type: ApartmentType | (string & {})
 	rating: string
 	reviews: ReviewProps[]
+	smoking_allowed: boolean
 	state: string
 	video: string
 }
@@ -143,6 +152,7 @@ export type ApartmentsProps = Node & {
 	price_cleaning_fee: number
 	price_service_charge: number
 	price_discount_percentage: number
+	price_cost_per_night_with_platform_fee: number
 	hostId: string
 }
 
@@ -216,6 +226,7 @@ export type PricingProps = Node & {
 	__typename?: "Pricing"
 	cleaning_fee: number
 	cost_per_night: number
+	cost_per_night_with_platform_fee: number
 	discount_percentage: number
 	service_charge: number
 }
@@ -371,8 +382,11 @@ export type CalendarTimeProps =
 
 export type TransactionProps = {
 	__typename?: "Transaction"
-	link: string
-	txRef: string
+	data: {
+		access_code: string
+		authorization_url: string
+		reference: string
+	}
 }
 
 export type MapboxFeature = {
