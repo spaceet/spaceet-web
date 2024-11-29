@@ -98,20 +98,28 @@ export type ApartmentProps = Node & {
 	__typename?: "Property"
 	address: string
 	amenities: AmenityProps[]
+	booked_dates: (Date | string)[]
 	capacity: number
 	city: string
+	cancellation_and_repayment_conditions: string
 	cover_photo: string
 	current_location: LocationProps
+	custom_rules: string[]
 	description: string
 	host: UserProps
 	images: string[]
+	is_age_limit: boolean
 	is_approved: boolean
 	is_available: boolean
+	is_booked: boolean
 	is_complete: boolean
+	is_event_allowed: boolean
+	is_pet_allowed: boolean
 	maximum_number_of_guests: number
 	name: string
 	number_of_bathrooms: number
 	number_of_bedrooms: number
+	photography_allowed: boolean
 	policy: PolicyProps
 	postal_code: string
 	price: PricingProps
@@ -120,6 +128,7 @@ export type ApartmentProps = Node & {
 	type: ApartmentType | (string & {})
 	rating: string
 	reviews: ReviewProps[]
+	smoking_allowed: boolean
 	state: string
 	video: string
 }
@@ -143,6 +152,7 @@ export type ApartmentsProps = Node & {
 	price_cleaning_fee: number
 	price_service_charge: number
 	price_discount_percentage: number
+	price_cost_per_night_with_platform_fee: number
 	hostId: string
 }
 
@@ -185,7 +195,27 @@ export type AmenityClassProps = {
 	amenityClass: "BASIC" | "SPECIAL" | (string & {})
 }
 
+export type TimelineProps =
+	| "YESTERDAY"
+	| "TODAY"
+	| "THIS_WEEK"
+	| "LAST_7_DAYS"
+	| "LAST_WEEK"
+	| "THIS_MONTH"
+	| "LAST_6_MONTHS"
+	| "LAST_12_MONTHS"
+	| (string & {})
 
+export type BookingProps = Node & {
+	__typename?: "Booking"
+	apartment: ApartmentProps
+	endDate: Date | string
+	guest: UserProps
+	numberOfGuests: number
+	price: number
+	startDate: Date | string
+	status: "upcoming" | "cancelled" | "completed"
+}
 
 export type LocationProps = {
 	coordinates: [number, number]
@@ -196,6 +226,7 @@ export type PricingProps = Node & {
 	__typename?: "Pricing"
 	cleaning_fee: number
 	cost_per_night: number
+	cost_per_night_with_platform_fee: number
 	discount_percentage: number
 	service_charge: number
 }
@@ -261,11 +292,15 @@ export type ReservationsProps = {
 	reservation_description: string
 	reservation_id: string
 	reservation_is_paid: boolean
-	reservation_status: "PENDING" | "CONFIRMED" | "CANCELLED" | "COMPLETED"
-	reservation_t_and_c_agreed: boolean
+	reservation_number_of_days: number
 	reservation_payment_channel: "CARD" | "TRANSFER"
 	reservation_price_details: PriceDetailsProps
+	reservation_status: "PENDING" | "CONFIRMED" | "CANCELLED" | "COMPLETED"
+	reservation_t_and_c_agreed: boolean
 	reservation_user_id: string
+	user_first_name: string
+	user_last_name: string
+	user_profile_image: string
 }
 
 export type PriceDetailsProps = {
@@ -347,8 +382,11 @@ export type CalendarTimeProps =
 
 export type TransactionProps = {
 	__typename?: "Transaction"
-	link: string
-	txRef: string
+	data: {
+		access_code: string
+		authorization_url: string
+		reference: string
+	}
 }
 
 export type MapboxFeature = {
@@ -423,4 +461,16 @@ export type MapboxSuggestion = {
 	postcode?: string
 	region?: string
 	street?: string
+}
+
+export type PaymentOverviewProps = {
+	overview: {
+		narration: string
+		totalAmount: number
+	}[]
+	wallet: Node & {
+		user_id: string
+		current_balance: number
+		currency: string
+	}
 }

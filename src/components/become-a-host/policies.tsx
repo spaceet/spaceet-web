@@ -7,7 +7,6 @@ import Link from "next/link"
 import React from "react"
 
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "../ui/dialog"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
 import { CustomCheckable, FadeTransition, Seo } from "../shared"
 import { RulesFormProps } from "./form-components"
 import { ComponentUpdateProps } from "@/types"
@@ -18,6 +17,7 @@ import { Separator } from "../ui/separator"
 import { TimeUpdate } from "./time-update"
 import { capitalizeWords } from "@/lib"
 import { Button } from "../ui/button"
+import { Input } from "../ui/input"
 
 const Page = ({
 	active,
@@ -48,7 +48,7 @@ const Page = ({
 	const [isAddRules, setIsAddRules] = React.useState(false)
 	const [isAddTime, setIsAddTime] = React.useState(false)
 
-	const { handleSubmit, setFieldValue, values } = useFormik({
+	const { handleChange, handleSubmit, setFieldValue, values } = useFormik({
 		initialValues,
 		onSubmit: (values) => {
 			if (!values.checkIn[0]) {
@@ -179,21 +179,8 @@ const Page = ({
 								</div>
 								<Separator className="bg-neutral-300" />
 								<div className="flex min-h-[37px] w-full items-center justify-between">
-									<p className="text-sm font-medium">Number of Guests</p>
-									<Select
-										value={values.maxGuests.toString()}
-										onValueChange={(value) => setFieldValue("maxGuests", parseInt(value))}>
-										<SelectTrigger className="w-[170px]">
-											<SelectValue />
-										</SelectTrigger>
-										<SelectContent>
-											{[...Array(9)].map((_, index) => (
-												<SelectItem key={index} value={`${index + 2}`}>
-													{index + 2}
-												</SelectItem>
-											))}
-										</SelectContent>
-									</Select>
+									<p className="text-sm font-medium">Maximum Number of Guests</p>
+									<Input type="number" name="maxGuests" onChange={handleChange} min={1} />
 								</div>
 								<Separator className="bg-neutral-300" />
 								<div className="flex min-h-[37px] w-full items-center justify-between">

@@ -2,7 +2,6 @@ import { PaginationDto } from "./property"
 import { endpoints } from "@/config"
 import { axios } from "@/lib"
 import {
-	CalendarTimeProps,
 	HttpResponse,
 	Pagination,
 	PriceDetailsProps,
@@ -11,14 +10,15 @@ import {
 } from "@/types"
 
 export interface PricingDto {
+	apartment_id: string
 	checkin_date: string
 	checkout_date: string
-	apartment_id: string
 }
 
 export interface ReservationDto extends PricingDto {
 	description: string
-	payment_method: "CARD" | "TRANSFER"
+	number_of_guests: number
+	payment_channel: "CARD" | "TRANSFER"
 	t_and_c_agreed: "YES" | "NO"
 }
 
@@ -50,16 +50,14 @@ const GetReservationsQuery = async (params: PaginationDto) => {
 		.then((res) => res.data)
 }
 
-const GetCalendarQuery = async (timeline: CalendarTimeProps) => {
+const CancelReservationMutation = async (id: string) => {
 	return axios
-		.get<
-			HttpResponse<Pagination<ReservationsProps>>
-		>(endpoints().reservations.get_calendar, { params: { timeline } })
+		.put<HttpResponse<ReservationsProps>>(endpoints(id).reservations.cancel)
 		.then((res) => res.data)
 }
 
 export {
-	GetCalendarQuery,
+	CancelReservationMutation,
 	GetPricingQuery,
 	GetHostReservationsQuery,
 	GetReservationsQuery,

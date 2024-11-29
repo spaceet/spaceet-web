@@ -63,8 +63,6 @@ const Page = () => {
 		activeIndex === become_a_host.length - 1 &&
 		current === become_a_host[activeIndex].components.length - 1
 
-	// resetStore()
-
 	const handleNext = async () => {
 		if (activeIndex === 1 && current === 1 && !hasCreatedHost) {
 			try {
@@ -161,6 +159,12 @@ const Page = () => {
 	React.useEffect(() => {
 		setWidth(Math.ceil(((activeIndex + 1) / become_a_host.length) * 100))
 	}, [activeIndex])
+
+	React.useEffect(() => {
+		router.events.on("routeChangeStart", () => {
+			resetStore()
+		})
+	}, [resetStore, router])
 
 	return (
 		<>
