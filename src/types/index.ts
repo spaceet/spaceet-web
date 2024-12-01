@@ -217,6 +217,24 @@ export type BookingProps = Node & {
 	status: "upcoming" | "cancelled" | "completed"
 }
 
+export interface ComponentUpdateProps {
+	active: string
+	activeIndex: number
+	components: {
+		name: string
+		icon: RemixiconComponentType
+	}[]
+	handleGoTo: (index: number) => void
+	handleNext: () => void
+	handlePrev: () => void
+	isLoading?: boolean
+	isNotFirstOrLast: boolean
+	label: string
+	subtitle: string
+	totalItems: number
+	width: number
+}
+
 export type LocationProps = {
 	coordinates: [number, number]
 	type: "Point"

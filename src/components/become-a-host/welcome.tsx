@@ -49,7 +49,7 @@ const Page = ({
 							<h3 className="text-xl font-medium">Apartment Set-up Procedure</h3>
 							<p className="text-sm text-neutral-400">
 								To set up an account on Spaceet, you will need to provide the following information to
-								enable use seamlessly onboard your apartment.
+								enable us seamlessly onboard your apartment.
 							</p>
 						</div>
 						<div className="flex w-full flex-col rounded-xl border p-5">

@@ -12,6 +12,12 @@ const Page = () => {
 
 	const ActiveComponent = user_tabs[current].component
 
+	const handlePrev = () => {
+		if (current > 0) {
+			setCurrent(current - 1)
+		}
+	}
+
 	return (
 		<>
 			<Seo title={capitalizeWords(String(`${user?.first_name} ${user?.last_name}`))} />
@@ -29,7 +35,7 @@ const Page = () => {
 				</div>
 				<div className="flex h-full w-full items-start gap-8 overflow-y-scroll">
 					<div className="hidden w-60 flex-col gap-4 lg:flex lg:w-[300px]">
-						<button className="flex items-center gap-2 font-semibold">
+						<button onClick={handlePrev} className="flex items-center gap-2 font-semibold">
 							<RiArrowLeftSLine size={20} /> Back
 						</button>
 						<p className="text-2xl font-semibold">Personal Information</p>

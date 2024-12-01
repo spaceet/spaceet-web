@@ -24,17 +24,9 @@ export const footer_links = [
 	{
 		label: "Useful links",
 		links: [
-			{ name: "Book a Space", url: "/book-a-space", icon: null },
+			{ name: "Book a Space", url: "/search", icon: null },
 			{ name: "Become a Host", url: "/become-a-host", icon: null },
 			{ name: "About us", url: "/about-us", icon: null },
-		],
-	},
-	{
-		label: "Support",
-		links: [
-			{ name: "Help center", url: "/help-center", icon: null },
-			{ name: "Cancellation policy", url: "/help-center/cancellation-policy", icon: null },
-			{ name: "Report an issue", url: "/help-center/report-an-issue", icon: null },
 		],
 	},
 	{

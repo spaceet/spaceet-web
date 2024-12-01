@@ -159,11 +159,17 @@ const Profile = () => {
 					</div>
 					<div className="w-full">
 						<Label htmlFor="city">City</Label>
-						<Select>
+						<Select value={values.state} onValueChange={(value) => setFieldValue("state", value)}>
 							<SelectTrigger>
-								<SelectValue placeholder="Select a state" />
+								<SelectValue placeholder="Select a City" />
 							</SelectTrigger>
-							<SelectContent></SelectContent>
+							<SelectContent>
+								{states.map((state) => (
+									<SelectItem key={state.value} value={state.value}>
+										{state.label}
+									</SelectItem>
+								))}
+							</SelectContent>
 						</Select>
 					</div>
 				</div>

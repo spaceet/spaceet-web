@@ -162,8 +162,7 @@ const Page = () => {
 									What people are saying about us
 								</h2>
 								<p className="w-full text-sm text-black lg:w-[414px] lg:text-xl">
-									Whether you&apos;re a small startup or a multinational corporation, let us be your trusted
-									advisor on the path to success.
+									Whether you&apos;re a host or a guest, we are your trusted source of shortlet rentals.
 								</p>
 							</div>
 						</div>

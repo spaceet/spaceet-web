@@ -60,7 +60,7 @@ export const SearchWidget = () => {
 						onValueChange={(location) => setFieldValue("location", location)}
 						placeholder="Location"
 					/>
-					<Select value={values.type} onValueChange={(value) => setFieldValue("propertyType", value)}>
+					<Select value={values.type} onValueChange={(value) => setFieldValue("type", value)}>
 						<SelectTrigger className="capitalize placeholder:text-neutral-300">
 							<SelectValue placeholder="Apartment Type" />
 						</SelectTrigger>

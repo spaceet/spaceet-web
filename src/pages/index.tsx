@@ -77,9 +77,7 @@ const Page = () => {
 							<h1 className="text-[32px] font-bold leading-[38.4px] lg:text-[64px] lg:leading-[70px]">
 								Discover Your Next Adventure.
 							</h1>
-							<p className="text-xl">
-								With so many choices, you might just become a fan of any city - even your rivals.
-							</p>
+							<p className="text-xl">With so many choices, you just might become a fan of any city.</p>
 							<Link href="/search">
 								<Button className="h-[52px] w-[210px]">Find Apartment</Button>
 							</Link>
@@ -182,7 +180,7 @@ const Page = () => {
 								Get Latest Listing Updates
 							</h2>
 							<p className="text-sm text-white lg:text-xl">
-								With so many choices, you just might become a fan of any city - even your rivals.
+								With so many choices, you just might become a fan of any city
 							</p>
 						</div>
 						<form onSubmit={handleSubmit} className="flex w-full flex-col items-center gap-2 lg:flex-row">
